@@ -6,10 +6,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_app"
         android:name=".base.MyApplication"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.MainActivity">
@@ -21,6 +21,7 @@
 
         <activity android:name=".base.BaseActivity"/>
         <activity android:name=".ui.activity.InfoCollectionActivity"/>
+        <activity android:name=".ui.activity.CarQuotaActivity"/>
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

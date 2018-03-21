@@ -1,5 +1,6 @@
 package com.eiga.an.utils;
 
+import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -28,11 +29,11 @@ public class GlideUtils {
      * @param url
      * @param imageView
      */
-    public void glideImage(String url, ImageView imageView){
+    public void glideImage(Context context,String url, ImageView imageView){
         RequestOptions options = new RequestOptions()
                 .placeholder(R.mipmap.glide_placeholder_img)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
-        Glide.with(MyApplication.getInstance())
+        Glide.with(context)
                 .load(url)
                 .apply(options)
                 .into(imageView);
@@ -43,12 +44,12 @@ public class GlideUtils {
      * @param url
      * @param imageView
      */
-    public void glideCircleImage(String url, ImageView imageView){
+    public void glideCircleImage(Context context,String url, ImageView imageView){
         RequestOptions options = new RequestOptions()
                 .placeholder(R.mipmap.glide_placeholder_img)
                 .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
-        Glide.with(MyApplication.getInstance())
+        Glide.with(context)
                 .load(url)
                 .apply(options)
                 .into(imageView);

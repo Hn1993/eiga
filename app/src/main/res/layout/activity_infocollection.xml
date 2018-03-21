@@ -24,5 +24,11 @@
             android:layout_height="wrap_content">
         </LinearLayout>
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/ac_info_tv_go"
+            android:text="下一步"
+            style="@style/tv_next" />
+
     </RelativeLayout>
 </LinearLayout>

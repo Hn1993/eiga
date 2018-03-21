@@ -1,5 +1,6 @@
 package com.eiga.an.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 
 import com.eiga.an.R;
 import com.eiga.an.adapter.TagAdapter;
@@ -35,33 +35,46 @@ public class InfoCollectionActivity extends BaseActivity {
     ViewPager acInfoVp;
     @BindView(R.id.ac_info_vp_dot)
     LinearLayout acInfoVpDot;
+    @BindView(R.id.ac_info_tv_go)
+    TextView acInfoTvGo;
     private String TAG = getClass().getName();
 
     private List<View> pagerView = new ArrayList<>();
 
     private ImageView[] dotViews;
 
-    private FlowTagLayout vp1TagTop;
-    private TagAdapter<String> tagAdapter;
+    private FlowTagLayout vp1TagTop, vp1TagBottom, vp2TagTop, vp3TagTop, vp2TagBottom, vp3TagBottom, vp3TagCenter;
+    private TagAdapter<String> vp1topTagAdapter;
+    private TagAdapter<String> vp2topTagAdapter;
+    private TagAdapter<String> vp3topTagAdapter;
+    private TagAdapter<String> vp1bottomTagAdapter;
+    private TagAdapter<String> vp2bottomTagAdapter;
+    private TagAdapter<String> vp3bottomTagAdapter;
+    private TagAdapter<String> vp3centerTagAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infocollection);
         autoVirtualKeys();
         new SystemBarHelper.Builder()
+                .enableImmersedNavigationBar(true)
+                .enableImmersedStatusBar(false)
+                .statusBarColor(getResources().getColor(R.color.white))
                 .into(this);
         ButterKnife.bind(this);
         findViews();
     }
 
     private void findViews() {
+        commonTitleTv.setText("汽车贷款评估");
         pagerView.add(getLayoutInflater().inflate(R.layout.layout_info_vp1, null));
-        pagerView.add(getLayoutInflater().inflate(R.layout.layout_info_vp1, null));
-        pagerView.add(getLayoutInflater().inflate(R.layout.layout_info_vp1, null));
+        pagerView.add(getLayoutInflater().inflate(R.layout.layout_info_vp2, null));
+        pagerView.add(getLayoutInflater().inflate(R.layout.layout_info_vp3, null));
 
         //初始化小原点
-        dotViews=new ImageView[pagerView.size()];
-        initDots(pagerView, acInfoVpDot,dotViews);
+        dotViews = new ImageView[pagerView.size()];
+        initDots(pagerView, acInfoVpDot, dotViews);
 
         acInfoVp.setAdapter(new PagerAdapter() {
             @Override
@@ -99,7 +112,7 @@ public class InfoCollectionActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         commonTitleTv.setText("汽车贷款评估");
                         break;
@@ -110,15 +123,21 @@ public class InfoCollectionActivity extends BaseActivity {
                         commonTitleTv.setText("选择我的购车方案");
                         break;
                 }
-                for(int i = 0; i < dotViews.length; i++)
-                {
-                    if(position == i)//必须要用取余  不然会越界
+                for (int i = 0; i < dotViews.length; i++) {
+                    if (position == i)//必须要用取余  不然会越界
                     {
                         dotViews[i].setSelected(true);
-                    }
-                    else {
+                    } else {
                         dotViews[i].setSelected(false);
                     }
+                }
+
+                if (position==2){
+                    acInfoVpDot.setVisibility(View.GONE);
+                    acInfoTvGo.setVisibility(View.VISIBLE);
+                }else {
+                    acInfoVpDot.setVisibility(View.VISIBLE);
+                    acInfoTvGo.setVisibility(View.GONE);
                 }
             }
 
@@ -128,17 +147,144 @@ public class InfoCollectionActivity extends BaseActivity {
             }
         });
 
-        vp1TagTop=pagerView.get(0).findViewById(R.id.vp1_tag_top);
-        tagAdapter=new TagAdapter<>(this);
-        vp1TagTop.setAdapter(tagAdapter);
+        vp1TagTop = pagerView.get(0).findViewById(R.id.vp1_tag_top);
+        vp2TagTop = pagerView.get(1).findViewById(R.id.vp2_tag_top);
+        vp3TagTop = pagerView.get(2).findViewById(R.id.vp3_tag_top);
+        vp1TagBottom = pagerView.get(0).findViewById(R.id.vp1_tag_bottom);
+        vp2TagBottom = pagerView.get(1).findViewById(R.id.vp2_tag_bottom);
+        vp3TagBottom = pagerView.get(2).findViewById(R.id.vp3_tag_bottom);
+        vp3TagCenter = pagerView.get(2).findViewById(R.id.vp3_tag_center);
+
+        vp1topTagAdapter = new TagAdapter<>(this);
+        vp2topTagAdapter = new TagAdapter<>(this);
+        vp3topTagAdapter = new TagAdapter<>(this);
+        vp1bottomTagAdapter = new TagAdapter<>(this);
+        vp2bottomTagAdapter = new TagAdapter<>(this);
+        vp3bottomTagAdapter = new TagAdapter<>(this);
+        vp3centerTagAdapter = new TagAdapter<>(this);
+
+        vp1TagTop.setAdapter(vp1topTagAdapter);
+        vp2TagTop.setAdapter(vp2topTagAdapter);
+        vp3TagTop.setAdapter(vp3topTagAdapter);
+        vp1TagBottom.setAdapter(vp1bottomTagAdapter);
+        vp2TagBottom.setAdapter(vp2bottomTagAdapter);
+        vp3TagBottom.setAdapter(vp3bottomTagAdapter);
+        vp3TagCenter.setAdapter(vp3centerTagAdapter);
         vp1TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        vp2TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        vp3TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        vp1TagBottom.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        vp2TagBottom.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        vp3TagBottom.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        vp3TagCenter.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+
         vp1TagTop.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
 
             }
         });
+        vp2TagTop.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+
+            }
+        });
+        vp3TagTop.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+
+            }
+        });
+        vp1TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+
+            }
+        });
+        vp2TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+
+            }
+        });
+        vp3TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+
+            }
+        });
+        vp3TagCenter.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+
+            }
+        });
+
+
         initVp1TopTagData();
+        initVp2TopTagData();
+        initVp3TopTagData();
+        initVp1BottomTagData();
+        initVp2BottomTagData();
+        initVp3BottomTagData();
+        initVp3CenterTagData();
+    }
+
+    private void initVp3CenterTagData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("信用良好");
+        dataSource.add("无信用记录");
+        dataSource.add("少数逾期");
+        dataSource.add("多次逾期");
+        vp3centerTagAdapter.onlyAddAll(dataSource);
+    }
+
+    private void initVp3BottomTagData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("有社保");
+        dataSource.add("无社保");
+        vp3bottomTagAdapter.onlyAddAll(dataSource);
+    }
+
+    private void initVp2BottomTagData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("3千以下");
+        dataSource.add("3-5千");
+        dataSource.add("5-8千");
+        dataSource.add("8千-1万2");
+        dataSource.add("1万2-2万");
+        dataSource.add("2万以上");
+        vp2bottomTagAdapter.onlyAddAll(dataSource);
+    }
+
+    private void initVp3TopTagData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("租房");
+        dataSource.add("有房有贷");
+        dataSource.add("有房无贷");
+        vp3topTagAdapter.onlyAddAll(dataSource);
+    }
+
+    private void initVp2TopTagData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("上班族");
+        dataSource.add("事业单位");
+        dataSource.add("企业主");
+        dataSource.add("个体工商");
+        dataSource.add("自由职业");
+        vp2topTagAdapter.onlyAddAll(dataSource);
+    }
+
+    private void initVp1BottomTagData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("10%");
+        dataSource.add("20%");
+        dataSource.add("30%");
+        dataSource.add("40%");
+        dataSource.add("50%");
+        dataSource.add("60%");
+        vp1bottomTagAdapter.onlyAddAll(dataSource);
     }
 
     private void initVp1TopTagData() {
@@ -149,12 +295,7 @@ public class InfoCollectionActivity extends BaseActivity {
         dataSource.add("15-20万");
         dataSource.add("20-30万");
         dataSource.add("30万以上");
-        tagAdapter.onlyAddAll(dataSource);
-    }
-
-    @OnClick(R.id.common_title_back)
-    public void onViewClicked() {
-        finish();
+        vp1topTagAdapter.onlyAddAll(dataSource);
     }
 
 
@@ -183,5 +324,21 @@ public class InfoCollectionActivity extends BaseActivity {
         }
 
 
+    }
+
+
+    @OnClick({R.id.common_title_back, R.id.ac_info_tv_go})
+    public void onViewClicked(View view) {
+        Intent intent=null;
+        switch (view.getId()) {
+            case R.id.common_title_back:
+                finish();
+                break;
+            case R.id.ac_info_tv_go:
+                intent=new Intent(InfoCollectionActivity.this,CarQuotaActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
     }
 }

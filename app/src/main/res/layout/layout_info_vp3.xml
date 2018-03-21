@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/vp3_image"
+        android:background="@mipmap/info_vp1_image"
+        android:layout_width="match_parent"
+        android:layout_height="383px" />
+    <TextView
+        android:id="@+id/vp3_tv_top"
+        android:text="住房情况"
+        style="@style/text_info_vp"/>
+    <com.eiga.an.view.tagView.FlowTagLayout
+        android:id="@+id/vp3_tag_top"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="50px"
+        android:layout_marginLeft="70px"
+        >
+    </com.eiga.an.view.tagView.FlowTagLayout>
+
+    <TextView
+        android:id="@+id/vp3_tv_center"
+        android:text="信用记录"
+        style="@style/text_info_vp3"/>
+    <com.eiga.an.view.tagView.FlowTagLayout
+        android:id="@+id/vp3_tag_center"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="50px"
+        android:layout_marginLeft="70px">
+    </com.eiga.an.view.tagView.FlowTagLayout>
+
+    <TextView
+        android:id="@+id/vp3_tv_bottom"
+        android:text="社保情况"
+        style="@style/text_info_vp3"/>
+    <com.eiga.an.view.tagView.FlowTagLayout
+        android:id="@+id/vp3_tag_bottom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="50px"
+        android:layout_marginLeft="70px">
+    </com.eiga.an.view.tagView.FlowTagLayout>
+</LinearLayout>

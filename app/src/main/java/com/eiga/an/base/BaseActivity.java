@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.eiga.an.R;
 import com.eiga.an.utils.AndroidWorkaround;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 import com.zhy.autolayout.AutoLayoutActivity;
+
+import cn.albert.autosystembar.SystemBarHelper;
 
 public class BaseActivity extends AutoLayoutActivity {
 
@@ -42,6 +45,18 @@ public class BaseActivity extends AutoLayoutActivity {
 //            finish();
 //        }
 //    }
+
+    /**
+     * 设置沉浸式状态栏
+     * @param context
+     */
+    public void setImmersedNavigationBar(Activity context){
+        new SystemBarHelper.Builder()
+                .enableImmersedNavigationBar(true)
+                .statusBarColor(getResources().getColor(R.color.white))
+                .enableAutoSystemBar(true)
+                .into(context);
+    }
 
     public void autoVirtualKeys(){
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
