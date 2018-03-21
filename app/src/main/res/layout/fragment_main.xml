@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    >
+    <ImageView
+        android:id="@+id/fg_main_top_image"
+        android:background="@mipmap/fg_main_top_bg"
+        android:layout_width="match_parent"
+        android:layout_height="1024px" />
+    <!--<FrameLayout-->
+        <!--android:layout_marginTop="730px"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<com.yinglan.shadowimageview.ShadowImageView-->
+            <!--android:id="@+id/fg_main_input_image"-->
+            <!--android:layout_width="950px"-->
+            <!--android:layout_height="900px" />-->
+    <!--</FrameLayout>-->
+
+    <RelativeLayout
+        android:background="@mipmap/white_bg"
+        android:layout_marginTop="730px"
+        android:layout_centerHorizontal="true"
+        android:layout_width="950px"
+        android:layout_height="900px">
+        <EditText
+            android:textSize="40px"
+            android:id="@+id/fg_main_et_phone"
+            android:layout_marginLeft="110px"
+            android:layout_marginRight="110px"
+            android:layout_marginTop="240px"
+            android:hint="请输入手机号"
+            android:textColorHint="@color/base_text_color"
+            android:layout_width="match_parent"
+            android:layout_height="125px" />
+        <LinearLayout
+            android:id="@+id/fg_main_et_code_layout"
+            android:layout_below="@+id/fg_main_et_phone"
+            android:layout_marginLeft="110px"
+            android:layout_marginRight="110px"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textSize="40px"
+                android:id="@+id/fg_main_et_code"
+                android:hint="请输验证码"
+                android:textColorHint="@color/base_text_color"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="125px" />
+            <TextView
+                android:id="@+id/fg_main_tv_getcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:textColor="@color/light_blue"
+                android:textSize="35px"
+                android:text="获取验证码"
+                android:layout_toRightOf="@+id/fg_main_et_code"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fg_main_tv_go"
+            android:text="立即评估"
+            android:textSize="55px"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_below="@+id/fg_main_et_code_layout"
+            android:layout_marginTop="180px"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/main_btn_bg"
+            android:layout_width="536px"
+            android:layout_height="116px" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
