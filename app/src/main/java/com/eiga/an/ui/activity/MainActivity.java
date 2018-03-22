@@ -42,20 +42,10 @@ public class MainActivity extends BaseActivity {
 
     private void findViews() {
         mainVp.setScanScroll(false);
+        mainVp.setOffscreenPageLimit(3);
         mainVp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-//                switch (position){
-//                    case 0:
-//                        return new MainFragment();
-//                    case 1:
-//                        return new MallFragment();
-//                    case 2:
-//                        return new KeeperFragment();
-//                    case 3:
-//                        return new MyCenterFragment();
-//                }
-//                return new MainFragment();
 
                 if (position==0){
                     return new MainFragment();
@@ -90,5 +80,6 @@ public class MainActivity extends BaseActivity {
         tabMyCenter.setIcon(R.drawable.tab_mall);
         tabMall.setIcon(R.drawable.tab_keeper);
         TabKeeper.setIcon(R.drawable.tab_mycenter);
+
     }
 }

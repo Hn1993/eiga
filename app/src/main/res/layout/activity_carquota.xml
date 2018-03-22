@@ -115,7 +115,7 @@
                 android:textColor="@color/white"
                 android:text="立即认证"
                 android:background="@mipmap/btn_bg"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="60px"
                 android:layout_width="210px"
                 android:layout_height="60px"
                 android:layout_alignBaseline="@+id/textView"

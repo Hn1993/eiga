@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_common_title"/>
+
+    <ImageView
+        android:visibility="visible"
+        android:id="@+id/idcard_positive"
+        android:layout_width="800px"
+        android:layout_height="520px"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/base_actionbar_height"
+        android:background="@mipmap/icon_idcard_p" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/idcard_positive_choose"
+        android:layout_width="800px"
+        android:layout_height="520px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100px"
+        />
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/idcard_negative"
+        android:layout_width="800px"
+        android:layout_height="520px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/base_actionbar_height"
+        android:background="@mipmap/icon_idcard_n" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            style="@style/tv_next"
+            android:text="立即认证"
+            android:id="@+id/idcard_commit"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -56,12 +56,8 @@ public class InfoCollectionActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infocollection);
+        setImmersedNavigationBar(this,R.color.white);
         autoVirtualKeys();
-        new SystemBarHelper.Builder()
-                .enableImmersedNavigationBar(true)
-                .enableImmersedStatusBar(false)
-                .statusBarColor(getResources().getColor(R.color.white))
-                .into(this);
         ButterKnife.bind(this);
         findViews();
     }

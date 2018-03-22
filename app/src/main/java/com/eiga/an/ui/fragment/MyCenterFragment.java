@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.eiga.an.R;
 
+import cn.albert.autosystembar.SystemBarHelper;
+
 
 public class MyCenterFragment extends Fragment {
     private View mRootView;

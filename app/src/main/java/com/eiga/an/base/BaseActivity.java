@@ -50,11 +50,11 @@ public class BaseActivity extends AutoLayoutActivity {
      * 设置沉浸式状态栏
      * @param context
      */
-    public void setImmersedNavigationBar(Activity context){
+    public void setImmersedNavigationBar(Activity context,int colorId){
         new SystemBarHelper.Builder()
-                .enableImmersedNavigationBar(true)
-                .statusBarColor(getResources().getColor(R.color.white))
-                .enableAutoSystemBar(true)
+                .enableImmersedNavigationBar(false)
+                .statusBarColor(getResources().getColor(colorId))
+                .enableAutoSystemBar(false)
                 .into(context);
     }
 

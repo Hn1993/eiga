@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eiga.an">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!--网络权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--打开相册-->
+    <uses-permission android:name="android.permission.CAMERA" /><!--打开相机-->
 
     <application
         android:allowBackup="true"
@@ -22,6 +24,9 @@
         <activity android:name=".base.BaseActivity"/>
         <activity android:name=".ui.activity.InfoCollectionActivity"/>
         <activity android:name=".ui.activity.CarQuotaActivity"/>
+        <activity android:name=".ui.activity.IdCardVerifyActivity"/>
+        <activity android:name=".ui.activity.BankVerifyActivity"/>
+        <activity android:name=".ui.activity.PhoneVerifyActivity"/>
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/base_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_common_title"/>
+    <TextView
+        android:gravity="center_vertical"
+        android:paddingLeft="60px"
+        android:textColor="@color/base_text_color"
+        android:text="请绑定本人常用银行卡，有助于增加您的贷款额度"
+        android:layout_width="match_parent"
+        android:layout_height="110px" />
+    <LinearLayout
+        android:background="@color/white"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <TextView
+            android:textColor="@color/common_title_text_color"
+            android:gravity="center"
+            android:textSize="45px"
+            android:text="持卡人"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <EditText
+            android:id="@+id/bank_verify_name"
+            android:textSize="45px"
+            android:hint="请输入持卡人姓名"
+            android:textColor="@color/common_title_text_color"
+            android:textColorHint="@color/base_text_color"
+            android:layout_marginLeft="30px"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View
+        android:background="@color/color_42"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+    <LinearLayout
+        android:background="@color/white"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <TextView
+            android:textColor="@color/common_title_text_color"
+            android:gravity="center"
+            android:textSize="45px"
+            android:text="银行卡号"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <EditText
+            android:id="@+id/bank_verify_bank"
+            android:inputType="number"
+            android:textSize="45px"
+            android:hint="请输入银行卡号"
+            android:textColor="@color/common_title_text_color"
+            android:textColorHint="@color/base_text_color"
+            android:layout_marginLeft="30px"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/bank_verify_commit"
+        android:text="立即绑定"
+        style="@style/tv_next"
+        android:layout_marginLeft="0px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150px"
+        />
+</LinearLayout>

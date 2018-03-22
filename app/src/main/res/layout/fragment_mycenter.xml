@@ -1,11 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/base_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:layout_centerInParent="true"
-        android:text="mycenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/my_bg"
+        android:background="@mipmap/my_center_bg"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="840px" />
+    <RelativeLayout
+        android:layout_marginTop="70px"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_actionbar_height">
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/my_title_back"
+            android:layout_width="@dimen/base_actionbar_height"
+            android:layout_height="match_parent">
+            <ImageView
+                android:backgroundTint="@color/white"
+                android:layout_marginLeft="60px"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/common_title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <TextView
+            android:text="我的"
+            android:layout_centerInParent="true"
+            android:id="@+id/common_title_tv"
+            style="@style/text_45px"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:background="@mipmap/icon_setting"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60px"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300px"
+        android:background="@mipmap/icon_default_head"
+        android:layout_width="400px"
+        android:layout_height="400px" />
+    <RelativeLayout
+        android:id="@+id/my_grade_layout"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_below="@+id/my_bg"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="160px">
+        <TextView
+            android:id="@+id/my_grade"
+            android:textSize="40px"
+            android:text="我的信用等级:C"
+            android:textColor="@color/common_title_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/my_up_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/my_order_layout"
+        android:layout_marginTop="10px"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_below="@+id/my_grade_layout"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="100px">
+        <TextView
+            android:textSize="40px"
+            android:text="我的订单"
+            android:textColor="@color/common_title_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="2px"
+        android:id="@+id/my_car_layout"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_below="@+id/my_order_layout"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="160px">
+        <TextView
+            android:textSize="40px"
+            android:text="我的车贷订单"
+            android:textColor="@color/common_title_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_right_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="2px"
+        android:id="@+id/my_insurance_layout"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_below="@+id/my_car_layout"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="160px">
+        <TextView
+            android:textSize="40px"
+            android:text="我的车贷订单"
+            android:textColor="@color/common_title_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_right_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </RelativeLayout>

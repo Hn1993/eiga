@@ -28,6 +28,7 @@
         android:layout_width="950px"
         android:layout_height="900px">
         <EditText
+            android:textColor="@color/common_title_text_color"
             android:textSize="40px"
             android:id="@+id/fg_main_et_phone"
             android:layout_marginLeft="110px"
@@ -46,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:textColor="@color/common_title_text_color"
                 android:textSize="40px"
                 android:id="@+id/fg_main_et_code"
                 android:hint="请输验证码"
