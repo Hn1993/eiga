@@ -1,4 +1,4 @@
-package com.eiga.an.ui.activity;
+package com.eiga.an.ui.activity.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +25,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.albert.autosystembar.SystemBarHelper;
 
+/**
+ * 选择条件  评估
+ */
 public class InfoCollectionActivity extends BaseActivity {
 
     @BindView(R.id.common_title_tv)
@@ -43,8 +45,9 @@ public class InfoCollectionActivity extends BaseActivity {
 
     private ImageView[] dotViews;
 
-    private FlowTagLayout vp1TagTop, vp1TagBottom, vp2TagTop, vp3TagTop, vp2TagBottom, vp3TagBottom, vp3TagCenter;
+    private FlowTagLayout vp1TagTop0, vp1TagTop, vp1TagBottom, vp2TagTop, vp3TagTop, vp2TagBottom, vp3TagBottom, vp3TagCenter;
     private TagAdapter<String> vp1topTagAdapter;
+    private TagAdapter<String> vp1top0TagAdapter;
     private TagAdapter<String> vp2topTagAdapter;
     private TagAdapter<String> vp3topTagAdapter;
     private TagAdapter<String> vp1bottomTagAdapter;
@@ -144,6 +147,7 @@ public class InfoCollectionActivity extends BaseActivity {
         });
 
         vp1TagTop = pagerView.get(0).findViewById(R.id.vp1_tag_top);
+        vp1TagTop0 = pagerView.get(0).findViewById(R.id.vp1_tag_top0);
         vp2TagTop = pagerView.get(1).findViewById(R.id.vp2_tag_top);
         vp3TagTop = pagerView.get(2).findViewById(R.id.vp3_tag_top);
         vp1TagBottom = pagerView.get(0).findViewById(R.id.vp1_tag_bottom);
@@ -152,6 +156,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp3TagCenter = pagerView.get(2).findViewById(R.id.vp3_tag_center);
 
         vp1topTagAdapter = new TagAdapter<>(this);
+        vp1top0TagAdapter = new TagAdapter<>(this);
         vp2topTagAdapter = new TagAdapter<>(this);
         vp3topTagAdapter = new TagAdapter<>(this);
         vp1bottomTagAdapter = new TagAdapter<>(this);
@@ -160,6 +165,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp3centerTagAdapter = new TagAdapter<>(this);
 
         vp1TagTop.setAdapter(vp1topTagAdapter);
+        vp1TagTop0.setAdapter(vp1top0TagAdapter);
         vp2TagTop.setAdapter(vp2topTagAdapter);
         vp3TagTop.setAdapter(vp3topTagAdapter);
         vp1TagBottom.setAdapter(vp1bottomTagAdapter);
@@ -167,6 +173,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp3TagBottom.setAdapter(vp3bottomTagAdapter);
         vp3TagCenter.setAdapter(vp3centerTagAdapter);
         vp1TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        vp1TagTop0.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         vp2TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         vp3TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         vp1TagBottom.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
@@ -180,6 +187,14 @@ public class InfoCollectionActivity extends BaseActivity {
 
             }
         });
+
+        vp1TagTop0.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+
+            }
+        });
+
         vp2TagTop.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
@@ -219,12 +234,20 @@ public class InfoCollectionActivity extends BaseActivity {
 
 
         initVp1TopTagData();
+        initVp1Top0TagData();
         initVp2TopTagData();
         initVp3TopTagData();
         initVp1BottomTagData();
         initVp2BottomTagData();
         initVp3BottomTagData();
         initVp3CenterTagData();
+    }
+
+    private void initVp1Top0TagData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("新车");
+        dataSource.add("二手车");
+        vp1top0TagAdapter.onlyAddAll(dataSource);
     }
 
     private void initVp3CenterTagData() {

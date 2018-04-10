@@ -10,21 +10,45 @@
         android:background="@mipmap/info_vp1_image"
         android:layout_width="match_parent"
         android:layout_height="383px" />
+
+    <TextView
+        android:id="@+id/vp1_tv_top0"
+        android:text="购车类型"
+        style="@style/text_info_vp"/>
+    <com.eiga.an.view.tagView.FlowTagLayout
+        android:id="@+id/vp1_tag_top0"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="70px"
+        >
+    </com.eiga.an.view.tagView.FlowTagLayout>
+
     <TextView
         android:id="@+id/vp1_tv_top"
         android:text="车价"
-        style="@style/text_info_vp"/>
+        style="@style/text_info_vp"
+        android:layout_marginTop="10px"
+        />
     <com.eiga.an.view.tagView.FlowTagLayout
         android:id="@+id/vp1_tag_top"
-        style="@style/vp_tag">
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="70px">
     </com.eiga.an.view.tagView.FlowTagLayout>
 
     <TextView
         android:id="@+id/vp1_tv_bottom"
         android:text="首付比例"
-        style="@style/text_info_vp"/>
+        style="@style/text_info_vp"
+        android:layout_marginTop="10px"
+        />
     <com.eiga.an.view.tagView.FlowTagLayout
         android:id="@+id/vp1_tag_bottom"
-        style="@style/vp_tag">
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="70px">
     </com.eiga.an.view.tagView.FlowTagLayout>
 </LinearLayout>

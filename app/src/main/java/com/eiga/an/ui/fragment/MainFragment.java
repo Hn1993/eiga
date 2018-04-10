@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseFragment;
 import com.eiga.an.model.Constant;
-import com.eiga.an.ui.activity.InfoCollectionActivity;
+import com.eiga.an.ui.activity.user.InfoCollectionActivity;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 import com.yanzhenjie.nohttp.rest.Response;

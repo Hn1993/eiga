@@ -5,30 +5,30 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
     <include layout="@layout/layout_common_title"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v4.view.ViewPager
             android:id="@+id/ac_info_vp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v4.view.ViewPager>
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
         <LinearLayout
-            android:layout_centerHorizontal="true"
             android:id="@+id/ac_info_vp_dot"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="162px"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="140px"
+            android:orientation="horizontal"></LinearLayout>
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/ac_info_tv_go"
+            style="@style/tv_next"
             android:text="下一步"
-            style="@style/tv_next" />
+            android:visibility="gone" />
 
     </RelativeLayout>
 </LinearLayout>

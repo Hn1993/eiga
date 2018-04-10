@@ -1,4 +1,4 @@
-package com.eiga.an.ui.activity;
+package com.eiga.an.ui.activity.user;
 
 import android.content.Intent;
 import android.os.Bundle;

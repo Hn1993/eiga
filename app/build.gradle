@@ -43,4 +43,6 @@ dependencies {
     compile 'com.yanzhenjie:album:2.0.1'//图片选择框架
     compile 'com.yanzhenjie:permission:2.0.0-rc3' //6.0权限申请
     compile 'com.google.code.gson:gson:2.6.2'//Gson
+    compile 'org.simple:androideventbus:1.0.5.1'
+    //android eventbus
 }

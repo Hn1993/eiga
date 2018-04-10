@@ -14,19 +14,30 @@
         android:roundIcon="@mipmap/icon_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+
+
+
+        <activity android:name=".ui.activity.user.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!--<activity android:name=".ui.activity.user.MainActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
         <activity android:name=".base.BaseActivity"/>
-        <activity android:name=".ui.activity.InfoCollectionActivity"/>
-        <activity android:name=".ui.activity.CarQuotaActivity"/>
-        <activity android:name=".ui.activity.IdCardVerifyActivity"/>
-        <activity android:name=".ui.activity.BankVerifyActivity"/>
-        <activity android:name=".ui.activity.PhoneVerifyActivity"/>
+        <!--<activity android:name=".ui.activity.user.MainActivity"/>-->
+        <activity android:name=".ui.activity.user.InfoCollectionActivity"/>
+        <activity android:name=".ui.activity.user.CarQuotaActivity"/>
+        <activity android:name=".ui.activity.user.IdCardVerifyActivity"/>
+        <activity android:name=".ui.activity.user.BankVerifyActivity"/>
+        <activity android:name=".ui.activity.user.PhoneVerifyActivity"/>
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

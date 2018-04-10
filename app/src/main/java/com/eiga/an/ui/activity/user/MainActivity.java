@@ -1,4 +1,4 @@
-package com.eiga.an.ui.activity;
+package com.eiga.an.ui.activity.user;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

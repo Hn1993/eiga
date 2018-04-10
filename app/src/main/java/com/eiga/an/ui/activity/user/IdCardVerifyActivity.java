@@ -1,4 +1,4 @@
-package com.eiga.an.ui.activity;
+package com.eiga.an.ui.activity.user;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
-import com.eiga.an.utils.GlideUtils;
 import com.eiga.an.utils.PhoneUtils;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
