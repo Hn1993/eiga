@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/vp1_tv_top0"
-        android:text="购车类型"
+        android:text=""
         style="@style/text_info_vp"/>
     <com.eiga.an.view.tagView.FlowTagLayout
         android:id="@+id/vp1_tag_top0"

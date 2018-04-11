@@ -16,10 +16,19 @@ import android.widget.TextView;
 import com.eiga.an.R;
 import com.eiga.an.adapter.TagAdapter;
 import com.eiga.an.base.BaseActivity;
+import com.eiga.an.model.Constant;
+import com.eiga.an.model.jsonModel.ApiMainModel;
 import com.eiga.an.view.tagView.FlowTagLayout;
 import com.eiga.an.view.tagView.OnTagSelectListener;
+import com.google.gson.Gson;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.CacheMode;
+import com.yanzhenjie.nohttp.rest.Response;
+import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
+import com.yanzhenjie.nohttp.rest.StringRequest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,6 +64,14 @@ public class InfoCollectionActivity extends BaseActivity {
     private TagAdapter<String> vp3bottomTagAdapter;
     private TagAdapter<String> vp3centerTagAdapter;
 
+    private TextView vp1TagTitle0,vp1TagTitle1,vp1TagTitle2,vp2TagTitle0,
+            vp2TagTitle1,vp3TagTitle0,vp3TagTitle1,vp3TagTitle2;
+
+    private List<String> selectIds=new ArrayList<>();
+
+    private List<ApiMainModel.DataBean> dataList=new ArrayList<>();
+    private HashMap<String,String> map=new HashMap<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +80,75 @@ public class InfoCollectionActivity extends BaseActivity {
         autoVirtualKeys();
         ButterKnife.bind(this);
         findViews();
+        httpGetInfo();
+
+    }
+
+    private void httpGetInfo() {
+        Log.e(TAG,"httpGetInfo=");
+        showLoading();
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Test, RequestMethod.GET);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    Log.e(TAG, "onSucceed==" + response.get());
+                    ApiMainModel model=null;
+                    try {
+                        model=new Gson().fromJson(response.get(),ApiMainModel.class);
+                        if (model.Status==1){
+                            setHttpData(model.Data);
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,"Exception="+e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.i(TAG, "onFailed==" + response.get());
+            }
+        });
+    }
+
+    private void setHttpData(List<ApiMainModel.DataBean> data) {
+        dataList=data;
+
+        vp1TagTitle0.setText(data.get(0).CateGoryName);
+        vp1TagTitle1.setText(data.get(1).CateGoryName);
+        vp1TagTitle2.setText(data.get(2).CateGoryName);
+
+        initVp1Top0TagData(data.get(0).CateGoryName,data.get(0).QuotaItemList);
+        initVp1TopTagData(data.get(1).CateGoryName,data.get(1).QuotaItemList);
+        initVp1BottomTagData(data.get(2).CateGoryName,data.get(2).QuotaItemList);
+
+
+
+//        initVp2TopTagData();
+//        initVp2BottomTagData();
+//
+//        initVp3TopTagData();
+//        initVp3BottomTagData();
+//        initVp3CenterTagData();
+
+
+    }
+
+    /**
+     * 根据三个参数来改变map里的值
+     * @param title  获取map里的list
+     * @param type  获取第几个tag
+     * @param index 获取tag里的list的第几个的值
+     */
+    private void updateSelectIds(String title,int type,int index) {
+        map.put(title,String.valueOf(dataList.get(type).QuotaItemList.get(index).Id));
+        Log.e(TAG,"map="+map.get(title));
     }
 
     private void findViews() {
@@ -155,6 +241,15 @@ public class InfoCollectionActivity extends BaseActivity {
         vp3TagBottom = pagerView.get(2).findViewById(R.id.vp3_tag_bottom);
         vp3TagCenter = pagerView.get(2).findViewById(R.id.vp3_tag_center);
 
+        vp1TagTitle0=pagerView.get(0).findViewById(R.id.vp1_tv_top0);
+        vp1TagTitle1=pagerView.get(0).findViewById(R.id.vp1_tv_top);
+        vp1TagTitle2=pagerView.get(0).findViewById(R.id.vp1_tv_bottom);
+        vp2TagTitle0=pagerView.get(1).findViewById(R.id.vp2_tv_top);
+        vp2TagTitle1=pagerView.get(1).findViewById(R.id.vp2_tv_bottom);
+        vp3TagTitle0=pagerView.get(2).findViewById(R.id.vp3_tv_top);
+        vp3TagTitle1=pagerView.get(2).findViewById(R.id.vp3_tv_center);
+        vp3TagTitle2=pagerView.get(2).findViewById(R.id.vp3_tv_bottom);
+
         vp1topTagAdapter = new TagAdapter<>(this);
         vp1top0TagAdapter = new TagAdapter<>(this);
         vp2topTagAdapter = new TagAdapter<>(this);
@@ -172,6 +267,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp2TagBottom.setAdapter(vp2bottomTagAdapter);
         vp3TagBottom.setAdapter(vp3bottomTagAdapter);
         vp3TagCenter.setAdapter(vp3centerTagAdapter);
+
         vp1TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         vp1TagTop0.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         vp2TagTop.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
@@ -184,14 +280,17 @@ public class InfoCollectionActivity extends BaseActivity {
         vp1TagTop.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                Log.e(TAG,"selectedList="+selectedList.get(0));
+                //selectIds.set(0,)
+                updateSelectIds(dataList.get(1).CateGoryName,1,selectedList.get(0));
             }
         });
 
         vp1TagTop0.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                Log.e(TAG,"selectedList="+selectedList.get(0));
+                updateSelectIds(dataList.get(0).CateGoryName,0,selectedList.get(0));
             }
         });
 
@@ -210,7 +309,8 @@ public class InfoCollectionActivity extends BaseActivity {
         vp1TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                Log.e(TAG,"selectedList="+selectedList.get(0));
+                updateSelectIds(dataList.get(2).CateGoryName,2,selectedList.get(0));
             }
         });
         vp2TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
@@ -231,89 +331,84 @@ public class InfoCollectionActivity extends BaseActivity {
 
             }
         });
-
-
-        initVp1TopTagData();
-        initVp1Top0TagData();
-        initVp2TopTagData();
-        initVp3TopTagData();
-        initVp1BottomTagData();
-        initVp2BottomTagData();
-        initVp3BottomTagData();
-        initVp3CenterTagData();
     }
 
-    private void initVp1Top0TagData() {
+
+
+    private void initVp1Top0TagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
-        dataSource.add("新车");
-        dataSource.add("二手车");
+        String selectId;
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        selectId=data.get(0).Id;
+        map.put(title,selectId);
         vp1top0TagAdapter.onlyAddAll(dataSource);
+
     }
 
-    private void initVp3CenterTagData() {
-        List<String> dataSource = new ArrayList<>();
-        dataSource.add("信用良好");
-        dataSource.add("无信用记录");
-        dataSource.add("少数逾期");
-        dataSource.add("多次逾期");
+    private void initVp3CenterTagData(List<String> dataSource) {
+//        List<String> dataSource = new ArrayList<>();
+//        dataSource.add("信用良好");
+//        dataSource.add("无信用记录");
+//        dataSource.add("少数逾期");
+//        dataSource.add("多次逾期");
         vp3centerTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp3BottomTagData() {
-        List<String> dataSource = new ArrayList<>();
-        dataSource.add("有社保");
-        dataSource.add("无社保");
+    private void initVp3BottomTagData(List<String> dataSource) {
+//        List<String> dataSource = new ArrayList<>();
+//        dataSource.add("有社保");
+//        dataSource.add("无社保");
         vp3bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp2BottomTagData() {
-        List<String> dataSource = new ArrayList<>();
-        dataSource.add("3千以下");
-        dataSource.add("3-5千");
-        dataSource.add("5-8千");
-        dataSource.add("8千-1万2");
-        dataSource.add("1万2-2万");
-        dataSource.add("2万以上");
+    private void initVp2BottomTagData(List<String> dataSource) {
+//        List<String> dataSource = new ArrayList<>();
+//        dataSource.add("3千以下");
+//        dataSource.add("3-5千");
+//        dataSource.add("5-8千");
+//        dataSource.add("8千-1万2");
+//        dataSource.add("1万2-2万");
+//        dataSource.add("2万以上");
         vp2bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp3TopTagData() {
-        List<String> dataSource = new ArrayList<>();
-        dataSource.add("租房");
-        dataSource.add("有房有贷");
-        dataSource.add("有房无贷");
+    private void initVp3TopTagData(List<String> dataSource) {
+//        List<String> dataSource = new ArrayList<>();
+//        dataSource.add("租房");
+//        dataSource.add("有房有贷");
+//        dataSource.add("有房无贷");
         vp3topTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp2TopTagData() {
-        List<String> dataSource = new ArrayList<>();
-        dataSource.add("上班族");
-        dataSource.add("事业单位");
-        dataSource.add("企业主");
-        dataSource.add("个体工商");
-        dataSource.add("自由职业");
+    private void initVp2TopTagData(List<String> dataSource) {
+//        List<String> dataSource = new ArrayList<>();
+//        dataSource.add("上班族");
+//        dataSource.add("事业单位");
+//        dataSource.add("企业主");
+//        dataSource.add("个体工商");
+//        dataSource.add("自由职业");
         vp2topTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp1BottomTagData() {
+    private void initVp1BottomTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
-        dataSource.add("10%");
-        dataSource.add("20%");
-        dataSource.add("30%");
-        dataSource.add("40%");
-        dataSource.add("50%");
-        dataSource.add("60%");
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        String selectId=data.get(2).Id;
+        map.put(title,selectId);
         vp1bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp1TopTagData() {
+    private void initVp1TopTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
-        dataSource.add("5万以下");
-        dataSource.add("5-10万");
-        dataSource.add("10-15万");
-        dataSource.add("15-20万");
-        dataSource.add("20-30万");
-        dataSource.add("30万以上");
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        String selectId=data.get(1).Id;
+        map.put(title,selectId);
         vp1topTagAdapter.onlyAddAll(dataSource);
     }
 

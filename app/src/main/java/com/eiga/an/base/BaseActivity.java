@@ -1,8 +1,12 @@
 package com.eiga.an.base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Window;
 
 import com.eiga.an.R;
 import com.eiga.an.utils.AndroidWorkaround;
@@ -19,6 +23,7 @@ public class BaseActivity extends AutoLayoutActivity {
     private static BaseActivity mActivity;
     //在base activity 里定义请求队列
     private RequestQueue queue;
+    private ProgressDialog dialog;//请求的dialog
 
     public static Activity getBaseActivity(){
         if (mActivity == null){
@@ -38,13 +43,29 @@ public class BaseActivity extends AutoLayoutActivity {
      * @param mContext
      * @param isFinishThis
      */
-//    public void gotoLogin(Context mContext,boolean isFinishThis){
+    public void gotoLogin(Context mContext, boolean isFinishThis){
 //        Intent intent=new Intent(mContext,LoginActivity.class);
 //        startActivity(intent);
 //        if (isFinishThis){
 //            finish();
 //        }
-//    }
+    }
+
+
+    public void showLoading() {
+        if (dialog != null && dialog.isShowing()) return;
+        dialog = new ProgressDialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("数据加载中,请稍后...");
+        dialog.show();
+    }
+    public void dismissLoading() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
 
     /**
      * 设置沉浸式状态栏

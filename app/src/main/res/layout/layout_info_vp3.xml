@@ -10,10 +10,12 @@
         android:background="@mipmap/info_vp1_image"
         android:layout_width="match_parent"
         android:layout_height="383px" />
+
     <TextView
         android:id="@+id/vp3_tv_top"
-        android:text="住房情况"
-        style="@style/text_info_vp"/>
+        style="@style/text_info_vp"
+        android:text="住房情况" />
+
     <com.eiga.an.view.tagView.FlowTagLayout
         android:id="@+id/vp3_tag_top"
         android:layout_height="wrap_content"
