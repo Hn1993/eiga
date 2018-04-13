@@ -19,6 +19,12 @@
         <item name="android:textSize">45px</item>
     </style>
 
+    <style name="text_50px">
+        <item name="android:layout_width"> wrap_content</item>
+        <item name="android:layout_height"> wrap_content</item>
+        <item name="android:textSize">50px</item>
+    </style>
+
     <style name="text_info_vp">
         <item name="android:layout_width"> wrap_content</item>
         <item name="android:layout_height"> wrap_content</item>
@@ -49,12 +55,12 @@
     </style>
 
     <style name="tv_next">
-        <item name="android:layout_width"> 536px </item>
-        <item name="android:layout_height"> 116px </item>
+        <item name="android:layout_width"> @dimen/base_button_width </item>
+        <item name="android:layout_height"> @dimen/base_button_height  </item>
         <item name="android:textSize">55px</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@mipmap/main_btn_bg</item>
+        <item name="android:background">@drawable/button_selector</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginBottom">100px</item>

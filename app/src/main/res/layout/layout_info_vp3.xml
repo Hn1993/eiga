@@ -5,7 +5,12 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <View
+        android:background="@color/base_text_color"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
     <ImageView
+        android:layout_marginTop="40px"
         android:id="@+id/vp3_image"
         android:background="@mipmap/info_vp1_image"
         android:layout_width="match_parent"
@@ -20,7 +25,7 @@
         android:id="@+id/vp3_tag_top"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="50px"
+        android:layout_marginTop="30px"
         android:layout_marginLeft="70px"
         >
     </com.eiga.an.view.tagView.FlowTagLayout>
@@ -33,7 +38,7 @@
         android:id="@+id/vp3_tag_center"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="50px"
+        android:layout_marginTop="30px"
         android:layout_marginLeft="70px">
     </com.eiga.an.view.tagView.FlowTagLayout>
 
@@ -45,7 +50,7 @@
         android:id="@+id/vp3_tag_bottom"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="50px"
+        android:layout_marginTop="30px"
         android:layout_marginLeft="70px">
     </com.eiga.an.view.tagView.FlowTagLayout>
 </LinearLayout>

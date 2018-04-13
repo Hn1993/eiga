@@ -5,7 +5,12 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <View
+        android:background="@color/base_text_color"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
     <ImageView
+        android:layout_marginTop="40px"
         android:id="@+id/vp2_image"
         android:background="@mipmap/info_vp2_image"
         android:layout_width="match_parent"

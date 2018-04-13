@@ -1,4 +1,8 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="base_actionbar_height">140px</dimen>
+    <dimen name="base_button_width">720px</dimen>
+    <dimen name="base_button_height">110px</dimen>
+
+
 </resources>

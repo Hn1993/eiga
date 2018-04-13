@@ -20,7 +20,10 @@ public class MyCenterFragment extends Fragment {
         if (mRootView==null){
             mRootView=inflater.inflate(R.layout.fragment_mycenter,null);
         }
-
+        new SystemBarHelper.Builder()
+                .enableImmersedStatusBar(true)
+                .enableImmersedNavigationBar(true)
+                .into(getActivity());
         return mRootView;
     }
 }

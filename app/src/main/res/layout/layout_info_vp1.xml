@@ -5,17 +5,25 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/vp1_image"
-        android:background="@mipmap/info_vp1_image"
+    <View
+        android:background="@color/base_text_color"
         android:layout_width="match_parent"
-        android:layout_height="383px" />
+        android:layout_height="1px"/>
+
+    <ImageView
+        android:layout_marginTop="40px"
+        android:id="@+id/vp1_image"
+        android:layout_width="match_parent"
+        android:layout_height="383px"
+        android:background="@mipmap/info_vp1_image" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/vp1_tv_top0"
         android:text=""
         style="@style/text_info_vp"/>
     <com.eiga.an.view.tagView.FlowTagLayout
+        android:visibility="gone"
         android:id="@+id/vp1_tag_top0"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -24,17 +32,30 @@
         >
     </com.eiga.an.view.tagView.FlowTagLayout>
 
+    <Switch
+        android:id="@+id/vp1_switch"
+        android:layout_marginTop="60px"
+        android:textOn="二手车"
+        android:textOff="新车"
+        android:switchMinWidth="810px"
+        android:thumb="@color/transparent"
+        android:track="@drawable/switch_selector"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="810px"
+        android:layout_height="100px" />
+
+
     <TextView
         android:id="@+id/vp1_tv_top"
         android:text="车价"
         style="@style/text_info_vp"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="60px"
         />
     <com.eiga.an.view.tagView.FlowTagLayout
         android:id="@+id/vp1_tag_top"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="60px"
         android:layout_marginLeft="70px">
     </com.eiga.an.view.tagView.FlowTagLayout>
 
@@ -48,7 +69,7 @@
         android:id="@+id/vp1_tag_bottom"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="60px"
         android:layout_marginLeft="70px">
     </com.eiga.an.view.tagView.FlowTagLayout>
 </LinearLayout>

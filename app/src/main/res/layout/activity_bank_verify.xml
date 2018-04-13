@@ -38,7 +38,9 @@
             android:layout_height="match_parent" />
     </LinearLayout>
     <View
-        android:background="@color/color_42"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px"
+        android:background="@color/light_grey"
         android:layout_width="match_parent"
         android:layout_height="1px"/>
     <LinearLayout

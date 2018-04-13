@@ -8,9 +8,10 @@ import java.util.List;
 
 public class ApiMainModel {
 
+
     /**
      * Status : 1
-     * Data : [{"Id":9,"CateGoryName":"您要申请的额度为","CreateDate":"2018-04-10T13:55:24.723","UpdateDate":"2018-04-10T13:55:24.723","DisplaySequence":1,"IsInitialQuota":true,"QuotaItemList":[{"Id":1,"QuotaItemName":"15万到30万","QuotaCategoryId":9,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":400,"InitialQuota":300000},{"Id":6,"QuotaItemName":"5万","QuotaCategoryId":9,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":50000},{"Id":7,"QuotaItemName":"5万到10万","QuotaCategoryId":9,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":100000},{"Id":8,"QuotaItemName":"10万到15万","QuotaCategoryId":9,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":150000}]},{"Id":10,"CateGoryName":"你的首付比例","CreateDate":"2018-04-10T13:55:46.207","UpdateDate":"2018-04-11T11:10:57.89","DisplaySequence":1,"IsInitialQuota":false,"QuotaItemList":[{"Id":5,"QuotaItemName":"10%","QuotaCategoryId":10,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":10,"InitialQuota":0},{"Id":9,"QuotaItemName":"20%","QuotaCategoryId":10,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":20,"InitialQuota":0},{"Id":10,"QuotaItemName":"30%","QuotaCategoryId":10,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":30,"InitialQuota":0}]},{"Id":11,"CateGoryName":"你的年收入为","CreateDate":"2018-04-11T11:11:47.07","UpdateDate":"2018-04-11T11:11:47.07","DisplaySequence":2,"IsInitialQuota":false,"QuotaItemList":[{"Id":11,"QuotaItemName":"5w一下","QuotaCategoryId":11,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0},{"Id":12,"QuotaItemName":"5万到50万","QuotaCategoryId":11,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0},{"Id":13,"QuotaItemName":"10万以上","QuotaCategoryId":11,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0}]}]
+     * Data : [{"Id":13,"CateGoryName":"购车需求","CreateDate":"2018-04-13T15:41:23.507","UpdateDate":"2018-04-13T15:41:23.507","DisplaySequence":1,"IsInitialQuota":false,"IsCarPurchaseDemand":true,"QuotaItemList":[{"Id":17,"QuotaItemName":"新车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":1},{"Id":18,"QuotaItemName":"二手车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":2}]},{"Id":14,"CateGoryName":"车价","CreateDate":"2018-04-13T15:42:40.307","UpdateDate":"2018-04-13T15:42:40.307","DisplaySequence":1,"IsInitialQuota":true,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":19,"QuotaItemName":"5万以下","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":50000,"CarPurchaseDemandType":0},{"Id":20,"QuotaItemName":"5-10万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":100000,"CarPurchaseDemandType":0},{"Id":21,"QuotaItemName":"10-15万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":150000,"CarPurchaseDemandType":0},{"Id":22,"QuotaItemName":"15-20万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":200000,"CarPurchaseDemandType":0},{"Id":23,"QuotaItemName":"20-30万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":300000,"CarPurchaseDemandType":0},{"Id":24,"QuotaItemName":"30万以上","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":500000,"CarPurchaseDemandType":0}]},{"Id":15,"CateGoryName":"首付比例","CreateDate":"2018-04-13T15:44:30.123","UpdateDate":"2018-04-13T15:44:30.123","DisplaySequence":2,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":25,"QuotaItemName":"10%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":10,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":26,"QuotaItemName":"20%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":20,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":27,"QuotaItemName":"30%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":30,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":28,"QuotaItemName":"40%","QuotaCategoryId":15,"AddOrReduce":3,"QuotaChangeType":2,"AmplitudeOfVariation":40,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":29,"QuotaItemName":"50%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":50,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":30,"QuotaItemName":"60%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":60,"InitialQuota":0,"CarPurchaseDemandType":0}]},{"Id":16,"CateGoryName":"住房情况","CreateDate":"2018-04-13T15:46:12.797","UpdateDate":"2018-04-13T15:46:12.797","DisplaySequence":3,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":31,"QuotaItemName":"租房","QuotaCategoryId":16,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":32,"QuotaItemName":"有房有贷","QuotaCategoryId":16,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":33,"QuotaItemName":"有房无贷","QuotaCategoryId":16,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0}]},{"Id":17,"CateGoryName":"信用记录","CreateDate":"2018-04-13T15:47:10.823","UpdateDate":"2018-04-13T15:47:10.823","DisplaySequence":4,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":34,"QuotaItemName":"信用良好","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":35,"QuotaItemName":"无信用记录","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":36,"QuotaItemName":"少数逾期","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":37,"QuotaItemName":"多次逾期","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0}]},{"Id":18,"CateGoryName":"社保情况","CreateDate":"2018-04-13T15:48:11.873","UpdateDate":"2018-04-13T15:48:11.873","DisplaySequence":5,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":38,"QuotaItemName":"有社保","QuotaCategoryId":18,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":39,"QuotaItemName":"无社保","QuotaCategoryId":18,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0}]}]
      */
 
     public int Status;
@@ -18,13 +19,14 @@ public class ApiMainModel {
 
     public static class DataBean {
         /**
-         * Id : 9
-         * CateGoryName : 您要申请的额度为
-         * CreateDate : 2018-04-10T13:55:24.723
-         * UpdateDate : 2018-04-10T13:55:24.723
+         * Id : 13
+         * CateGoryName : 购车需求
+         * CreateDate : 2018-04-13T15:41:23.507
+         * UpdateDate : 2018-04-13T15:41:23.507
          * DisplaySequence : 1
-         * IsInitialQuota : true
-         * QuotaItemList : [{"Id":1,"QuotaItemName":"15万到30万","QuotaCategoryId":9,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":400,"InitialQuota":300000},{"Id":6,"QuotaItemName":"5万","QuotaCategoryId":9,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":50000},{"Id":7,"QuotaItemName":"5万到10万","QuotaCategoryId":9,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":100000},{"Id":8,"QuotaItemName":"10万到15万","QuotaCategoryId":9,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":150000}]
+         * IsInitialQuota : false
+         * IsCarPurchaseDemand : true
+         * QuotaItemList : [{"Id":17,"QuotaItemName":"新车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":1},{"Id":18,"QuotaItemName":"二手车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":2}]
          */
 
         public int Id;
@@ -33,17 +35,19 @@ public class ApiMainModel {
         public String UpdateDate;
         public int DisplaySequence;
         public boolean IsInitialQuota;
+        public boolean IsCarPurchaseDemand;
         public List<QuotaItemListBean> QuotaItemList;
 
         public static class QuotaItemListBean {
             /**
-             * Id : 1
-             * QuotaItemName : 15万到30万
-             * QuotaCategoryId : 9
+             * Id : 17
+             * QuotaItemName : 新车
+             * QuotaCategoryId : 13
              * AddOrReduce : 3
              * QuotaChangeType : 1
-             * AmplitudeOfVariation : 400.0
-             * InitialQuota : 300000.0
+             * AmplitudeOfVariation : 0.0
+             * InitialQuota : 0.0
+             * CarPurchaseDemandType : 1
              */
 
             public String Id;
@@ -53,6 +57,7 @@ public class ApiMainModel {
             public int QuotaChangeType;
             public double AmplitudeOfVariation;
             public double InitialQuota;
+            public int CarPurchaseDemandType;
         }
     }
 }

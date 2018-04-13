@@ -36,7 +36,7 @@ public class CarQuotaActivity extends BaseActivity {
     }
 
     private void findViews() {
-        commonTitleTv.setText("购车贷款评估");
+        commonTitleTv.setText("我的贷款额度");
     }
 
     @OnClick({R.id.common_title_back, R.id.carquota_tv_recommit, R.id.ac_carquota_evaluation,
@@ -48,6 +48,8 @@ public class CarQuotaActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.carquota_tv_recommit:
+                intent=new Intent(CarQuotaActivity.this,InfoCollectionActivity.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.ac_carquota_evaluation:

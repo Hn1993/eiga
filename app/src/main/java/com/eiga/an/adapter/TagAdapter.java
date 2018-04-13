@@ -1,6 +1,7 @@
 package com.eiga.an.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class TagAdapter<T> extends BaseAdapter implements OnInitSelectedPosition
         if (t instanceof String) {
             textView.setText((String) t);
         }
+
         return view;
     }
 

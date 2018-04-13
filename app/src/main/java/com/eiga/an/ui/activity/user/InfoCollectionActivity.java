@@ -9,8 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.eiga.an.R;
@@ -18,6 +20,7 @@ import com.eiga.an.adapter.TagAdapter;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiMainModel;
+import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.view.tagView.FlowTagLayout;
 import com.eiga.an.view.tagView.OnTagSelectListener;
 import com.google.gson.Gson;
@@ -67,6 +70,8 @@ public class InfoCollectionActivity extends BaseActivity {
     private TextView vp1TagTitle0,vp1TagTitle1,vp1TagTitle2,vp2TagTitle0,
             vp2TagTitle1,vp3TagTitle0,vp3TagTitle1,vp3TagTitle2;
 
+    private Switch mSwitch;
+
     private List<String> selectIds=new ArrayList<>();
 
     private List<ApiMainModel.DataBean> dataList=new ArrayList<>();
@@ -84,6 +89,12 @@ public class InfoCollectionActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+    }
+
     private void httpGetInfo() {
         Log.e(TAG,"httpGetInfo=");
         showLoading();
@@ -95,7 +106,8 @@ public class InfoCollectionActivity extends BaseActivity {
                 super.onSucceed(what, response);
                 dismissLoading();
                 if (what == 101) {
-                    Log.e(TAG, "onSucceed==" + response.get());
+                    PhoneUtils.showLargeLog(response.get(),3900,TAG);
+
                     ApiMainModel model=null;
                     try {
                         model=new Gson().fromJson(response.get(),ApiMainModel.class);
@@ -130,12 +142,19 @@ public class InfoCollectionActivity extends BaseActivity {
 
 
 
-//        initVp2TopTagData();
-//        initVp2BottomTagData();
-//
-//        initVp3TopTagData();
-//        initVp3BottomTagData();
-//        initVp3CenterTagData();
+        vp2TagTitle0.setText(data.get(3).CateGoryName);
+        vp2TagTitle1.setText(data.get(4).CateGoryName);
+        initVp2TopTagData(data.get(3).CateGoryName,data.get(3).QuotaItemList);
+        initVp2BottomTagData(data.get(4).CateGoryName,data.get(4).QuotaItemList);
+
+
+
+        vp3TagTitle0.setText(data.get(5).CateGoryName);
+        vp3TagTitle1.setText(data.get(6).CateGoryName);
+        vp3TagTitle2.setText(data.get(7).CateGoryName);
+        initVp3TopTagData(data.get(5).CateGoryName,data.get(5).QuotaItemList);
+        initVp3CenterTagData(data.get(6).CateGoryName,data.get(6).QuotaItemList);
+        initVp3BottomTagData(data.get(7).CateGoryName,data.get(7).QuotaItemList);
 
 
     }
@@ -229,6 +248,14 @@ public class InfoCollectionActivity extends BaseActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        mSwitch=pagerView.get(0).findViewById(R.id.vp1_switch);
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.e(TAG,"isChecked="+isChecked);
             }
         });
 
@@ -347,48 +374,58 @@ public class InfoCollectionActivity extends BaseActivity {
 
     }
 
-    private void initVp3CenterTagData(List<String> dataSource) {
-//        List<String> dataSource = new ArrayList<>();
-//        dataSource.add("信用良好");
-//        dataSource.add("无信用记录");
-//        dataSource.add("少数逾期");
-//        dataSource.add("多次逾期");
+    private void initVp3CenterTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+        List<String> dataSource = new ArrayList<>();
+        String selectId;
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        selectId=data.get(0).Id;
+        map.put(title,selectId);
         vp3centerTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp3BottomTagData(List<String> dataSource) {
-//        List<String> dataSource = new ArrayList<>();
-//        dataSource.add("有社保");
-//        dataSource.add("无社保");
+    private void initVp3BottomTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+        List<String> dataSource = new ArrayList<>();
+        String selectId;
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        selectId=data.get(0).Id;
+        map.put(title,selectId);
         vp3bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp2BottomTagData(List<String> dataSource) {
-//        List<String> dataSource = new ArrayList<>();
-//        dataSource.add("3千以下");
-//        dataSource.add("3-5千");
-//        dataSource.add("5-8千");
-//        dataSource.add("8千-1万2");
-//        dataSource.add("1万2-2万");
-//        dataSource.add("2万以上");
+    private void initVp2BottomTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+        List<String> dataSource = new ArrayList<>();
+        String selectId;
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        selectId=data.get(0).Id;
+        map.put(title,selectId);
         vp2bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp3TopTagData(List<String> dataSource) {
-//        List<String> dataSource = new ArrayList<>();
-//        dataSource.add("租房");
-//        dataSource.add("有房有贷");
-//        dataSource.add("有房无贷");
+    private void initVp3TopTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+        List<String> dataSource = new ArrayList<>();
+        String selectId;
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        selectId=data.get(0).Id;
+        map.put(title,selectId);
         vp3topTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp2TopTagData(List<String> dataSource) {
-//        List<String> dataSource = new ArrayList<>();
-//        dataSource.add("上班族");
-//        dataSource.add("事业单位");
-//        dataSource.add("企业主");
-//        dataSource.add("个体工商");
-//        dataSource.add("自由职业");
+    private void initVp2TopTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+        List<String> dataSource = new ArrayList<>();
+        String selectId;
+        for (int i = 0; i < data.size(); i++) {
+            dataSource.add(data.get(i).QuotaItemName);
+        }
+        selectId=data.get(0).Id;
+        map.put(title,selectId);
         vp2topTagAdapter.onlyAddAll(dataSource);
     }
 
@@ -449,7 +486,7 @@ public class InfoCollectionActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ac_info_tv_go:
-                intent=new Intent(InfoCollectionActivity.this,CarQuotaActivity.class);
+                intent=new Intent(InfoCollectionActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;

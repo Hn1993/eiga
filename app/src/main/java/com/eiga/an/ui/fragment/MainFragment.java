@@ -10,12 +10,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -23,15 +22,16 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.eiga.an.R;
-import com.eiga.an.base.BaseActivity;
 import com.eiga.an.base.BaseFragment;
 import com.eiga.an.base.MyApplication;
 import com.eiga.an.model.Constant;
-import com.eiga.an.model.jsonModel.ApiMainModel;
+import com.eiga.an.ui.activity.user.BankVerifyActivity;
+import com.eiga.an.ui.activity.user.CarQuotaActivity;
+import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
+import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
-import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -42,7 +42,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.albert.autosystembar.SystemBarHelper;
 
 /**
  * 首页
@@ -50,28 +49,30 @@ import cn.albert.autosystembar.SystemBarHelper;
 public class MainFragment extends BaseFragment {
 
     Unbinder unbinder;
-    @BindView(R.id.fg_main_et_phone)
-    EditText fgMainEtPhone;
-    @BindView(R.id.fg_main_et_code)
-    EditText fgMainEtCode;
-    @BindView(R.id.fg_main_tv_getcode)
-    TextView fgMainTvGetcode;
+    @BindView(R.id.common_title_back)
+    RelativeLayout commonTitleBack;
+    @BindView(R.id.common_title_tv)
+    TextView commonTitleTv;
+    @BindView(R.id.carquota_tv_price)
+    TextView carquotaTvPrice;
+    @BindView(R.id.carquota_tv_phone)
+    TextView carquotaTvPhone;
+    @BindView(R.id.carquota_tv_bank)
+    TextView carquotaTvBank;
     private View mRootView;
 
     private String TAG = getClass().getName();
 
     public LocationClient mLocationClient = null;//定位
     private BroadcastReceiver mConnectNetReceiver; //监听网络状态
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (mRootView==null){
+        if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_main, null);
         }
-        new SystemBarHelper.Builder()
-                .enableImmersedStatusBar(true)
-                .enableImmersedNavigationBar(true)
-                .into(getActivity());
+        setImmersedNavigationBar(getActivity(), R.color.white);
         unbinder = ButterKnife.bind(this, mRootView);
         findViews();
         addBroadCastReceiver();
@@ -87,35 +88,61 @@ public class MainFragment extends BaseFragment {
         //fgMainInputImage.setImageRadius(2);
         //httpGetMiGuanData();
         //httpGetJiedaiData();
+        commonTitleBack.setVisibility(View.GONE);
+        commonTitleTv.setText("我的贷款额度");
     }
 
     /**
      * 添加广播监听
      */
     private void addBroadCastReceiver() {
-        mConnectNetReceiver=new ConnectChangeReceiver();
+        mConnectNetReceiver = new ConnectChangeReceiver();
         IntentFilter mFilter = new IntentFilter();
         mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);//网络广播
         getActivity().registerReceiver(mConnectNetReceiver, mFilter);
     }
 
+    @OnClick({ R.id.carquota_tv_recommit,
+            R.id.carquota_tv_idcard, R.id.carquota_tv_phone, R.id.carquota_tv_bank})
+    public void onViewClicked(View view) {
+        Intent intent=null;
+        switch (view.getId()) {
+            case R.id.carquota_tv_recommit:
+                intent=new Intent(getActivity(),InfoCollectionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.carquota_tv_idcard:
+                intent=new Intent(getActivity(),IdCardVerifyActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.carquota_tv_phone:
+                intent=new Intent(getActivity(),PhoneVerifyActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.carquota_tv_bank:
+                intent=new Intent(getActivity(),BankVerifyActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
     /**
      * 网络状态广播
      */
-    private class ConnectChangeReceiver extends BroadcastReceiver{
+    private class ConnectChangeReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)){
+            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
                 Log.i(TAG, "网络状态已经改变");
                 ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-                if (info!=null&&info.isAvailable()){
+                if (info != null && info.isAvailable()) {
                     Log.i(TAG, "网络已连接");
                     getBDLocation();
-                }else {//没网状态
+                } else {//没网状态
                     Log.i(TAG, "网络已断开");
                     //显示无网络 Dialog
-                    PhoneUtils.toast(getActivity(),"网络无连接,请检查网络设置...");
+                    PhoneUtils.toast(getActivity(), "网络无连接,请检查网络设置...");
                     //在按键响应事件中显示此对话框
                 }
             }
@@ -127,20 +154,20 @@ public class MainFragment extends BaseFragment {
     private void getBDLocation() {
         mLocationClient = new LocationClient(MyApplication.getInstance());
         //声明LocationClient类
-        mLocationClient.registerLocationListener( myListener );
+        mLocationClient.registerLocationListener(myListener);
         //注册监听函数
         initLocation();
         //调用相关配置方法
         mLocationClient.start();//开启定位
     }
 
-    private void initLocation(){
+    private void initLocation() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");
         //可选，默认gcj02，设置返回的定位结果坐标系
-        int span=0;
+        int span = 0;
         option.setScanSpan(span);
         //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);
@@ -169,9 +196,9 @@ public class MainFragment extends BaseFragment {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             //定位异常
-            if (bdLocation.getLocType()==BDLocation.TypeCriteriaException){
-                Log.e(TAG,"定位异常:失败");
-            }else {
+            if (bdLocation.getLocType() == BDLocation.TypeCriteriaException) {
+                Log.e(TAG, "定位异常:失败");
+            } else {
                 //定位成功
                 String addrCity = null;
                 String addrStreet = null;
@@ -198,11 +225,11 @@ public class MainFragment extends BaseFragment {
         }
     };
 
-    private Handler mHandler=new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     //getShareCityInfo();
                     //httpTest();
@@ -210,8 +237,6 @@ public class MainFragment extends BaseFragment {
             }
         }
     };
-
-
 
 
     private void httpGetJiedaiData() {
@@ -272,16 +297,5 @@ public class MainFragment extends BaseFragment {
         getActivity().unregisterReceiver(mConnectNetReceiver);//手动取消网络广播监听
     }
 
-    @OnClick({R.id.fg_main_tv_getcode, R.id.fg_main_tv_go})
-    public void onViewClicked(View view) {
-        Intent intent=null;
-        switch (view.getId()) {
-            case R.id.fg_main_tv_getcode: //获取验证码
-                break;
-            case R.id.fg_main_tv_go:// 评估
-                intent=new Intent(getActivity(), InfoCollectionActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
+
 }
