@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/base_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_common_title"/>
+
+    <RelativeLayout
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_marginTop="30px"
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <!--<TextView-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@color/common_title_text_color"-->
+            <!--android:text="新密码"-->
+            <!--style="@style/text_45px" />-->
+        <EditText
+            android:id="@+id/fix_psw_et"
+            android:textSize="45px"
+            android:textColor="@color/common_title_text_color"
+            android:text=""
+            android:hint="请输入新密码"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_marginTop="5px"
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <!--<TextView-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@color/common_title_text_color"-->
+            <!--android:text="再次确认新密码"-->
+            <!--style="@style/text_45px" />-->
+        <EditText
+            android:id="@+id/fix_psw_et_confirm"
+            android:textSize="45px"
+            android:textColor="@color/common_title_text_color"
+            android:text=""
+            android:hint="再次输入密码"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/fix_psw_commit"
+        android:text="确认修改"
+        android:layout_marginTop="150px"
+        android:layout_gravity="center_horizontal"
+        style="@style/tv_button" />
+</LinearLayout>

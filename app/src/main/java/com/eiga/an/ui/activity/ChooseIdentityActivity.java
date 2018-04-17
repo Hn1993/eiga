@@ -11,6 +11,7 @@ import com.eiga.an.model.Constant;
 import com.eiga.an.ui.activity.sales.SalesLoginActivity;
 import com.eiga.an.ui.activity.sales.SalesMainActivity;
 import com.eiga.an.ui.activity.user.MainActivity;
+import com.eiga.an.utils.ActivityManager;
 import com.eiga.an.utils.SharedPreferencesUtils;
 
 import butterknife.ButterKnife;
@@ -29,6 +30,9 @@ public class ChooseIdentityActivity extends BaseActivity {
         setContentView(R.layout.activity_choose_id);
         ButterKnife.bind(this);
         autoVirtualKeys();//华为等底部虚拟按键的手机
+        setImmersedNavigationBar(this,R.color.light_blue);
+        //保留DActivity,其余全部关闭
+        ActivityManager.getInstance().finishAllActivityByWhitelist(ChooseIdentityActivity.class);
     }
 
     @OnClick({R.id.choose_id_user, R.id.choose_id_sales})
@@ -42,7 +46,7 @@ public class ChooseIdentityActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.choose_id_sales:
-                intent=new Intent(ChooseIdentityActivity.this, SalesLoginActivity.class);
+                intent=new Intent(ChooseIdentityActivity.this, SalesMainActivity.class);
                 startActivity(intent);
                 SharedPreferencesUtils.putShared(ChooseIdentityActivity.this, Constant.IsFirstOpenApp,"1");//1 - sales
                 finish();

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,9 @@ import com.eiga.an.ui.activity.user.BankVerifyActivity;
 import com.eiga.an.ui.activity.user.CarQuotaActivity;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
+import com.eiga.an.ui.activity.user.MainActivity;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
+import com.eiga.an.ui.activity.user.UserLoginActivity;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.yanzhenjie.nohttp.RequestMethod;
@@ -66,13 +69,26 @@ public class MainFragment extends BaseFragment {
     public LocationClient mLocationClient = null;//定位
     private BroadcastReceiver mConnectNetReceiver; //监听网络状态
 
+    private String userName,isHaveEvaluation;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_main, null);
         }
-        setImmersedNavigationBar(getActivity(), R.color.white);
+//        setImmersedNavigationBar(getActivity(), R.color.white);
+
+        userName= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Name,"");
+        isHaveEvaluation= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Is_Have_Evaluation,"");
+        if (TextUtils.isEmpty(userName)){//判断是否登录
+            startActivity(new Intent(getActivity(), UserLoginActivity.class));
+            getActivity().finish();
+        }else {//判断是否评估过
+//            if (TextUtils.isEmpty(isHaveEvaluation)){
+//
+//            }
+        }
+
         unbinder = ButterKnife.bind(this, mRootView);
         findViews();
         addBroadCastReceiver();

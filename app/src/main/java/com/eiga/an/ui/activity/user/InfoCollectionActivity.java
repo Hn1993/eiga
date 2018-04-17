@@ -98,7 +98,7 @@ public class InfoCollectionActivity extends BaseActivity {
     private void httpGetInfo() {
         Log.e(TAG,"httpGetInfo=");
         showLoading();
-        StringRequest mStringRequest = new StringRequest(Constant.Url_Test, RequestMethod.GET);
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Info_Collection, RequestMethod.GET);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
@@ -124,7 +124,8 @@ public class InfoCollectionActivity extends BaseActivity {
             public void onFailed(int what, Response<String> response) {
                 super.onFailed(what, response);
                 dismissLoading();
-                Log.i(TAG, "onFailed==" + response.get());
+                Log.e(TAG, "onFailed==" + response.get());
+                PhoneUtils.toast(InfoCollectionActivity.this,"网络请求失败,请检查网络后重试");
             }
         });
     }

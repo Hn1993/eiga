@@ -43,15 +43,17 @@ public class MainActivity extends BaseActivity {
 
     private android.support.design.widget.TabLayout.Tab tabMain,tabMall,TabKeeper,tabMyCenter;
 
-    private String[] mTitles=new String[]{"首页","商城","信用管家","个人中心"};
+    //,"信用管家"
+    private String[] mTitles=new String[]{"首页","商城","个人中心"};
 
-    private String isFirstOpenApp;
+    private String isFirstOpenApp,userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         autoVirtualKeys();//华为等底部虚拟按键的手机
         ButterKnife.bind(this);
+        setImmersedNavigationBar(this,R.color.white);
 
         isFirstOpenApp= (String) SharedPreferencesUtils.getShared(this,Constant.IsFirstOpenApp,"");
         if (TextUtils.isEmpty(isFirstOpenApp)){
@@ -65,6 +67,7 @@ public class MainActivity extends BaseActivity {
                 finish();
             }
         }
+
         AndPermission.with(this)
                 .permission(
                         Manifest.permission.ACCESS_FINE_LOCATION)
@@ -93,13 +96,12 @@ public class MainActivity extends BaseActivity {
                     }
                 }).start();
 
-
-
         findViews();
 
     }
 
     private void findViews() {
+
         mainVp.setScanScroll(false);
         mainVp.setOffscreenPageLimit(3);
         mainVp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -110,9 +112,11 @@ public class MainActivity extends BaseActivity {
                     return new MainFragment();
                 }else if (position==1){
                     return new MallFragment();
-                }else if (position==2){
-                    return new KeeperFragment();
-                }else {
+                }
+//                else if (position==2){
+//                    return new KeeperFragment();
+//                }
+                else {
                     return new MyCenterFragment();
                 }
 
@@ -125,20 +129,21 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return mTitles[position];
+                //return mTitles[position];
+                return "";
             }
         });
 
         mainTab.setupWithViewPager(mainVp);
         tabMain=mainTab.getTabAt(0);
-        tabMyCenter=mainTab.getTabAt(1);
-        tabMall=mainTab.getTabAt(2);
-        TabKeeper=mainTab.getTabAt(3);
+        tabMall=mainTab.getTabAt(1);
+        tabMyCenter=mainTab.getTabAt(2);
+        //TabKeeper=mainTab.getTabAt(3);
 
         tabMain.setIcon(R.drawable.tab_main);
-        tabMyCenter.setIcon(R.drawable.tab_mall);
-        tabMall.setIcon(R.drawable.tab_keeper);
-        TabKeeper.setIcon(R.drawable.tab_mycenter);
+        tabMall.setIcon(R.drawable.tab_mall);
+        tabMyCenter.setIcon(R.drawable.tab_mycenter);
+        //TabKeeper.setIcon(R.drawable.tab_mycenter);
 
     }
 }

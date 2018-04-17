@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.view.Window;
 
 import com.eiga.an.R;
+import com.eiga.an.ui.activity.sales.SalesLoginActivity;
+import com.eiga.an.ui.activity.user.UserLoginActivity;
 import com.eiga.an.utils.AndroidWorkaround;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.Request;
@@ -44,13 +46,21 @@ public class BaseActivity extends AutoLayoutActivity {
      * @param isFinishThis
      */
     public void gotoLogin(Context mContext, boolean isFinishThis){
-//        Intent intent=new Intent(mContext,LoginActivity.class);
-//        startActivity(intent);
-//        if (isFinishThis){
-//            finish();
-//        }
+        Intent intent=new Intent(mContext,UserLoginActivity.class);
+        startActivity(intent);
+        if (isFinishThis){
+            finish();
+        }
     }
 
+
+    public void gotoSalesLogin(Context mContext, boolean isFinishThis){
+        Intent intent=new Intent(mContext,SalesLoginActivity.class);
+        startActivity(intent);
+        if (isFinishThis){
+            finish();
+        }
+    }
 
     public void showLoading() {
         if (dialog != null && dialog.isShowing()) return;

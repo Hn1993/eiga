@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/base_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_common_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="580px">
+        <ImageView
+            android:layout_marginTop="100px"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:background="@mipmap/icon_app"
+            android:layout_width="270px"
+            android:layout_height="270px" />
+        <TextView
+            android:id="@+id/about_version_info"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100px"
+            android:textColor="@color/color_9a"
+            android:text="版本号:1.0.0"
+            style="@style/text_45px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_marginTop="30px"
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="@color/common_title_text_color"
+            android:text="版本信息"
+            style="@style/text_45px" />
+        <TextView
+            android:id="@+id/about_version_code"
+            android:text="1.0.10"
+            android:textColor="@color/common_title_text_color"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            style="@style/text_45px"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/about_protocol"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_marginTop="5px"
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="@color/common_title_text_color"
+            android:text="协议及申明"
+            style="@style/text_45px" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_right_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/about_review"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_marginTop="5px"
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <TextView
+            android:layout_centerVertical="true"
+            android:textColor="@color/common_title_text_color"
+            android:text="去评分"
+            style="@style/text_45px" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_right_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

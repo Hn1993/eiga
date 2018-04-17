@@ -18,6 +18,12 @@
         <item name="android:layout_height"> wrap_content</item>
         <item name="android:textSize">45px</item>
     </style>
+    <!--字体的样式设计-->
+    <style name="text_35px">
+        <item name="android:layout_width"> wrap_content</item>
+        <item name="android:layout_height"> wrap_content</item>
+        <item name="android:textSize">35px</item>
+    </style>
 
     <style name="text_50px">
         <item name="android:layout_width"> wrap_content</item>
@@ -65,5 +71,15 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginBottom">100px</item>
         <item name="android:layout_marginLeft">70px</item>
+    </style>
+
+    <style name="tv_button">
+        <item name="android:layout_width"> @dimen/base_button_width </item>
+        <item name="android:layout_height"> @dimen/base_button_height  </item>
+        <item name="android:textSize">55px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:layout_centerHorizontal">true</item>
     </style>
 </resources>

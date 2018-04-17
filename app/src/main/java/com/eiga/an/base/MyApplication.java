@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.eiga.an.service.AppInitIntentService;
+import com.eiga.an.utils.ActivityManager;
 import com.yanzhenjie.nohttp.NoHttp;
 
 
@@ -18,6 +19,8 @@ public class MyApplication extends Application {
         //Stetho.initializeWithDefaults(this);
         myApplication=this;
 
+        //注册管理器
+        ActivityManager.getInstance().register(this);
         Intent intentService = new Intent(this, AppInitIntentService.class);
         startService(intentService);
     }

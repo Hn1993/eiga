@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/sales_login_finish"
+        android:layout_width="140px"
+        android:layout_height="140px">
+        <ImageView
+            android:layout_marginLeft="60px"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_sales_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:background="@mipmap/icon_default_head"
+        android:layout_marginTop="350px"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="350px"
+        android:layout_height="350px" />
+
+    <RelativeLayout
+        android:background="@drawable/react_selector"
+        android:layout_marginTop="200px"
+        android:layout_marginLeft="150px"
+        android:layout_marginRight="150px"
+        android:layout_width="match_parent"
+        android:layout_height="110px">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:background="@mipmap/icon_sales_login_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="phone"
+            android:id="@+id/sales_login_name"
+            android:layout_marginLeft="130px"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="110px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/react_selector"
+        android:layout_marginTop="70px"
+        android:layout_marginLeft="150px"
+        android:layout_marginRight="150px"
+        android:layout_width="match_parent"
+        android:layout_height="110px">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:background="@mipmap/icon_sales_login_psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/sales_login_psw"
+            android:layout_marginLeft="130px"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="110px" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/sales_login_go"
+        android:gravity="center"
+        android:text="立即登录"
+        android:textSize="45px"
+        android:textColor="@color/white"
+        android:layout_marginTop="70px"
+        android:layout_marginLeft="150px"
+        android:layout_marginRight="150px"
+        android:background="@drawable/button_selector"
+        android:layout_width="match_parent"
+        android:layout_height="110px" />
+    <TextView
+        android:id="@+id/sales_login_forgot"
+        android:text="忘记密码？"
+        android:textColor="@color/common_title_text_color"
+        android:layout_marginTop="70px"
+        android:layout_gravity="center_horizontal"
+        style="@style/text_50px"/>
+</LinearLayout>

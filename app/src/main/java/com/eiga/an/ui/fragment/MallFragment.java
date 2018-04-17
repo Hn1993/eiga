@@ -27,11 +27,11 @@ public class MallFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_mall, null);
-            new SystemBarHelper.Builder()
-                    .enableImmersedStatusBar(true)
-                    .enableImmersedNavigationBar(true)
-                    .into(getActivity());
-
+//            new SystemBarHelper.Builder()
+//                    .enableImmersedStatusBar(false)
+//                    .statusBarColor(getResources().getColor(R.color.light_blue))
+//                    .enableImmersedNavigationBar(false)
+//                    .into(getActivity());
             findViews();
         }
 
