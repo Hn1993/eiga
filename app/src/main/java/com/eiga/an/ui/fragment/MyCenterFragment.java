@@ -12,7 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.eiga.an.R;
+import com.eiga.an.model.Constant;
 import com.eiga.an.ui.activity.user.SettingActivity;
+import com.eiga.an.utils.SharedPreferencesUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,9 +74,18 @@ public class MyCenterFragment extends Fragment {
             case R.id.my_up_grade:
                 break;
             case R.id.my_car_layout:
+                doLogout();
                 break;
             case R.id.my_insurance_layout:
                 break;
         }
     }
+
+    /**
+     * 退出登录的事件
+     */
+    private void doLogout() {
+        SharedPreferencesUtils.clearSp(getActivity(),Constant.User_Login_Name);
+    }
+
 }

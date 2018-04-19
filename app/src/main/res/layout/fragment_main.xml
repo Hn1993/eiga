@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="100px"
-                android:text="￥6000.00"
+                android:text="￥"
                 android:textColor="@color/white"
                 android:textSize="130px" />
 

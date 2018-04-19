@@ -12,8 +12,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -45,6 +48,26 @@ public class PhoneUtils {
 		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 		return wifiInfo.getIpAddress();
 	}
+
+	/**
+	 * 获取设置udid
+	 * @param context
+	 * @return
+	 */
+	public static String getDeviceId(Context context) {
+		String id;
+		//android.telephony.TelephonyManager
+		TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		if (mTelephony.getDeviceId() != null) {
+			id = mTelephony.getDeviceId();
+		} else {
+			//android.provider.Settings;
+			id = Settings.Secure.getString(context.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+		}
+		return id;
+	}
+
+
 
 	/**
 	 * 将整型的ip地址转换为点分十进制格式("192.168.21.30")
@@ -155,8 +178,6 @@ public class PhoneUtils {
 			e(tag, logContent);
 		}
 	}
-
-
 
 
 	/**

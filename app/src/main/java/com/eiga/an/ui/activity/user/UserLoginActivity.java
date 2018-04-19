@@ -12,7 +12,8 @@ import android.widget.TextView;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
-import com.eiga.an.model.jsonModel.ApiMainModel;
+import com.eiga.an.model.jsonModel.ApiGetCodeModel;
+import com.eiga.an.model.jsonModel.ApiUserLoginModel;
 import com.eiga.an.utils.DownTimer;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
@@ -66,7 +67,7 @@ public class UserLoginActivity extends BaseActivity {
     }
 
     private void findViews() {
-
+        userMainEtPhone.setText((String) SharedPreferencesUtils.getShared(UserLoginActivity.this,Constant.User_Login_Name,""));
     }
 
     @OnClick({R.id.user_main_tv_getcode, R.id.fg_main_tv_go})
@@ -94,24 +95,17 @@ public class UserLoginActivity extends BaseActivity {
                 });
                 timer.start();
 
-
-                httpGetCode();
+                if (PhoneUtils.isMobile(userMainEtPhone.getText().toString())){
+                    httpGetCode();
+                }else {
+                    PhoneUtils.toast(UserLoginActivity.this,"请填写正确的手机号");
+                }
                 break;
             case R.id.fg_main_tv_go:
                 if (PhoneUtils.isMobile(userMainEtPhone.getText().toString())&& !TextUtils.isEmpty(userMainEtCode.getText().toString())){
 
-                    //在这里请求接口   获取返回值的时候   获取一个用户是否已经评估过的字段   然后保存进share
 
-                    SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Name,userMainEtPhone.getText().toString());
-                    SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,"");
-
-                    if (TextUtils.isEmpty(isHaveEvaluation)){
-                        intent=new Intent(UserLoginActivity.this, InfoCollectionActivity.class);
-                    }else {
-                        intent=new Intent(UserLoginActivity.this, MainActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
+                    httpDoLogin();
 
                 }else {
                     PhoneUtils.toast(UserLoginActivity.this,"信息有误,请检查后重试");
@@ -123,13 +117,19 @@ public class UserLoginActivity extends BaseActivity {
     }
 
     /**
-     * 获取验证码
+     * 点击立即评估的操作
      */
-    private void httpGetCode() {
+    private void httpDoLogin() {
 
-        //showLoading();
-        StringRequest mStringRequest = new StringRequest(Constant.Url_Get_EMSCode, RequestMethod.GET);
+        StringRequest mStringRequest = new StringRequest(Constant.Url_User_Login, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone",userMainEtPhone.getText().toString());
+        mStringRequest.add("VaildateCode",userMainEtCode.getText().toString());
+        mStringRequest.add("AndroidUDID",PhoneUtils.getDeviceId(UserLoginActivity.this));
+        mStringRequest.add("IOSUDID","");
+        mStringRequest.add("ReferralCode",userMainEtRecommend.getText().toString());
+
+        Log.e(TAG,"phone="+userMainEtPhone.getText().toString());
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -137,13 +137,72 @@ public class UserLoginActivity extends BaseActivity {
                 dismissLoading();
                 if (what == 101) {
                     PhoneUtils.showLargeLog(response.get(),3900,TAG);
-
-                    ApiMainModel model=null;
+                    ApiUserLoginModel model=null;
                     try {
-                        model=new Gson().fromJson(response.get(),ApiMainModel.class);
+                        model=new Gson().fromJson(response.get(),ApiUserLoginModel.class);
+                        Intent intent=null;
                         if (model.Status==1){
-                            //setHttpData(model.Data);
+                            //在这里请求接口   获取返回值的时候   获取一个用户是否已经评估过的字段   然后保存进share
+                            SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Name,userMainEtPhone.getText().toString());
+                            if (model.SimpleQuotaLimit!=null){
+                                SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,model.SimpleQuotaLimit);
+                            }else {
+                                SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,"");
+                            }
+                            SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Token,model.Token);
+
+                            if (TextUtils.isEmpty(model.SimpleQuotaLimit)){
+                                intent=new Intent(UserLoginActivity.this, InfoCollectionActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                intent=new Intent(UserLoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
                         }
+                        //PhoneUtils.toast(UserLoginActivity.this,model.Msg);
+                    }catch (Exception e){
+                        Log.e(TAG,"Exception="+e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.i(TAG, "onFailed==" + response.get());
+            }
+        });
+    }
+
+    /**
+     * 获取验证码
+     */
+    private void httpGetCode() {
+
+        //showLoading();
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Get_EMSCode, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone",userMainEtPhone.getText().toString());
+
+        Log.e(TAG,"phone="+userMainEtPhone.getText().toString());
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    PhoneUtils.showLargeLog(response.get(),3900,TAG);
+                    ApiGetCodeModel model=null;
+                    try {
+                        model=new Gson().fromJson(response.get(),ApiGetCodeModel.class);
+                        if (model.Status==1){
+                            //PhoneUtils.toast(UserLoginActivity.this,model.Msg);
+                        }
+                        PhoneUtils.toast(UserLoginActivity.this,model.Msg);
                     }catch (Exception e){
                         Log.e(TAG,"Exception="+e);
                     }

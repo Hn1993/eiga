@@ -1,63 +1,84 @@
 package com.eiga.an.model.jsonModel;
 
-import java.util.List;
-
 /**
- * Created by ASUS on 2018/4/11.
+ * Created by ASUS on 2018/4/19.
  */
 
 public class ApiMainModel {
 
 
     /**
+     * User : {"Id":9,"CellPhone":"18367905175","LoginPassword":"d568112207b7573a4074b724ce9585e1","PayPassword":null,"HeadSculpture":null,"Nick":"18367905175","Sex":"男","IdentityCardId":null,"RealName":null,"CreateDate":"2018-04-19T14:55:33.513","LastLoginDate":"2018-04-19T15:19:55.947","LoginToken":"58abd947bb143e7fe299d08239b88332","BelongToClerk":null,"CreditLevel":0,"LoginStatus":0,"IdentityCardOCRAuthentication":false,"IdentityCardOCRStatus":null,"Carrieroperator":null,"IdentityCardFrontPhoto":null,"IdentityCardBackPhoto":null,"Adress":null,"CarPurchaseDemand":null,"IsSimpleQuota":true,"SimpleQuotaLimit":45000,"AndroidUDID":"865166027766305","IOSUDID":""}
+     * IsAuthentication : false
+     * TokenStatus : 1
      * Status : 1
-     * Data : [{"Id":13,"CateGoryName":"购车需求","CreateDate":"2018-04-13T15:41:23.507","UpdateDate":"2018-04-13T15:41:23.507","DisplaySequence":1,"IsInitialQuota":false,"IsCarPurchaseDemand":true,"QuotaItemList":[{"Id":17,"QuotaItemName":"新车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":1},{"Id":18,"QuotaItemName":"二手车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":2}]},{"Id":14,"CateGoryName":"车价","CreateDate":"2018-04-13T15:42:40.307","UpdateDate":"2018-04-13T15:42:40.307","DisplaySequence":1,"IsInitialQuota":true,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":19,"QuotaItemName":"5万以下","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":50000,"CarPurchaseDemandType":0},{"Id":20,"QuotaItemName":"5-10万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":100000,"CarPurchaseDemandType":0},{"Id":21,"QuotaItemName":"10-15万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":150000,"CarPurchaseDemandType":0},{"Id":22,"QuotaItemName":"15-20万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":200000,"CarPurchaseDemandType":0},{"Id":23,"QuotaItemName":"20-30万","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":300000,"CarPurchaseDemandType":0},{"Id":24,"QuotaItemName":"30万以上","QuotaCategoryId":14,"AddOrReduce":1,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":500000,"CarPurchaseDemandType":0}]},{"Id":15,"CateGoryName":"首付比例","CreateDate":"2018-04-13T15:44:30.123","UpdateDate":"2018-04-13T15:44:30.123","DisplaySequence":2,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":25,"QuotaItemName":"10%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":10,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":26,"QuotaItemName":"20%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":20,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":27,"QuotaItemName":"30%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":30,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":28,"QuotaItemName":"40%","QuotaCategoryId":15,"AddOrReduce":3,"QuotaChangeType":2,"AmplitudeOfVariation":40,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":29,"QuotaItemName":"50%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":50,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":30,"QuotaItemName":"60%","QuotaCategoryId":15,"AddOrReduce":2,"QuotaChangeType":2,"AmplitudeOfVariation":60,"InitialQuota":0,"CarPurchaseDemandType":0}]},{"Id":16,"CateGoryName":"住房情况","CreateDate":"2018-04-13T15:46:12.797","UpdateDate":"2018-04-13T15:46:12.797","DisplaySequence":3,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":31,"QuotaItemName":"租房","QuotaCategoryId":16,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":32,"QuotaItemName":"有房有贷","QuotaCategoryId":16,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":33,"QuotaItemName":"有房无贷","QuotaCategoryId":16,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0}]},{"Id":17,"CateGoryName":"信用记录","CreateDate":"2018-04-13T15:47:10.823","UpdateDate":"2018-04-13T15:47:10.823","DisplaySequence":4,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":34,"QuotaItemName":"信用良好","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":35,"QuotaItemName":"无信用记录","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":36,"QuotaItemName":"少数逾期","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":37,"QuotaItemName":"多次逾期","QuotaCategoryId":17,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0}]},{"Id":18,"CateGoryName":"社保情况","CreateDate":"2018-04-13T15:48:11.873","UpdateDate":"2018-04-13T15:48:11.873","DisplaySequence":5,"IsInitialQuota":false,"IsCarPurchaseDemand":false,"QuotaItemList":[{"Id":38,"QuotaItemName":"有社保","QuotaCategoryId":18,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0},{"Id":39,"QuotaItemName":"无社保","QuotaCategoryId":18,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":0}]}]
+     * Msg : null
+     * Data : null
      */
 
+    public UserBean User;
+    public boolean BankCardIsAuthentication;
+    public int TokenStatus;
     public int Status;
-    public List<DataBean> Data;
+    public Object Msg;
+    public Object Data;
 
-    public static class DataBean {
+    public static class UserBean {
         /**
-         * Id : 13
-         * CateGoryName : 购车需求
-         * CreateDate : 2018-04-13T15:41:23.507
-         * UpdateDate : 2018-04-13T15:41:23.507
-         * DisplaySequence : 1
-         * IsInitialQuota : false
-         * IsCarPurchaseDemand : true
-         * QuotaItemList : [{"Id":17,"QuotaItemName":"新车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":1},{"Id":18,"QuotaItemName":"二手车","QuotaCategoryId":13,"AddOrReduce":3,"QuotaChangeType":1,"AmplitudeOfVariation":0,"InitialQuota":0,"CarPurchaseDemandType":2}]
+         * Id : 9
+         * CellPhone : 18367905175
+         * LoginPassword : d568112207b7573a4074b724ce9585e1
+         * PayPassword : null
+         * HeadSculpture : null
+         * Nick : 18367905175
+         * Sex : 男
+         * IdentityCardId : null
+         * RealName : null
+         * CreateDate : 2018-04-19T14:55:33.513
+         * LastLoginDate : 2018-04-19T15:19:55.947
+         * LoginToken : 58abd947bb143e7fe299d08239b88332
+         * BelongToClerk : null
+         * CreditLevel : 0
+         * LoginStatus : 0
+         * IdentityCardOCRAuthentication : false
+         * IdentityCardOCRStatus : null
+         * Carrieroperator : null
+         * IdentityCardFrontPhoto : null
+         * IdentityCardBackPhoto : null
+         * Adress : null
+         * CarPurchaseDemand : null
+         * IsSimpleQuota : true
+         * SimpleQuotaLimit : 45000.0
+         * AndroidUDID : 865166027766305
+         * IOSUDID :
          */
 
         public int Id;
-        public String CateGoryName;
+        public String CellPhone;
+        public String LoginPassword;
+        public Object PayPassword;
+        public Object HeadSculpture;
+        public String Nick;
+        public String Sex;
+        public Object IdentityCardId;
+        public Object RealName;
         public String CreateDate;
-        public String UpdateDate;
-        public int DisplaySequence;
-        public boolean IsInitialQuota;
-        public boolean IsCarPurchaseDemand;
-        public List<QuotaItemListBean> QuotaItemList;
-
-        public static class QuotaItemListBean {
-            /**
-             * Id : 17
-             * QuotaItemName : 新车
-             * QuotaCategoryId : 13
-             * AddOrReduce : 3
-             * QuotaChangeType : 1
-             * AmplitudeOfVariation : 0.0
-             * InitialQuota : 0.0
-             * CarPurchaseDemandType : 1
-             */
-
-            public String Id;
-            public String QuotaItemName;
-            public int QuotaCategoryId;
-            public int AddOrReduce;
-            public int QuotaChangeType;
-            public double AmplitudeOfVariation;
-            public double InitialQuota;
-            public int CarPurchaseDemandType;
-        }
+        public String LastLoginDate;
+        public String LoginToken;
+        public Object BelongToClerk;
+        public int CreditLevel;
+        public int LoginStatus;
+        public boolean IdentityCardOCRAuthentication;
+        public Object IdentityCardOCRStatus;
+        public Object Carrieroperator;
+        public Object IdentityCardFrontPhoto;
+        public Object IdentityCardBackPhoto;
+        public Object Adress;
+        public Object CarPurchaseDemand;
+        public boolean IsSimpleQuota;
+        public double SimpleQuotaLimit;
+        public String AndroidUDID;
+        public String IOSUDID;
     }
+
 }

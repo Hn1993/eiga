@@ -33,6 +33,7 @@
     </com.eiga.an.view.tagView.FlowTagLayout>
 
     <Switch
+        android:visibility="visible"
         android:id="@+id/vp1_switch"
         android:layout_marginTop="60px"
         android:textOn="二手车"

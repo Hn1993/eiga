@@ -19,8 +19,10 @@ import com.eiga.an.R;
 import com.eiga.an.adapter.TagAdapter;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
-import com.eiga.an.model.jsonModel.ApiMainModel;
+import com.eiga.an.model.jsonModel.ApiInfoUploadModel;
+import com.eiga.an.model.jsonModel.ApiInfoCollectModel;
 import com.eiga.an.utils.PhoneUtils;
+import com.eiga.an.utils.SharedPreferencesUtils;
 import com.eiga.an.view.tagView.FlowTagLayout;
 import com.eiga.an.view.tagView.OnTagSelectListener;
 import com.google.gson.Gson;
@@ -74,7 +76,7 @@ public class InfoCollectionActivity extends BaseActivity {
 
     private List<String> selectIds=new ArrayList<>();
 
-    private List<ApiMainModel.DataBean> dataList=new ArrayList<>();
+    private List<ApiInfoCollectModel.DataBean> dataList=new ArrayList<>();
     private HashMap<String,String> map=new HashMap<>();
 
     @Override
@@ -85,8 +87,8 @@ public class InfoCollectionActivity extends BaseActivity {
         autoVirtualKeys();
         ButterKnife.bind(this);
         findViews();
-        httpGetInfo();
 
+        httpGetInfo();
     }
 
     @Override
@@ -98,8 +100,8 @@ public class InfoCollectionActivity extends BaseActivity {
     private void httpGetInfo() {
         Log.e(TAG,"httpGetInfo=");
         showLoading();
-        StringRequest mStringRequest = new StringRequest(Constant.Url_Info_Collection, RequestMethod.GET);
-        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Info_Collection, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.NONE_CACHE_REQUEST_NETWORK);//设置缓存模式
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -108,9 +110,9 @@ public class InfoCollectionActivity extends BaseActivity {
                 if (what == 101) {
                     PhoneUtils.showLargeLog(response.get(),3900,TAG);
 
-                    ApiMainModel model=null;
+                    ApiInfoCollectModel model=null;
                     try {
-                        model=new Gson().fromJson(response.get(),ApiMainModel.class);
+                        model=new Gson().fromJson(response.get(),ApiInfoCollectModel.class);
                         if (model.Status==1){
                             setHttpData(model.Data);
                         }
@@ -130,8 +132,11 @@ public class InfoCollectionActivity extends BaseActivity {
         });
     }
 
-    private void setHttpData(List<ApiMainModel.DataBean> data) {
+    private void setHttpData(List<ApiInfoCollectModel.DataBean> data) {
         dataList=data;
+
+
+        Log.e(TAG,"date.size="+data.size());
 
         vp1TagTitle0.setText(data.get(0).CateGoryName);
         vp1TagTitle1.setText(data.get(1).CateGoryName);
@@ -140,8 +145,6 @@ public class InfoCollectionActivity extends BaseActivity {
         initVp1Top0TagData(data.get(0).CateGoryName,data.get(0).QuotaItemList);
         initVp1TopTagData(data.get(1).CateGoryName,data.get(1).QuotaItemList);
         initVp1BottomTagData(data.get(2).CateGoryName,data.get(2).QuotaItemList);
-
-
 
         vp2TagTitle0.setText(data.get(3).CateGoryName);
         vp2TagTitle1.setText(data.get(4).CateGoryName);
@@ -163,11 +166,11 @@ public class InfoCollectionActivity extends BaseActivity {
     /**
      * 根据三个参数来改变map里的值
      * @param title  获取map里的list
-     * @param type  获取第几个tag
+     * @param title_index  获取第几个tag
      * @param index 获取tag里的list的第几个的值
      */
-    private void updateSelectIds(String title,int type,int index) {
-        map.put(title,String.valueOf(dataList.get(type).QuotaItemList.get(index).Id));
+    private void updateSelectIds(String title,int title_index,int index) {
+        map.put(title,String.valueOf(dataList.get(title_index).QuotaItemList.get(index).Id));
         Log.e(TAG,"map="+map.get(title));
     }
 
@@ -257,6 +260,12 @@ public class InfoCollectionActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.e(TAG,"isChecked="+isChecked);
+                if (isChecked){
+                    updateSelectIds(dataList.get(0).CateGoryName,0,1);
+                }else {
+                    updateSelectIds(dataList.get(0).CateGoryName,0,0);
+                }
+
             }
         });
 
@@ -325,13 +334,13 @@ public class InfoCollectionActivity extends BaseActivity {
         vp2TagTop.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                updateSelectIds(dataList.get(3).CateGoryName,3,selectedList.get(0));
             }
         });
         vp3TagTop.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                updateSelectIds(dataList.get(5).CateGoryName,5,selectedList.get(0));
             }
         });
         vp1TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
@@ -344,26 +353,30 @@ public class InfoCollectionActivity extends BaseActivity {
         vp2TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                updateSelectIds(dataList.get(4).CateGoryName,4,selectedList.get(0));
             }
         });
         vp3TagBottom.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                updateSelectIds(dataList.get(7).CateGoryName,7,selectedList.get(0));
             }
         });
         vp3TagCenter.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-
+                updateSelectIds(dataList.get(6).CateGoryName,6,selectedList.get(0));
             }
         });
+
+
+
+
     }
 
 
 
-    private void initVp1Top0TagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp1Top0TagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         String selectId;
         for (int i = 0; i < data.size(); i++) {
@@ -375,7 +388,7 @@ public class InfoCollectionActivity extends BaseActivity {
 
     }
 
-    private void initVp3CenterTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp3CenterTagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         String selectId;
         for (int i = 0; i < data.size(); i++) {
@@ -386,7 +399,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp3centerTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp3BottomTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp3BottomTagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         String selectId;
         for (int i = 0; i < data.size(); i++) {
@@ -397,7 +410,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp3bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp2BottomTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp2BottomTagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         String selectId;
         for (int i = 0; i < data.size(); i++) {
@@ -408,7 +421,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp2bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp3TopTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp3TopTagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         String selectId;
         for (int i = 0; i < data.size(); i++) {
@@ -419,7 +432,7 @@ public class InfoCollectionActivity extends BaseActivity {
         vp3topTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp2TopTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp2TopTagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         String selectId;
         for (int i = 0; i < data.size(); i++) {
@@ -430,22 +443,22 @@ public class InfoCollectionActivity extends BaseActivity {
         vp2topTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp1BottomTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp1BottomTagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
             dataSource.add(data.get(i).QuotaItemName);
         }
-        String selectId=data.get(2).Id;
+        String selectId=data.get(0).Id;
         map.put(title,selectId);
         vp1bottomTagAdapter.onlyAddAll(dataSource);
     }
 
-    private void initVp1TopTagData(String title,List<ApiMainModel.DataBean.QuotaItemListBean> data) {
+    private void initVp1TopTagData(String title,List<ApiInfoCollectModel.DataBean.QuotaItemListBean> data) {
         List<String> dataSource = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
             dataSource.add(data.get(i).QuotaItemName);
         }
-        String selectId=data.get(1).Id;
+        String selectId=data.get(0).Id;
         map.put(title,selectId);
         vp1topTagAdapter.onlyAddAll(dataSource);
     }
@@ -487,10 +500,62 @@ public class InfoCollectionActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ac_info_tv_go:
-                intent=new Intent(InfoCollectionActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                httpUploadChoosedInfo();
                 break;
         }
+    }
+
+    /**
+     * 上传选中的  信息的id
+     */
+    private void httpUploadChoosedInfo() {
+        String ids="";
+        for (int i = 0; i < dataList.size(); i++) {
+            ids+=map.get(dataList.get(i).CateGoryName)+",";
+        }
+        Log.e(TAG,"ids="+(ids.substring(0,ids.length()-1)));
+        Log.e(TAG,"phone="+(String) SharedPreferencesUtils.getShared(InfoCollectionActivity.this,Constant.User_Login_Name,""));
+        Log.e(TAG,"token="+(String) SharedPreferencesUtils.getShared(InfoCollectionActivity.this,Constant.User_Login_Token,""));
+
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Info_Collection_Upload, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone", (String) SharedPreferencesUtils.getShared(InfoCollectionActivity.this,Constant.User_Login_Name,""));
+        mStringRequest.add("Token", (String) SharedPreferencesUtils.getShared(InfoCollectionActivity.this,Constant.User_Login_Token,""));
+        mStringRequest.add("QuotaItemIds", ids.substring(0,ids.length()-1));
+
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    PhoneUtils.showLargeLog(response.get(),3900,TAG);
+
+                    ApiInfoUploadModel model=null;
+
+                    try {
+                        model=new Gson().fromJson(response.get(),ApiInfoUploadModel.class);
+                        if (model.Status==1){
+                            SharedPreferencesUtils.putShared(InfoCollectionActivity.this,Constant.User_Is_Have_Evaluation,model.Quota);
+                            Intent intent=new Intent(InfoCollectionActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            PhoneUtils.toast(InfoCollectionActivity.this,model.Msg);
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,"Exception="+e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.e(TAG, "onFailed==" + response.get());
+                PhoneUtils.toast(InfoCollectionActivity.this,"网络请求失败,请检查网络后重试");
+            }
+        });
     }
 }

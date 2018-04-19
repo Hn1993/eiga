@@ -26,20 +26,24 @@ import com.eiga.an.R;
 import com.eiga.an.base.BaseFragment;
 import com.eiga.an.base.MyApplication;
 import com.eiga.an.model.Constant;
+import com.eiga.an.model.jsonModel.ApiInfoCollectModel;
+import com.eiga.an.model.jsonModel.ApiMainModel;
 import com.eiga.an.ui.activity.user.BankVerifyActivity;
-import com.eiga.an.ui.activity.user.CarQuotaActivity;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
-import com.eiga.an.ui.activity.user.MainActivity;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
 import com.eiga.an.ui.activity.user.UserLoginActivity;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
+import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 import com.yanzhenjie.nohttp.rest.StringRequest;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +62,8 @@ public class MainFragment extends BaseFragment {
     TextView commonTitleTv;
     @BindView(R.id.carquota_tv_price)
     TextView carquotaTvPrice;
+    @BindView(R.id.carquota_tv_idcard)
+    TextView carquotaIdCard;
     @BindView(R.id.carquota_tv_phone)
     TextView carquotaTvPhone;
     @BindView(R.id.carquota_tv_bank)
@@ -69,7 +75,7 @@ public class MainFragment extends BaseFragment {
     public LocationClient mLocationClient = null;//定位
     private BroadcastReceiver mConnectNetReceiver; //监听网络状态
 
-    private String userName,isHaveEvaluation;
+    private String token,phone,isHaveEvaluation,locationLat,locationLng;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,21 +83,26 @@ public class MainFragment extends BaseFragment {
             mRootView = inflater.inflate(R.layout.fragment_main, null);
         }
 //        setImmersedNavigationBar(getActivity(), R.color.white);
-
-        userName= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Name,"");
+        unbinder = ButterKnife.bind(this, mRootView);
+        EventBus.getDefault().register(this);
+        token= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Token,"");
+        phone= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Name,"");
         isHaveEvaluation= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Is_Have_Evaluation,"");
-        if (TextUtils.isEmpty(userName)){//判断是否登录
+        if (TextUtils.isEmpty(token)){//判断是否登录
             startActivity(new Intent(getActivity(), UserLoginActivity.class));
             getActivity().finish();
         }else {//判断是否评估过
-//            if (TextUtils.isEmpty(isHaveEvaluation)){
-//
-//            }
+            if (TextUtils.isEmpty(isHaveEvaluation)){
+                startActivity(new Intent(getActivity(), InfoCollectionActivity.class));
+                getActivity().finish();
+            }else {
+                findViews();
+                addBroadCastReceiver();
+            }
+
         }
 
-        unbinder = ButterKnife.bind(this, mRootView);
-        findViews();
-        addBroadCastReceiver();
+
         //httpTest();
         return mRootView;
 
@@ -223,6 +234,9 @@ public class MainFragment extends BaseFragment {
                 Log.e(TAG, "纬度:" + bdLocation.getLatitude());
                 Log.e(TAG, "经度:" + bdLocation.getLongitude());
                 //保存 位置  纬度 经度(double 类型)
+                locationLat= String.valueOf(bdLocation.getLatitude());
+                locationLng= String.valueOf(bdLocation.getLongitude());
+
                 SharedPreferencesUtils.putShared(getActivity(),
                         Constant.LocationLongitude, String.valueOf(bdLocation.getLongitude()));
                 SharedPreferencesUtils.putShared(getActivity(),
@@ -248,69 +262,100 @@ public class MainFragment extends BaseFragment {
             switch (msg.what) {
                 case 0:
                     //getShareCityInfo();
-                    //httpTest();
+                    httpGetMainData(true);
                     break;
             }
         }
     };
 
+    /**
+     * 获取首页数据
+     */
+    private void httpGetMainData(boolean isShowLoading) {
 
-    private void httpGetJiedaiData() {
-        StringRequest mStringRequest = new StringRequest(Constant.Url_Jd_jiedai, RequestMethod.POST);
-        mStringRequest.add("appkey", Constant.Jd_key);
-        mStringRequest.add("name", "蓝利明");
-        mStringRequest.add("idCard", "332527198507184753");
-        mStringRequest.add("mobile", "13732423950");
+        showLoading(getActivity());
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Main, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone",phone);
+        mStringRequest.add("Token",token);
+        mStringRequest.add("Longitude",locationLng);
+        mStringRequest.add("Latitude",locationLat);
+
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
                 super.onSucceed(what, response);
+                dismissLoading();
                 if (what == 101) {
-                    Log.e(TAG, "jiedai_onSucceed==" + response.get());
-
+                    PhoneUtils.showLargeLog(response.get(),3900,TAG);
+                    ApiMainModel model=null;
+                    try {
+                        model=new Gson().fromJson(response.get(),ApiMainModel.class);
+                        if (model.Status==1){
+                            setHttpData(model);
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,"Exception="+e);
+                    }
                 }
             }
 
             @Override
             public void onFailed(int what, Response<String> response) {
                 super.onFailed(what, response);
-                Log.i(TAG, "onFailed==" + response.get());
+                dismissLoading();
+                Log.e(TAG, "onFailed==" + response.get());
+                PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
             }
         });
     }
 
-    private void httpGetMiGuanData() {
-        StringRequest mStringRequest = new StringRequest(Constant.Url_Jd_miguan, RequestMethod.POST);
-        mStringRequest.add("appkey", Constant.Jd_key);
-        mStringRequest.add("name", "蓝利明");
-        mStringRequest.add("idCard", "332527198507184753");
-        mStringRequest.add("phone", "13732423950");
-        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
-        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
-            @Override
-            public void onSucceed(int what, Response<String> response) {
-                super.onSucceed(what, response);
-                if (what == 101) {
-                    Log.e(TAG, "onSucceed==" + response.get());
+    /**
+     * 设置网络数据
+     * @param model
+     */
+    private void setHttpData(ApiMainModel model) {
+        carquotaTvPrice.setText("￥"+String.valueOf(model.User.SimpleQuotaLimit));
+        if (model.User.IdentityCardOCRAuthentication==true){
+            carquotaIdCard.setText("认证成功");
+            carquotaIdCard.setClickable(false);
+        }else {
+            carquotaIdCard.setText("立即认证");
+        }
 
-                }
-            }
+        if (model.User.Carrieroperator!=null){
+            carquotaTvPhone.setText("认证成功");
+            carquotaTvPhone.setClickable(false);
+        }else {
+            carquotaTvPhone.setText("立即认证");
+        }
 
-            @Override
-            public void onFailed(int what, Response<String> response) {
-                super.onFailed(what, response);
-                Log.i(TAG, "onFailed==" + response.get());
-            }
-        });
+        if (model.BankCardIsAuthentication==true){
+            carquotaTvBank.setText("认证成功");
+            carquotaTvBank.setClickable(false);
+        }else {
+            carquotaTvBank.setText("立即认证");
+        }
     }
 
+    /**
+     * 绑定成功  银行卡  身份证  运营商 都要去重新请求网络
+     * @param str
+     */
+    @Subscriber (tag="bond_success")
+    private void bondSuccess(String str){
+        Log.e(TAG,"bond_success="+str);
+        httpGetMainData(false);
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        getActivity().unregisterReceiver(mConnectNetReceiver);//手动取消网络广播监听
+        EventBus.getDefault().unregister(this);
+        if (mConnectNetReceiver!=null){
+            getActivity().unregisterReceiver(mConnectNetReceiver);//手动取消网络广播监听
+        }
     }
 
 
