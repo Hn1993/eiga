@@ -52,7 +52,7 @@ public class SalesLoginActivity extends BaseActivity {
 
                 if (PhoneUtils.isMobile(salesLoginName.getText().toString())&& !TextUtils.isEmpty(salesLoginPsw.getText().toString())) {
 
-                    //在这里请求接口   获取返回值的时候   获取一个用户是否已经评估过的字段   然后保存进share
+                    //在这里请求接口
                     SharedPreferencesUtils.putShared(SalesLoginActivity.this, Constant.Sales_Login_Name, salesLoginName.getText().toString());
                     intent=new Intent(SalesLoginActivity.this,SalesMainActivity.class);
                     startActivity(intent);

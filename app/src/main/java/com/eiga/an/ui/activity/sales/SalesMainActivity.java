@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +39,8 @@ public class SalesMainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         salesName = (String) SharedPreferencesUtils.getShared(SalesMainActivity.this, Constant.Sales_Login_Name, "");
+        Log.e(TAG,"salesName="+salesName);
+
         if (TextUtils.isEmpty(salesName)) {
             gotoSalesLogin(this, true);
         }
@@ -62,6 +65,8 @@ public class SalesMainActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.sales_main_work:
+                intent =new Intent(SalesMainActivity.this,SalesWorkActivity.class);
+                startActivity(intent);
                 break;
             case R.id.sales_main_car_work:
                 break;

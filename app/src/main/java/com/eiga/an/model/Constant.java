@@ -15,6 +15,8 @@ public class Constant {
     public static final String Url_Main=Url_Common+"api/UserIndexPage/Index";//首页的请求
     public static final String Url_Bond_Bank=Url_Common+"api/User/BankCardOperate";//绑定银行卡
     public static final String Url_Get_Bank=Url_Common+"api/User/GetUserBankInfo";//获取银行卡信息
+    public static final String Url_Upload_Idcard=Url_Common+"api/User/VaildateIdentityCard";//上传身份证信息
+    public static final String Url_Upload_Phoneinfo=Url_Common+"api/User/MobileInfoVaildate";//手机运营商认证
 
 
     public static final String LocationLongitude="Location_Longitude";//定位的经纬度  以及城市

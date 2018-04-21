@@ -88,7 +88,7 @@ public class MainFragment extends BaseFragment {
         token= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Token,"");
         phone= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Name,"");
         isHaveEvaluation= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Is_Have_Evaluation,"");
-        if (TextUtils.isEmpty(token)){//判断是否登录
+        if (TextUtils.isEmpty(token)||TextUtils.isEmpty(phone)){//判断是否登录
             startActivity(new Intent(getActivity(), UserLoginActivity.class));
             getActivity().finish();
         }else {//判断是否评估过
@@ -280,6 +280,11 @@ public class MainFragment extends BaseFragment {
         mStringRequest.add("Token",token);
         mStringRequest.add("Longitude",locationLng);
         mStringRequest.add("Latitude",locationLat);
+
+        Log.e(TAG,"phone="+phone);
+        Log.e(TAG,"token="+token);
+        Log.e(TAG,"locationLng="+locationLng);
+        Log.e(TAG,"locationLat="+locationLat);
 
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override

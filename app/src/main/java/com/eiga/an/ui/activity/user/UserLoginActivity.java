@@ -103,10 +103,7 @@ public class UserLoginActivity extends BaseActivity {
                 break;
             case R.id.fg_main_tv_go:
                 if (PhoneUtils.isMobile(userMainEtPhone.getText().toString())&& !TextUtils.isEmpty(userMainEtCode.getText().toString())){
-
-
                     httpDoLogin();
-
                 }else {
                     PhoneUtils.toast(UserLoginActivity.this,"信息有误,请检查后重试");
                 }
@@ -143,12 +140,14 @@ public class UserLoginActivity extends BaseActivity {
                         Intent intent=null;
                         if (model.Status==1){
                             //在这里请求接口   获取返回值的时候   获取一个用户是否已经评估过的字段   然后保存进share
-                            SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Name,userMainEtPhone.getText().toString());
+
                             if (model.SimpleQuotaLimit!=null){
                                 SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,model.SimpleQuotaLimit);
                             }else {
                                 SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,"");
                             }
+
+                            SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Name,userMainEtPhone.getText().toString());
                             SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Token,model.Token);
 
                             if (TextUtils.isEmpty(model.SimpleQuotaLimit)){

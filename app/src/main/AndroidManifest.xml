@@ -76,6 +76,7 @@
         <activity android:name=".ui.activity.sales.SalesFixInfoActivity"/>
         <activity android:name=".ui.activity.sales.SalesSettingActivity"/>
         <activity android:name=".ui.activity.sales.SalesFixPswActivity"/>
+        <activity android:name=".ui.activity.sales.SalesWorkActivity"/>
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

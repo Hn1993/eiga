@@ -2,12 +2,14 @@ package com.eiga.an.ui.activity.user;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,11 +18,20 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
+import com.eiga.an.model.Constant;
+import com.eiga.an.model.jsonModel.ApiUserLoginModel;
 import com.eiga.an.utils.PhoneUtils;
+import com.eiga.an.utils.SharedPreferencesUtils;
+import com.google.gson.Gson;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.CacheMode;
+import com.yanzhenjie.nohttp.rest.Response;
+import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
+import com.yanzhenjie.nohttp.rest.StringRequest;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
@@ -86,9 +97,51 @@ public class IdCardVerifyActivity extends BaseActivity {
                 }
                 break;
             case R.id.idcard_commit:
-                finish();
+                httpCommitPhoto();
                 break;
         }
+    }
+
+    /**
+     * 把身份证照片上传
+     */
+    private void httpCommitPhoto() {
+
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Upload_Idcard, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone","");
+        mStringRequest.add("Token","");
+        mStringRequest.add("FrontBase64",""); //身份证前面的照片
+        mStringRequest.add("BackBase64","");
+
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    PhoneUtils.showLargeLog(response.get(),3900,TAG);
+                    ApiUserLoginModel model=null;
+                    try {
+                        model=new Gson().fromJson(response.get(),ApiUserLoginModel.class);
+                        Intent intent=null;
+                        if (model.Status==1){
+                            //在这里请求接口
+                        }
+                        //PhoneUtils.toast(UserLoginActivity.this,model.Msg);
+                    }catch (Exception e){
+                        Log.e(TAG,"Exception="+e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.i(TAG, "onFailed==" + response.get());
+            }
+        });
     }
 
     /**

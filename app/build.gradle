@@ -55,5 +55,7 @@ dependencies {
     //Gson
     compile 'org.simple:androideventbus:1.0.5.1'
     //android eventbus
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'com.jcodecraeer:xrecyclerview:1.5.9'//全能的recyclerview
     compile files('src/main/jniLibs/BaiduLBS_Android.jar')
 }
