@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/sales_work_item_layout"
+        android:descendantFocusability="blocksDescendants"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:paddingTop="50px"
+        android:paddingBottom="50px"
+        android:layout_width="match_parent"
+        android:layout_height="250px">
+        <ImageView
+            android:layout_marginRight="60px"
+            android:id="@+id/sales_customer_item_head"
+            android:background="@mipmap/icon_default_head"
+            android:layout_width="130px"
+            android:layout_height="130px" />
+
+        <TextView
+            android:layout_toRightOf="@+id/sales_customer_item_head"
+            android:id="@+id/sales_customer_item_name"
+            android:text="订单编号:11111"
+            android:textColor="@color/common_title_text_color"
+            style="@style/text_45px" />
+        <TextView
+            android:id="@+id/sales_customer_item_phone"
+            android:layout_toRightOf="@+id/sales_customer_item_head"
+            android:layout_below="@+id/sales_customer_item_name"
+            android:layout_marginTop="50px"
+            android:text="贷款人:赵铁柱"
+            android:textColor="@color/common_title_text_color"
+            style="@style/text_35px" />
+
+
+        <TextView
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:id="@+id/sales_work_item_dkje"
+            android:text="贷款金额"
+            style="@style/text_35px" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/sales_work_item_money"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/sales_work_item_dkje"
+            android:layout_marginTop="50px"
+            android:text="￥ 60000"
+            android:textColor="@color/common_title_text_color"
+            style="@style/text_35px" />
+
+        <TextView
+            android:id="@+id/sales_customer_item_signing"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="签单"
+            android:clickable="true"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_height="65px"
+            android:layout_width="205px"
+            android:textSize="35px"
+            android:background="@drawable/button_selector_radius_200px" />
+    </RelativeLayout>
+
+</RelativeLayout>

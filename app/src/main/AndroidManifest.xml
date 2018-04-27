@@ -77,6 +77,9 @@
         <activity android:name=".ui.activity.sales.SalesSettingActivity"/>
         <activity android:name=".ui.activity.sales.SalesFixPswActivity"/>
         <activity android:name=".ui.activity.sales.SalesWorkActivity"/>
+        <activity android:name=".ui.activity.sales.SalesCustomerActivity"/>
+        <activity android:name=".ui.activity.sales.SalesSigningActivity"/>
+        <activity android:name=".ui.activity.sales.SalesChooseContractActivity"/>
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

@@ -96,6 +96,7 @@ public class SalesWorkActivity extends BaseActivity {
         mRecyclerView.getDefaultFootView().setNoMoreHint("加载完成");
         mRecyclerView.setLimitNumberToCallLoadMore(10);
         mRecyclerView.setLoadingMoreEnabled(false);
+        mRecyclerView.setPullRefreshEnabled(true);
 
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override

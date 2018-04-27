@@ -42,14 +42,44 @@
         <EditText
             android:id="@+id/fix_et_name"
             android:textSize="45px"
+            android:layout_centerVertical="true"
+            android:gravity="right"
             android:textColor="@color/common_title_text_color"
             android:text="车贷少年"
             android:layout_alignParentRight="true"
             android:background="@null"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/fix_address_layout"
+        android:paddingLeft="60px"
+        android:paddingRight="60px"
+        android:background="@color/white"
+        android:layout_marginTop="5px"
+        android:layout_width="match_parent"
+        android:layout_height="180px">
+        <TextView
+            android:id="@+id/fix_et_jzdz"
+            android:layout_centerVertical="true"
+            android:textColor="@color/common_title_text_color"
+            android:text="居住地址"
+            style="@style/text_45px" />
+        <EditText
+            android:layout_toRightOf="@+id/fix_et_jzdz"
+            android:layout_marginLeft="60px"
+            android:id="@+id/fix_et_address"
+            android:textSize="45px"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:textColor="@color/common_title_text_color"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/fix_commit"
         android:text="提交修改"

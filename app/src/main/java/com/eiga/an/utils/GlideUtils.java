@@ -31,7 +31,7 @@ public class GlideUtils {
      */
     public void glideImage(Context context,String url, ImageView imageView){
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.glide_placeholder_img)
+                //.placeholder(R.mipmap.glide_placeholder_img)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
         Glide.with(context)
                 .load(url)
@@ -46,7 +46,7 @@ public class GlideUtils {
      */
     public void glideCircleImage(Context context,String url, ImageView imageView){
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.glide_placeholder_img)
+                .error(R.mipmap.icon_default_head)
                 .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
         Glide.with(context)

@@ -4,5 +4,8 @@
     <dimen name="base_button_width">720px</dimen>
     <dimen name="base_button_height">110px</dimen>
 
+    <dimen name="sales_signing_height">100px</dimen>
+    <dimen name="sales_signing_margintop">35px</dimen>
+
 
 </resources>
