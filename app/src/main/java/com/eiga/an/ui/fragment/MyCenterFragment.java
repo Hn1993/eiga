@@ -19,6 +19,7 @@ import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiMyCenterModel;
 import com.eiga.an.model.salesModel.ApiSalesUserInfoModel;
 import com.eiga.an.ui.activity.user.FixInfoActivity;
+import com.eiga.an.ui.activity.user.MyOrderActivity;
 import com.eiga.an.ui.activity.user.SettingActivity;
 import com.eiga.an.ui.activity.user.UserLoginActivity;
 import com.eiga.an.utils.GlideUtils;
@@ -102,7 +103,7 @@ public class MyCenterFragment extends BaseFragment {
                 super.onFailed(what, response);
                 dismissLoading();
                 Log.e(TAG, "onFailed==" + response.get());
-                PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
+                //PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
             }
         });
     }
@@ -154,7 +155,8 @@ public class MyCenterFragment extends BaseFragment {
             case R.id.my_up_grade:
                 break;
             case R.id.my_car_layout:
-
+                intent=new Intent(getActivity(), MyOrderActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_insurance_layout:
                 break;

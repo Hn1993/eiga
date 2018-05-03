@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -27,6 +29,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -158,7 +161,6 @@ public class PhoneUtils {
 
 
 
-
 	/**
 	 * 将图片转换成Base64编码的字符串
 	 * @param path
@@ -194,6 +196,14 @@ public class PhoneUtils {
 		return result;
 	}
 
+
+
+	public static String Bitmap2StrByBase64(Bitmap bit){
+		ByteArrayOutputStream bos=new ByteArrayOutputStream();
+		bit.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
+		byte[] bytes=bos.toByteArray();
+		return Base64.encodeToString(bytes, Base64.DEFAULT);
+	}
 
 	/**
 	 *base64编码字符集转化成图片文件。

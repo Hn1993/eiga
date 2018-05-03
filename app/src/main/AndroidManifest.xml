@@ -66,6 +66,7 @@
         <activity android:name=".ui.activity.user.SettingActivity"/>
         <activity android:name=".ui.activity.user.AboutActivity"/>
         <activity android:name=".ui.activity.user.FixInfoActivity"/>
+        <activity android:name=".ui.activity.user.MyOrderActivity"/>
 
         <activity android:name=".ui.activity.ChooseIdentityActivity"
             android:launchMode="singleTask"/>
@@ -78,8 +79,10 @@
         <activity android:name=".ui.activity.sales.SalesFixPswActivity"/>
         <activity android:name=".ui.activity.sales.SalesWorkActivity"/>
         <activity android:name=".ui.activity.sales.SalesCustomerActivity"/>
-        <activity android:name=".ui.activity.sales.SalesSigningActivity"/>
+        <activity android:name=".ui.activity.sales.SalesSigningActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".ui.activity.sales.SalesChooseContractActivity"/>
+        <activity android:name=".ui.activity.sales.SalesOrderInfoActivity"/>
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

@@ -159,7 +159,7 @@ public class SalesCustomerActivity extends BaseActivity {
                 .setRefreshTimeVisible(true);
 
         mRecyclerView.getDefaultFootView().setLoadingHint("加载中...");
-        mRecyclerView.getDefaultFootView().setNoMoreHint("加载完成...");
+        mRecyclerView.getDefaultFootView().setNoMoreHint("加载完成");
         mRecyclerView.setLimitNumberToCallLoadMore(10);
         mRecyclerView.setLoadingMoreEnabled(false);
         mRecyclerView.setPullRefreshEnabled(true);
@@ -168,29 +168,11 @@ public class SalesCustomerActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 httpGetCustomerList();
-//                new Handler().postDelayed(new Runnable(){
-//                    public void run() {
-//
-//
-//                        if(mRecyclerView != null)
-//                            mRecyclerView.refreshComplete();
-//                        mAdapter.notifyDataSetChanged();
-//                    }
-//
-//                }, 1000);
             }
 
             @Override
             public void onLoadMore() {
-                new Handler().postDelayed(new Runnable(){
-                    public void run() {
 
-                        if(mRecyclerView != null)
-                            mRecyclerView.setNoMore(true);
-                        mAdapter.notifyDataSetChanged();
-                    }
-
-                }, 1000);
             }
         });
     }

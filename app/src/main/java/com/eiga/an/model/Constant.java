@@ -20,6 +20,7 @@ public class Constant {
     public static final String Url_User_GetInfo=Url_Common+"/api/UserPage/ModifyInfoPage";//用户信息
     public static final String Url_User_FixInfo=Url_Common+"/api/User/ModifyInfo";//上传信息
     public static final String Url_User_MyCenter=Url_Common+"/api/UserPage/UserCenter";//个人中心
+    public static final String Url_User_Order_List=Url_Common+"/api/UserPage/GetCreditFlowList";//个人中心
 
 
     public static final String Url_Sales_Login=Url_Common+"/api/Clerk/Login";//业务员登录
@@ -27,8 +28,12 @@ public class Constant {
     public static final String Url_Sales_GetInfo=Url_Common+"/api/ClerkPage/ModifyInfoPage";//业务员头像 昵称
     public static final String Url_Sales_Main=Url_Common+"/api/ClerkPage/Index";//业务员首页
     public static final String Url_Sales_Customer_Product=Url_Common+"/api/ClerkPage/GetCreditProductInfo";//客户的推荐产品
+    public static final String Url_Sales_Commit_Customer_Product=Url_Common+"/api/Clerk/CreateCreditFlow";//提交签单的产品
+    public static final String Url_Sales_Get_Confidentiality_Agreement=Url_Common+"/api/UserPage/GetUserProtocolContent";//获取用户的隐私与保密协议
 
     public static final String Url_Sales_Customer=Url_Common+"/api/ClerkPage/GetUserList";//客户管理
+    public static final String Url_Sales_Work_Order_List=Url_Common+"/api/ClerkPage/GetCreditFlowList";//工作订单列表
+    public static final String Url_Sales_Work_Order_Info=Url_Common+"/api/ClerkPage/GetCreditFlowDetail";//工作订单详情
 
 
     public static final String LocationLongitude="Location_Longitude";//定位的经纬度  以及城市
@@ -44,5 +49,6 @@ public class Constant {
     public static final String Sales_Login_Token="Sales_Login_Token";//业务员的token
     public static final String Sales_Login_Nickname="Sales_Login_Nickname";//业务员的昵称
     public static final String Sales_User_Id="Sales_User_Id";//业务员办业务的id
+    public static final String Sales_Order_Id="sales_order_id";//业务员办业务订单ID
 
 }

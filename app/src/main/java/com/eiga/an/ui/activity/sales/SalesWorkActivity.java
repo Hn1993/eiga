@@ -1,5 +1,7 @@
 package com.eiga.an.ui.activity.sales;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -16,11 +18,23 @@ import android.widget.TextView;
 
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
+import com.eiga.an.model.Constant;
+import com.eiga.an.model.salesModel.ApiSalesCustomerProductModel;
+import com.eiga.an.model.salesModel.ApiSalesWorkListModel;
+import com.eiga.an.utils.GlideUtils;
+import com.eiga.an.utils.PhoneUtils;
+import com.eiga.an.utils.SharedPreferencesUtils;
 import com.eiga.an.utils.SpacesItemDecoration;
+import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.simple.commonadapter.RecyclerAdapter;
 import com.simple.commonadapter.viewholders.RecyclerViewHolder;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.CacheMode;
+import com.yanzhenjie.nohttp.rest.Response;
+import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
+import com.yanzhenjie.nohttp.rest.StringRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +67,13 @@ public class SalesWorkActivity extends BaseActivity {
     private String TAG = getClass().getName();
 
 
-    private RecyclerAdapter<String> mAdapter;
+    private RecyclerAdapter<ApiSalesWorkListModel.DataBean> mAdapter;
+    private String salesPhone, salesToken;
+
+    private Context context;
+    private int status=0,offset=0,limit=10;
+    List<ApiSalesWorkListModel.DataBean> data=new ArrayList();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +82,75 @@ public class SalesWorkActivity extends BaseActivity {
         autoVirtualKeys();
         setImmersedNavigationBar(this, R.color.light_blue);
 
+
+        context = this;
+        salesPhone = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Phone, "");
+        salesToken = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Token, "");
         findViews();
+        httpGetSalesWorkList(true,-1);
+    }
+
+    /**
+     *
+     * @param isShowLoading
+     * @param moreStatus  用来判断是加载更多还是下拉刷新   0刷新  1加载  -1 不做任何处理
+     */
+    private void httpGetSalesWorkList(boolean isShowLoading, final int moreStatus) {
+        if (isShowLoading){
+            showLoading();
+        }
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Sales_Work_Order_List, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone", salesPhone);
+        mStringRequest.add("Token", salesToken);
+        mStringRequest.add("Status", status);
+        mStringRequest.add("Offset", offset);
+        mStringRequest.add("Limit", limit);
+        Log.e(TAG, "salesPhone=" + salesPhone);
+        Log.e(TAG, "salesToken=" + salesToken);
+        Log.e(TAG, "Status=" + status);
+        Log.e(TAG, "Offset=" + offset);
+        Log.e(TAG, "Limit=" + limit);
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    PhoneUtils.showLargeLog(response.get(), 3900, TAG);
+                    ApiSalesWorkListModel model = null;
+                    try {
+                        model = new Gson().fromJson(response.get(), ApiSalesWorkListModel.class);
+                        if (model.Status == 1) {
+                            setAdapterData(model.Data);
+                        } else {
+                            PhoneUtils.toast(context, model.Msg.toString());
+                        }
+
+                        if (moreStatus==0){
+                            mRecyclerView.refreshComplete();
+                        }else if (moreStatus==1){
+                            mRecyclerView.loadMoreComplete();
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Exception=" + e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.e(TAG, "onFailed==" + response.get());
+                PhoneUtils.toast(context, "网络请求失败,请检查网络后重试");
+            }
+        });
     }
 
     private void findViews() {
+
+        salesTitleNotice.setVisibility(View.GONE);
 
         salesTitleTv.setText("工作任务");
         TabLayout.Tab tab;
@@ -92,54 +177,43 @@ public class SalesWorkActivity extends BaseActivity {
                 .getDefaultRefreshHeaderView()
                 .setRefreshTimeVisible(true);
 
-        mRecyclerView.getDefaultFootView().setLoadingHint("加载中");
+        mRecyclerView.getDefaultFootView().setLoadingHint("加载中...");
         mRecyclerView.getDefaultFootView().setNoMoreHint("加载完成");
         mRecyclerView.setLimitNumberToCallLoadMore(10);
-        mRecyclerView.setLoadingMoreEnabled(false);
         mRecyclerView.setPullRefreshEnabled(true);
 
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable(){
-                    public void run() {
-
-
-                        if(mRecyclerView != null)
-                            mRecyclerView.refreshComplete();
-                            mAdapter.notifyDataSetChanged();
-                    }
-
-                }, 1000);
+                data.clear();
+                offset=0;
+                httpGetSalesWorkList(false,0);
             }
 
             @Override
             public void onLoadMore() {
-                new Handler().postDelayed(new Runnable(){
-                    public void run() {
-
-                        if(mRecyclerView != null)
-                            mRecyclerView.setNoMore(true);
-                            mAdapter.notifyDataSetChanged();
-                    }
-
-                }, 1000);
+                offset+=1;
+                httpGetSalesWorkList(false,1);
             }
         });
 
 
-        setAdapterData(0);
 
         salesWorkTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition()==0){
-                    setAdapterData(0);
+                    status=0;
                 }else if (tab.getPosition()==1){
-                    setAdapterData(1);
+                    status=1;
                 }else {
-                    setAdapterData(2);
+                    status=2;
+
                 }
+                data.clear();
+                offset=0;
+                limit=10;
+                httpGetSalesWorkList(false,-1);
             }
 
             @Override
@@ -167,40 +241,67 @@ public class SalesWorkActivity extends BaseActivity {
 
     }
 
-    private void setAdapterData(final int tab_position) {
-        List<String> data=new ArrayList();
-        for (int i = 0; i < 5; i++) {
-            data.add(String.valueOf(i));
+    private void setAdapterData(final List<ApiSalesWorkListModel.DataBean> list) {
+        if (list.size()<=limit){
+            mRecyclerView.setLoadingMoreEnabled(false);
         }
+        data.addAll(list);
 
-        mAdapter=new RecyclerAdapter<String>(R.layout.layout_sales_work_item,data) {
+        mAdapter=new RecyclerAdapter<ApiSalesWorkListModel.DataBean>(R.layout.layout_sales_work_item,data) {
+
             @Override
-            protected void onBindData(RecyclerViewHolder viewHolder, int position, String item) {
+            protected void onBindData(RecyclerViewHolder viewHolder, int position, ApiSalesWorkListModel.DataBean item) {
                 RelativeLayout layout=viewHolder.findViewById(R.id.sales_work_item_layout);
                 ImageView head=viewHolder.findViewById(R.id.sales_work_item_head);
                 TextView money=viewHolder.findViewById(R.id.sales_work_item_money);
                 TextView order=viewHolder.findViewById(R.id.sales_work_item_order);
                 TextView dkje=viewHolder.findViewById(R.id.sales_work_item_dkje);
                 TextView status=viewHolder.findViewById(R.id.sales_work_item_status);
+                TextView name=viewHolder.findViewById(R.id.sales_work_item_name);
 
-                //ViewGroup.LayoutParams params= layout.getLayoutParams();
-                Log.e(TAG,"tab_position="+tab_position);
-                if (tab_position==2){
-                    dkje.setVisibility(View.VISIBLE);
-                    money.setVisibility(View.VISIBLE);
-                    head.setVisibility(View.GONE);
-                    //params.height=350;
-                    layout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,350));
-                }else {
-                    dkje.setVisibility(View.GONE);
-                    money.setVisibility(View.GONE);
-                    head.setVisibility(View.VISIBLE);
-                    layout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,250));
-                }
+
+                GlideUtils.getGlideUtils().glideCircleImage(context,Constant.Url_Common+item.UserHeadSculpture,head);
+                order.setText("产品名称:"+item.CreditProductName);
+                name.setText("贷款人:"+item.UserName);
+                status.setText(item.StatusName);
+
+
+                dkje.setVisibility(View.GONE);
+                money.setVisibility(View.GONE);
+                head.setVisibility(View.VISIBLE);
+                layout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,250));
+
+
+//                Log.e(TAG,"tab_position="+tab_position);
+//                if (tab_position==2){
+//                    dkje.setVisibility(View.VISIBLE);
+//                    money.setVisibility(View.VISIBLE);
+//                    head.setVisibility(View.GONE);
+//                    //params.height=350;
+//                    layout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,350));
+//                }else {
+//                    dkje.setVisibility(View.GONE);
+//                    money.setVisibility(View.GONE);
+//                    head.setVisibility(View.VISIBLE);
+//                    layout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,250));
+//                }
+
+
             }
         };
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.refresh();
+
+
+        mAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent=new Intent(SalesWorkActivity.this,SalesOrderInfoActivity.class);
+                intent.putExtra(Constant.Sales_Order_Id,data.get(position).Id);
+                Log.e(TAG,"id="+data.get(position).Id);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @OnClick({R.id.sales_title_back, R.id.sales_title_notice})

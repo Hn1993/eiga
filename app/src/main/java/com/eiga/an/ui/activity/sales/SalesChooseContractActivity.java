@@ -15,12 +15,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
+import com.eiga.an.model.salesModel.ChooseContractResult;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.utils.PhoneUtils;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
+
+import org.simple.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,6 +49,8 @@ public class SalesChooseContractActivity extends BaseActivity {
     private String TAG = getClass().getName();
 
     private String contractP_path="",contractN_path="";
+
+    private ChooseContractResult mChooseContractResult=new ChooseContractResult();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +85,8 @@ public class SalesChooseContractActivity extends BaseActivity {
                     PhoneUtils.toast(SalesChooseContractActivity.this,"合同照片不能为空");
                 }else {
                     //EventBus  把照片传回去
+                    EventBus.getDefault().post(mChooseContractResult,"choose_contract");
+                    finish();
                 }
                 break;
         }
@@ -89,7 +96,7 @@ public class SalesChooseContractActivity extends BaseActivity {
         Album.image(context)
                 .singleChoice()
                 .requestCode(200)
-                .camera(false)
+                .camera(true)
                 .columnCount(2)
                 .widget(Widget.newDarkBuilder(this)
                         .navigationBarColor(getResources().getColor(R.color.light_blue))
@@ -104,11 +111,14 @@ public class SalesChooseContractActivity extends BaseActivity {
                             Log.e(TAG,"result="+result.get(i).getPath());
                         }
                         Glide.with(SalesChooseContractActivity.this).load(Uri.fromFile(new File(result.get(0).getPath()))).into(iv);
+                        Log.e(TAG,"title="+title);
                         if (title.equals("选择合同正面照")){
                             contractP_path=result.get(0).getPath();
                         }else {
                             contractN_path=result.get(0).getPath();
                         }
+                        mChooseContractResult.contractP_path=contractP_path;
+                        mChooseContractResult.contractN_path=contractN_path;
                     }
                 })
                 .onCancel(new Action<String>() {

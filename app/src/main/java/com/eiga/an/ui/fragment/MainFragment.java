@@ -310,7 +310,7 @@ public class MainFragment extends BaseFragment {
                 super.onFailed(what, response);
                 dismissLoading();
                 Log.e(TAG, "onFailed==" + response.get());
-                PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
+                //PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
             }
         });
     }

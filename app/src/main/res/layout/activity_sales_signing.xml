@@ -208,7 +208,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_contract"
                     android:hint="请选择合同照片"
-                    android:gravity="center"
+
                     android:clickable="false"
                     android:background="@null"
                     android:layout_marginLeft="300px"
@@ -244,7 +244,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_car_price"
                     android:hint="请输入车价,整数形式,如:112000"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -267,7 +267,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_first_price"
                     android:hint="请输入首付金额,整数形式,如:12000"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -290,7 +290,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_car_brand"
                     android:hint="请输入汽车品牌"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -312,8 +312,8 @@
             <EditText
                 android:textSize="35px"
                 android:id="@+id/sales_signing_et_car_type"
-                android:hint="请输入首付金额,整数形式,如:12000"
-                android:gravity="center"
+                android:hint="请输入汽车型号"
+
                 android:background="@null"
                 android:layout_marginLeft="300px"
                 android:layout_width="wrap_content"
@@ -337,7 +337,7 @@
                 android:textSize="35px"
                 android:id="@+id/sales_signing_et_stime"
                 android:hint="时间格式如下:2018/09/25"
-                android:gravity="center"
+
                 android:background="@null"
                 android:layout_marginLeft="300px"
                 android:layout_width="wrap_content"
@@ -360,7 +360,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_repayment_date"
                     android:hint="请输入每月还款日期,28号之前,如：25"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -383,7 +383,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_principal"
                     android:hint="请输入本金利率,例如0.1"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -406,7 +406,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_overdue"
                     android:hint="请输入逾期利率,例如:0.1"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -429,7 +429,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_periods"
                     android:hint="纯数字,例如:36"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -452,7 +452,7 @@
                     android:textSize="35px"
                     android:id="@+id/sales_signing_et_money"
                     android:hint="请输入贷款金额"
-                    android:gravity="center"
+
                     android:background="@null"
                     android:layout_marginLeft="300px"
                     android:layout_width="wrap_content"
@@ -460,9 +460,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-
                 android:orientation="horizontal"
-                android:background="@color/white"
                 android:paddingLeft="60px"
                 android:paddingRight="60px"
                 android:layout_marginTop="30px"

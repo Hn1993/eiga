@@ -31,8 +31,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:background="@mipmap/icon_default_head"
-            android:layout_width="200px"
-            android:layout_height="200px" />
+            android:layout_width="67dp"
+            android:layout_height="67dp" />
 
         <TextView
             android:id="@+id/sales_main_name"

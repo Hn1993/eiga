@@ -27,6 +27,7 @@ import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
+import com.yanzhenjie.nohttp.FileBinary;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 import com.yanzhenjie.nohttp.rest.Response;
@@ -60,6 +61,10 @@ public class IdCardVerifyActivity extends BaseActivity {
     ImageView idCardPChoose;
     private String TAG = getClass().getName();
 
+
+    private String front_path,back_path;
+    private String salesPhone, salesToken;
+    private Context context;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +72,9 @@ public class IdCardVerifyActivity extends BaseActivity {
         ButterKnife.bind(this);
         setImmersedNavigationBar(this, R.color.white);
         autoVirtualKeys();
-
+        context=this;
+        salesPhone = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Phone, "");
+        salesToken = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Token, "");
         findViews();
     }
 
@@ -84,14 +91,14 @@ public class IdCardVerifyActivity extends BaseActivity {
                 break;
             case R.id.idcard_positive:
                 if (isHavePermission(IdCardVerifyActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                    singleChoosePhoto(IdCardVerifyActivity.this,1,idCardP);
+                    singleChoosePhoto(IdCardVerifyActivity.this,1,idCardP,true);
                 }else {
                     applyPermission(IdCardVerifyActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }
                 break;
             case R.id.idcard_negative:
                 if (isHavePermission(IdCardVerifyActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                    singleChoosePhoto(IdCardVerifyActivity.this,1,idCardN);
+                    singleChoosePhoto(IdCardVerifyActivity.this,1,idCardN,false);
                 }else {
                     applyPermission(IdCardVerifyActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }
@@ -111,8 +118,8 @@ public class IdCardVerifyActivity extends BaseActivity {
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         mStringRequest.add("CellPhone","");
         mStringRequest.add("Token","");
-        mStringRequest.add("FrontBase64",""); //身份证前面的照片
-        mStringRequest.add("BackBase64","");
+        mStringRequest.add("FrontBase64",new FileBinary(new File(front_path))); //身份证前面的照片
+        mStringRequest.add("BackBase64",new FileBinary(new File(back_path)));
 
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
@@ -160,7 +167,7 @@ public class IdCardVerifyActivity extends BaseActivity {
     }
 
 
-    private void singleChoosePhoto(final Context context, int count, final ImageView iv){
+    private void singleChoosePhoto(final Context context, int count, final ImageView iv, final boolean isFront){
         Album.image(context)
                 .singleChoice()
                 .requestCode(200)
@@ -177,6 +184,11 @@ public class IdCardVerifyActivity extends BaseActivity {
                     public void onAction(int requestCode, @NonNull ArrayList<AlbumFile> result) {
                         for (int i = 0; i < result.size(); i++) {
                             Log.e(TAG,"result="+result.get(i).getPath());
+                        }
+                        if (isFront){
+                            front_path=result.get(0).getPath();
+                        }else {
+                            back_path=result.get(0).getPath();
                         }
                         Glide.with(IdCardVerifyActivity.this).load(Uri.fromFile(new File(result.get(0).getPath()))).into(iv);
                     }

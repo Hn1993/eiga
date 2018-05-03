@@ -155,6 +155,7 @@ public class SalesMainActivity extends BaseActivity {
 
     @Subscriber(tag = "fix_sales_info")
     public void fixInfoEvent(String str){
+        Log.e(TAG,"str="+str);
         httpGetInfo();
     }
 
