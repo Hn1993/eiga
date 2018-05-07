@@ -28,7 +28,7 @@ public class ApiSalesCustomerProductModel {
          * MaximumLoanAmount : 200000.0
          */
 
-        public String Id;
+        public String CreditProductId;
         public String Name;
         public boolean IsRecommand;
         public boolean IsChoosed=false;

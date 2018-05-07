@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -14,9 +13,7 @@ import android.util.Log;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
-import com.eiga.an.ui.activity.ChooseIdentityActivity;
 import com.eiga.an.ui.activity.sales.SalesMainActivity;
-import com.eiga.an.ui.fragment.KeeperFragment;
 import com.eiga.an.ui.fragment.MainFragment;
 import com.eiga.an.ui.fragment.MallFragment;
 import com.eiga.an.ui.fragment.MyCenterFragment;
@@ -31,7 +28,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.albert.autosystembar.SystemBarHelper;
 
 public class MainActivity extends BaseActivity {
 

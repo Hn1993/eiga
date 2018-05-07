@@ -7,7 +7,7 @@
     <TextView
         android:drawableTop="@drawable/sales_work_tab3_selector"
         android:layout_centerHorizontal="true"
-        android:text="放款"
+        android:text="已还款"
         android:textColor="@color/tab_color"
         android:textSize="45px"
         android:drawablePadding="30px"

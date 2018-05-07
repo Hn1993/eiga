@@ -153,6 +153,7 @@ public class BankVerifyActivity extends BaseActivity {
                         if (model.Status==1){
                             EventBus.getDefault().post("bond_success","bond_success");
                             finish();
+                            PhoneUtils.toast(BankVerifyActivity.this,"认证成功");
                         }
                         PhoneUtils.toast(BankVerifyActivity.this,model.Msg);
                     }catch (Exception e){

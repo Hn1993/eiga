@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
-import com.eiga.an.ui.activity.ChooseIdentityActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

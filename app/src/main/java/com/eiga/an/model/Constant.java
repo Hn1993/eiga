@@ -20,7 +20,8 @@ public class Constant {
     public static final String Url_User_GetInfo=Url_Common+"/api/UserPage/ModifyInfoPage";//用户信息
     public static final String Url_User_FixInfo=Url_Common+"/api/User/ModifyInfo";//上传信息
     public static final String Url_User_MyCenter=Url_Common+"/api/UserPage/UserCenter";//个人中心
-    public static final String Url_User_Order_List=Url_Common+"/api/UserPage/GetCreditFlowList";//个人中心
+    public static final String Url_User_Order_List=Url_Common+"/api/UserPage/GetCreditFlowList";//订单列表
+    public static final String Url_User_Order_Info=Url_Common+"/api/UserPage/GetCreditFlowDetail";//订单详情
 
 
     public static final String Url_Sales_Login=Url_Common+"/api/Clerk/Login";//业务员登录
@@ -34,6 +35,7 @@ public class Constant {
     public static final String Url_Sales_Customer=Url_Common+"/api/ClerkPage/GetUserList";//客户管理
     public static final String Url_Sales_Work_Order_List=Url_Common+"/api/ClerkPage/GetCreditFlowList";//工作订单列表
     public static final String Url_Sales_Work_Order_Info=Url_Common+"/api/ClerkPage/GetCreditFlowDetail";//工作订单详情
+    public static final String Url_Sales_Get_Car_List=Url_Common+"/api/ClerkPage/GetCarModeInfo";//获取车型列表
 
 
     public static final String LocationLongitude="Location_Longitude";//定位的经纬度  以及城市
@@ -43,6 +45,8 @@ public class Constant {
     public static final String User_Login_Name="User_Login_Name";//用户的登录账号
     public static final String User_Login_Token="User_Login_Token";//用户的Token
     public static final String User_Login_Nickname="User_Login_Nickname";//用户的昵称
+    public static final String WebUrl="web_url";
+    public static final String WebTitle="web_title";
 
     public static final String User_Is_Have_Evaluation="User_Is_Have_Evaluation";//判断用户是否评估过
     public static final String Sales_Login_Phone="Sales_Login_Phone";//业务员的登录账号
@@ -50,5 +54,6 @@ public class Constant {
     public static final String Sales_Login_Nickname="Sales_Login_Nickname";//业务员的昵称
     public static final String Sales_User_Id="Sales_User_Id";//业务员办业务的id
     public static final String Sales_Order_Id="sales_order_id";//业务员办业务订单ID
+    public static final String Order_Info_Type="Order_Info_Type";//业判断是哪个页面进入的产品详情
 
 }

@@ -8,9 +8,7 @@ import android.widget.TextView;
 
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
-import com.eiga.an.ui.activity.ChooseIdentityActivity;
-import com.eiga.an.ui.activity.user.AboutActivity;
-import com.eiga.an.ui.activity.user.FixInfoActivity;
+import com.eiga.an.ui.activity.user.ChooseIdentityActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

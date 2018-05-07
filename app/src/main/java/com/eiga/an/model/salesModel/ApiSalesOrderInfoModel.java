@@ -31,6 +31,8 @@ public class ApiSalesOrderInfoModel {
      */
 
     public String StatusName;
+    public int OrderStatus;
+    public String OrderId;
     public String CreateDate;
     public String StartDate;
     public String EndDate;
@@ -45,6 +47,7 @@ public class ApiSalesOrderInfoModel {
     public String ContractSnapshot;
     public String Characteristic;
     public String CreditProductPicture;
+    public String CreditProduct;
     public Object CarPicture;
     public Object AuditingDate;
     public int Status;

@@ -37,6 +37,8 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
 
+import org.simple.eventbus.EventBus;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +65,7 @@ public class IdCardVerifyActivity extends BaseActivity {
 
 
     private String front_path,back_path;
-    private String salesPhone, salesToken;
+    private String phone, token;
     private Context context;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,8 +75,8 @@ public class IdCardVerifyActivity extends BaseActivity {
         setImmersedNavigationBar(this, R.color.white);
         autoVirtualKeys();
         context=this;
-        salesPhone = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Phone, "");
-        salesToken = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Token, "");
+        phone = (String) SharedPreferencesUtils.getShared(context, Constant.User_Login_Name, "");
+        token = (String) SharedPreferencesUtils.getShared(context, Constant.User_Login_Token, "");
         findViews();
     }
 
@@ -104,7 +106,12 @@ public class IdCardVerifyActivity extends BaseActivity {
                 }
                 break;
             case R.id.idcard_commit:
-                httpCommitPhoto();
+                if (TextUtils.isEmpty(front_path)||TextUtils.isEmpty(back_path)){
+                    PhoneUtils.toast(IdCardVerifyActivity.this,"请先上传身份证照片");
+                }else {
+                    httpCommitPhoto();
+                }
+
                 break;
         }
     }
@@ -116,8 +123,8 @@ public class IdCardVerifyActivity extends BaseActivity {
 
         StringRequest mStringRequest = new StringRequest(Constant.Url_Upload_Idcard, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
-        mStringRequest.add("CellPhone","");
-        mStringRequest.add("Token","");
+        mStringRequest.add("CellPhone",phone);
+        mStringRequest.add("Token",token);
         mStringRequest.add("FrontBase64",new FileBinary(new File(front_path))); //身份证前面的照片
         mStringRequest.add("BackBase64",new FileBinary(new File(back_path)));
 
@@ -133,7 +140,10 @@ public class IdCardVerifyActivity extends BaseActivity {
                         model=new Gson().fromJson(response.get(),ApiUserLoginModel.class);
                         Intent intent=null;
                         if (model.Status==1){
-                            //在这里请求接口
+                            //在这里请求接
+                            PhoneUtils.toast(IdCardVerifyActivity.this,"认证成功");
+                            EventBus.getDefault().post("bond_success","bond_success");
+                            finish();
                         }
                         //PhoneUtils.toast(UserLoginActivity.this,model.Msg);
                     }catch (Exception e){

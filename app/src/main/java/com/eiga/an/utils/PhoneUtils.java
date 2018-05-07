@@ -37,6 +37,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
@@ -683,5 +684,12 @@ public class PhoneUtils {
         }
         return false;
     }
+
+
+    public static double get2Decimal(double d){
+		BigDecimal b   =   new   BigDecimal(d);
+		double  f1   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+		return  f1;
+	};
 
 }

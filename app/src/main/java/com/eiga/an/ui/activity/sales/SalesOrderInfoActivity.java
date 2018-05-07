@@ -74,19 +74,36 @@ public class SalesOrderInfoActivity extends BaseActivity {
     private String salesPhone, salesToken;
     private Context context;
 
+    private Double monthPrice=0.0;
+
+    String []times=new String[3];
+
+    private String httpUrl,type;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_order_info);
         orderId=getIntent().getStringExtra(Constant.Sales_Order_Id);
+        type=getIntent().getStringExtra(Constant.Order_Info_Type);
+
+
+        context = this;
+        if (type.equals("sales")){
+            httpUrl=Constant.Url_Sales_Work_Order_Info;
+            salesPhone = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Phone, "");
+            salesToken = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Token, "");
+        }else {
+            httpUrl=Constant.Url_User_Order_Info;
+            salesPhone = (String) SharedPreferencesUtils.getShared(context, Constant.User_Login_Name, "");
+            salesToken = (String) SharedPreferencesUtils.getShared(context, Constant.User_Login_Token, "");
+        }
         Log.e(TAG,"orderId="+orderId);
         ButterKnife.bind(this);
         autoVirtualKeys();
         setImmersedNavigationBar(this, R.color.light_blue);
-        context = this;
 
-        salesPhone = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Phone, "");
-        salesToken = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Token, "");
+
+
         httpGetSalesOrderInfo();
 
         findViews();
@@ -94,7 +111,7 @@ public class SalesOrderInfoActivity extends BaseActivity {
 
     private void httpGetSalesOrderInfo() {
         showLoading();
-        StringRequest mStringRequest = new StringRequest(Constant.Url_Sales_Work_Order_Info, RequestMethod.POST);
+        StringRequest mStringRequest = new StringRequest(httpUrl, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         mStringRequest.add("CellPhone", salesPhone);
         mStringRequest.add("Token", salesToken);
@@ -137,43 +154,64 @@ public class SalesOrderInfoActivity extends BaseActivity {
 
     private void setHttpData(ApiSalesOrderInfoModel model) {
 
-        GlideUtils.getGlideUtils().glideCircleImage(context,Constant.Url_Common+model.CreditProductPicture,salesOrderInfoProductImage);
-        salesOrderInfoFirstMoney.setText(model.FirstPayment+"%");
-        salesOrderInfoLoanAmount.setText(String.valueOf(model.LoanPeriod));
+        GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common+model.CreditProductPicture,salesOrderInfoProductImage);
+        salesOrderInfoFirstMoney.setText(model.FirstPayment+"元");
+        salesOrderInfoLoanAmount.setText(model.AggregateAmount+"元");
 
         salesOrderInfoCarName.setText(model.CarBrand+"\t"+model.CarModel);
-        salesOrderInfoCarPrice.setText(String.valueOf(model.CarPrice));
+        salesOrderInfoCarPrice.setText(String.valueOf(model.CarPrice)+"元");
         //salesOrderInfoCarName
+
+        salesOrderInfoProduct.setText("金融产品:"+model.CreditProduct);
+
+        monthPrice=PhoneUtils.get2Decimal(Double.valueOf(model.AggregateAmount)*(1+Double.valueOf(model.InterestRate))/model.LoanPeriod);
+
+        salesOrderInfoMonth.setText(monthPrice+"*"+model.LoanPeriod+"期");
+
+        salesOrderInfoTime.setText(model.CreateDate);
+
+        salesOrderInfoOrderNumber.setText(model.OrderId);
+
+        GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common+model.CarPicture,salesOrderInfoImage);
+
+        times[0]=model.CreateDate.substring(0,10);
+        times[1]=model.StartDate;
+        times[2]=model.EndDate;
+        setStepData(model.OrderStatus);
     }
 
     private void findViews() {
         salesTitleNotice.setVisibility(View.GONE);
         salesTitleTv.setText("订单详情");
 
-        setStepData();
+
     }
 
-    private void setStepData() {
+    private void setStepData(int orderStatus) {
         List steps=new ArrayList();
         steps.add("等待审核");
-        steps.add("审核通过");
         steps.add("等待放款");
         steps.add("放款成功");
-        String []titles=new String[4];
-        String []times=new String[4];
-
-
-        times[0]="2018/09/01";
-        times[1]="2018/09/02";
-        times[2]="2018/09/03";
-        times[3]="2018/09/04";
+        String []titles=new String[3];
 
         titles[0]="等待审核"+"\n"+times[0];
-        titles[1]="审核通过"+"\n"+times[1];
-        titles[2]="等待放款"+"\n"+times[2];
-        titles[3]="放款成功"+"\n"+times[3];
-        salesOrderInfoStep.setProgress(3,4,titles,null);
+        if (orderStatus==2){
+            titles[1]="开始放款"+"\n"+times[1];
+        }else {
+            titles[1]="开始放款";
+        }
+        if (orderStatus==5){
+            titles[2]="还款成功"+"\n"+times[2];
+        }else {
+            titles[2]="还款成功";
+        }
 
+        if (orderStatus>=2){
+            orderStatus=2;
+        }
+        Log.e(TAG,"orderStatus="+orderStatus);
+
+        salesOrderInfoStep.setProgress(orderStatus+1,steps.size(),titles,null);
     }
 
     @OnClick({R.id.sales_title_back, R.id.sales_order_info_info, R.id.sales_order_info_cancel})

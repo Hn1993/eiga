@@ -49,7 +49,8 @@
         </activity>
 
         <activity android:name=".ui.activity.user.UserLoginActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateVisible">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
@@ -67,22 +68,25 @@
         <activity android:name=".ui.activity.user.AboutActivity"/>
         <activity android:name=".ui.activity.user.FixInfoActivity"/>
         <activity android:name=".ui.activity.user.MyOrderActivity"/>
+        <activity android:name=".ui.activity.WebActivity"/>
 
-        <activity android:name=".ui.activity.ChooseIdentityActivity"
+        <activity android:name=".ui.activity.user.ChooseIdentityActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.activity.sales.SalesMainActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.activity.sales.SalesLoginActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateVisible"/>
         <activity android:name=".ui.activity.sales.SalesFixInfoActivity"/>
         <activity android:name=".ui.activity.sales.SalesSettingActivity"/>
         <activity android:name=".ui.activity.sales.SalesFixPswActivity"/>
         <activity android:name=".ui.activity.sales.SalesWorkActivity"/>
         <activity android:name=".ui.activity.sales.SalesCustomerActivity"/>
         <activity android:name=".ui.activity.sales.SalesSigningActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateVisible"/>
         <activity android:name=".ui.activity.sales.SalesChooseContractActivity"/>
         <activity android:name=".ui.activity.sales.SalesOrderInfoActivity"/>
+        <activity android:name=".ui.activity.sales.SalesChooseCarActivity"/>
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

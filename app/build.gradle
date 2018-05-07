@@ -58,5 +58,6 @@ dependencies {
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.jcodecraeer:xrecyclerview:1.5.9'//全能的recyclerview
     compile 'com.xyz.step:step:1.0.4'
+    compile 'com.just.agentweb:agentweb:1.2.6'
     compile files('src/main/jniLibs/BaiduLBS_Android.jar')
 }

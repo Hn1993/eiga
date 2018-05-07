@@ -22,6 +22,8 @@ import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 import com.yanzhenjie.nohttp.rest.StringRequest;
 
+import org.simple.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -86,7 +88,7 @@ public class PhoneVerifyActivity extends BaseActivity {
      */
     private void httpPhoneVerify() {
         showLoading();
-        StringRequest mStringRequest = new StringRequest(Constant.Url_Get_Bank, RequestMethod.POST);
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Upload_Phoneinfo, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         mStringRequest.add("CellPhone",phone);
         mStringRequest.add("Token",token);
@@ -102,6 +104,9 @@ public class PhoneVerifyActivity extends BaseActivity {
                         model=new Gson().fromJson(response.get(),ApiGetBankInfoModel.class);
                         if (model.Status==1){
                             //setHttpData(model.BankCard);
+                            PhoneUtils.toast(PhoneVerifyActivity.this,"认证成功");
+                            EventBus.getDefault().post("bond_success","bond_success");
+                            finish();
                         }
                     }catch (Exception e){
                         Log.e(TAG,"Exception="+e);

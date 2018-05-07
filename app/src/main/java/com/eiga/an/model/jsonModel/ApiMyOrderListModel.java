@@ -8,10 +8,11 @@ import java.util.List;
 
 public class ApiMyOrderListModel {
 
+
     /**
      * Status : 1
      * Msg : null
-     * Data : [{"Id":7,"ClerkName":"YEWU2","CreditProductName":"奇瑞金融","UserName":"苗江伟","Status":6,"CreateDate":"2018-05-02T14:19:44.59","Remark":null,"StatusName":"审核驳回","UserId":9,"CreditProductId":1,"UserHeadSculpture":"9.jpg"},{"Id":6,"ClerkName":"YEWU2","CreditProductName":"奇瑞金融","UserName":"苗江伟","Status":0,"CreateDate":"2018-05-02T14:00:13.87","Remark":null,"StatusName":"待审核","UserId":9,"CreditProductId":1,"UserHeadSculpture":"9.jpg"},{"Id":5,"ClerkName":"YEWU2","CreditProductName":"奇瑞金融","UserName":"苗江伟","Status":0,"CreateDate":"2018-05-02T13:09:43.163","Remark":null,"StatusName":"待审核","UserId":9,"CreditProductId":1,"UserHeadSculpture":"9.jpg"},{"Id":4,"ClerkName":"YEWU2","CreditProductName":"奇瑞金融","UserName":"苗江伟","Status":0,"CreateDate":"2018-05-02T09:34:43.647","Remark":null,"StatusName":"待审核","UserId":9,"CreditProductId":1,"UserHeadSculpture":"9.jpg"},{"Id":3,"ClerkName":"YEWU2","CreditProductName":"奇瑞金融","UserName":"苗江伟","Status":5,"CreateDate":"2018-05-02T09:25:48.703","Remark":"5368936","StatusName":"已还款","UserId":9,"CreditProductId":1,"UserHeadSculpture":"9.jpg"},{"Id":2,"ClerkName":"YEWU2","CreditProductName":"奇瑞金融","UserName":"苗江伟","Status":1,"CreateDate":"2018-05-02T08:40:01.47","Remark":null,"StatusName":"审核通过","UserId":9,"CreditProductId":1,"UserHeadSculpture":"9.jpg"},{"Id":1,"ClerkName":"YEWU2","CreditProductName":"奇瑞金融","UserName":"苗江伟","Status":0,"CreateDate":"2018-04-28T17:33:50.137","Remark":null,"StatusName":"待审核","UserId":9,"CreditProductId":1,"UserHeadSculpture":"9.jpg"}]
+     * Data : [{"CarModel":"帝豪GS1.3T自动","CarBrand":"吉利","CarPrice":100000,"OrderId":"P201805041001414866392","UserHeadSculpture":"9.jpg","Id":1,"Status":0,"CreateDate":"2018-05-04T10:01:41.483","ClerkName":"YEWU2","UserId":9,"UserName":"苗江伟","CreditProductName":"奇瑞金融","CreditProductId":1,"Remark":null,"StatusName":"待审核","CarPicture":"/Storage/CarPicture/"}]
      */
 
     public int Status;
@@ -20,29 +21,39 @@ public class ApiMyOrderListModel {
 
     public static class DataBean {
         /**
-         * Id : 7
-         * ClerkName : YEWU2
-         * CreditProductName : 奇瑞金融
-         * UserName : 苗江伟
-         * Status : 6
-         * CreateDate : 2018-05-02T14:19:44.59
-         * Remark : null
-         * StatusName : 审核驳回
-         * UserId : 9
-         * CreditProductId : 1
+         * CarModel : 帝豪GS1.3T自动
+         * CarBrand : 吉利
+         * CarPrice : 100000.0
+         * OrderId : P201805041001414866392
          * UserHeadSculpture : 9.jpg
+         * Id : 1
+         * Status : 0
+         * CreateDate : 2018-05-04T10:01:41.483
+         * ClerkName : YEWU2
+         * UserId : 9
+         * UserName : 苗江伟
+         * CreditProductName : 奇瑞金融
+         * CreditProductId : 1
+         * Remark : null
+         * StatusName : 待审核
+         * CarPicture : /Storage/CarPicture/
          */
 
+        public String CarModel;
+        public String CarBrand;
+        public double CarPrice;
+        public String OrderId;
+        public String UserHeadSculpture;
         public String Id;
-        public String ClerkName;
-        public String CreditProductName;
-        public String UserName;
         public int Status;
         public String CreateDate;
+        public String ClerkName;
+        public int UserId;
+        public String UserName;
+        public String CreditProductName;
+        public int CreditProductId;
         public Object Remark;
         public String StatusName;
-        public int UserId;
-        public int CreditProductId;
-        public String UserHeadSculpture;
+        public String CarPicture;
     }
 }

@@ -73,6 +73,8 @@ public class SalesSigningActivity extends BaseActivity {
 
     @BindView(R.id.sales_signing_et_contract)
     EditText salesSigningEtContract;
+    @BindView(R.id.sales_signing_et_car)
+    EditText salesSigningEtCar;
     @BindView(R.id.sales_signing_et_stime)
     EditText salesSigningEtStime;
     @BindView(R.id.sales_signing_et_overdue)
@@ -110,6 +112,7 @@ public class SalesSigningActivity extends BaseActivity {
     private String contractP_path="",contractN_path="";
 
     private String chooseProductId;
+    private String chooseCarModelId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,6 +206,7 @@ public class SalesSigningActivity extends BaseActivity {
     }
 
     private void setChooseButtonStatus(int position, TextView tv_choose) {
+        Log.e(TAG,"setChooseButtonStatus");
         for (int i = 0; i < mData.size(); i++) {
             mData.get(i).IsChoosed = false;
         }
@@ -210,6 +214,9 @@ public class SalesSigningActivity extends BaseActivity {
             mData.get(position).IsChoosed = false;
         } else {
             mData.get(position).IsChoosed = true;
+        }
+        for (int i = 0; i < mData.size(); i++) {
+            Log.e(TAG,"IsChoosed="+mData.get(i).IsChoosed);
         }
 
         mAdapter.notifyDataSetChanged();
@@ -224,7 +231,8 @@ public class SalesSigningActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.common_title_back, R.id.sales_signing_rl_contract, R.id.sales_signing_tv_commit})
+    @OnClick({R.id.common_title_back, R.id.sales_signing_rl_contract,
+            R.id.sales_signing_rl_car,R.id.sales_signing_tv_commit})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -235,19 +243,30 @@ public class SalesSigningActivity extends BaseActivity {
                 intent=new Intent(SalesSigningActivity.this,SalesChooseContractActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.sales_signing_rl_car:
+                intent=new Intent(SalesSigningActivity.this,SalesChooseCarActivity.class);
+                startActivity(intent);
+                break;
             case R.id.sales_signing_tv_commit:
 
                 for (int i = 0; i < mData.size(); i++) {
+
                     if (mData.get(i).IsChoosed==true){
-                        chooseProductId=mData.get(i).Id;
+                        chooseProductId=mData.get(i).CreditProductId;
                     }
+
+                    Log.e(TAG,"sales_signing_tv_commit="+mData.get(i).IsChoosed);
                 }
 
+                Log.e(TAG,"chooseProductId="+chooseProductId);
                 if (!TextUtils.isEmpty(salesSigningEtContract.getText().toString())){
                     if (!TextUtils.isEmpty(salesSigningEtCarPrice.getText().toString())){
                         if (!TextUtils.isEmpty(salesSigningEtFirstPrice.getText().toString())){
-                            if (!TextUtils.isEmpty(salesSigningEtCarBrand.getText().toString())){
-                                if (!TextUtils.isEmpty(salesSigningEtCarType.getText().toString())){
+//                            if (!TextUtils.isEmpty(salesSigningEtCarBrand.getText().toString())){
+//                                if (!TextUtils.isEmpty(salesSigningEtCarType.getText().toString())){
+
+                            if (!TextUtils.isEmpty(salesSigningEtCar.getText().toString())){
+
                                     //验证时间格式
                                     /**
                                      * &&
@@ -300,12 +319,16 @@ public class SalesSigningActivity extends BaseActivity {
                                         PhoneUtils.toast(context,"贷款开始时间填写错误");
                                     }
 
-                                }else {
-                                    PhoneUtils.toast(context,"汽车型号不能为空");
-                                }
                             }else {
-                                PhoneUtils.toast(context,"汽车品牌不能为空");
+                                    PhoneUtils.toast(context,"请选择车辆");
                             }
+
+//                                }else {
+//                                    PhoneUtils.toast(context,"汽车型号不能为空");
+//                                }
+//                            }else {
+//                                PhoneUtils.toast(context,"汽车品牌不能为空");
+//                            }
                         }else {
                             PhoneUtils.toast(context,"首付金额不能为空");
                         }
@@ -329,9 +352,9 @@ public class SalesSigningActivity extends BaseActivity {
         mStringRequest.add("UserId", salesUserId);
         mStringRequest.add("CarPrice", salesSigningEtCarPrice.getText().toString());
         mStringRequest.add("FirstPayment", salesSigningEtFirstPrice.getText().toString());
-        mStringRequest.add("CarBrand", salesSigningEtCarBrand.getText().toString());
-        mStringRequest.add("CarModel", salesSigningEtCarType.getText().toString());
-        //mStringRequest.add("CarModel", salesSigningEtCarType.getText().toString());
+//        mStringRequest.add("CarBrand", salesSigningEtCarBrand.getText().toString());
+//        mStringRequest.add("CarModel", salesSigningEtCarType.getText().toString());
+        mStringRequest.add("CarModelId", chooseCarModelId);
         mStringRequest.add("ContractSnapshotOne", new FileBinary(new File(contractP_path)));
         mStringRequest.add("ContractSnapshotTwo", new FileBinary(new File(contractN_path)));
         mStringRequest.add("CreditProcuctId", chooseProductId);
@@ -349,6 +372,7 @@ public class SalesSigningActivity extends BaseActivity {
         Log.e(TAG, "FirstPayment=" + salesSigningEtFirstPrice.getText().toString());
         Log.e(TAG, "CarBrand=" + salesSigningEtCarBrand.getText().toString());
         Log.e(TAG, "CarModel=" + salesSigningEtCarType.getText().toString());
+        Log.e(TAG, "CarModelId=" + chooseCarModelId);
         Log.e(TAG, "CreditProcuctId=" + chooseProductId);
         Log.e(TAG, "StartDate=" + salesSigningEtStime.getText().toString());
         Log.e(TAG, "RepaymentDate=" + salesSigningEtRepaymentDate.getText().toString());
@@ -366,11 +390,12 @@ public class SalesSigningActivity extends BaseActivity {
                 if (what == 101) {
                     PhoneUtils.showLargeLog(response.get(), 3900, TAG);
                     ApiSalesCustomerProductModel model = null;
-                    try {
-                        model = new Gson().fromJson(response.get(), ApiSalesCustomerProductModel.class);
-                        if (model.Status == 1) {
-                            setHttpData(model.Data);
+                    model = new Gson().fromJson(response.get(), ApiSalesCustomerProductModel.class);
 
+                    try {
+                        if (model.Status == 1) {
+                            //setHttpData(model.Data);
+                            finish();
                         } else {
                             PhoneUtils.toast(context, model.Msg);
                         }
@@ -403,6 +428,15 @@ public class SalesSigningActivity extends BaseActivity {
 
         if (!TextUtils.isEmpty(result.contractP_path)&&!TextUtils.isEmpty(result.contractN_path)){
             salesSigningEtContract.setText("选择合同照片成功");
+        }
+    }
+
+    @Subscriber (tag = "choose_car")
+    public void chooseContractEvent(String carModelId){
+        Log.e(TAG,"carModelId="+carModelId);
+        if (!TextUtils.isEmpty(carModelId)){
+            salesSigningEtCar.setText("选择车辆成功");
+            chooseCarModelId=carModelId;
         }
     }
 

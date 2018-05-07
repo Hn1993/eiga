@@ -203,11 +203,11 @@ public class SalesWorkActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition()==0){
-                    status=0;
+                    status=0; //待审核
                 }else if (tab.getPosition()==1){
-                    status=1;
+                    status=2; //已放款
                 }else {
-                    status=2;
+                    status=5; //已还款
 
                 }
                 data.clear();
@@ -297,6 +297,7 @@ public class SalesWorkActivity extends BaseActivity {
             public void onItemClick(int position) {
                 Intent intent=new Intent(SalesWorkActivity.this,SalesOrderInfoActivity.class);
                 intent.putExtra(Constant.Sales_Order_Id,data.get(position).Id);
+                intent.putExtra(Constant.Order_Info_Type,"sales");
                 Log.e(TAG,"id="+data.get(position).Id);
                 startActivity(intent);
             }

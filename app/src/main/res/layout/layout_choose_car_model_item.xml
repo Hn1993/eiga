@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginBottom="5px"
+        android:layout_width="match_parent"
+        android:layout_height="320px"
+        android:background="@color/white"
+        android:paddingRight="60px"
+        android:paddingTop="60px"
+        android:paddingBottom="60px"
+        android:paddingLeft="30px">
+
+        <ImageView
+            android:id="@+id/choose_car_model_item_image"
+            android:layout_width="350px"
+            android:layout_height="205px"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/choose_car_model_item_title"
+            style="@style/text_45px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_toRightOf="@+id/choose_car_model_item_image"
+            android:textColor="@color/common_title_text_color" />
+
+        <TextView
+            android:id="@+id/choose_car_model_item_description"
+            style="@style/text_35px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:layout_toRightOf="@+id/choose_car_model_item_image"
+            android:textColor="@color/light_grey" />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/choose_car_model_item_add"
+            android:layout_width="65px"
+            android:layout_height="65px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_add" />
+    </RelativeLayout>
+</LinearLayout>

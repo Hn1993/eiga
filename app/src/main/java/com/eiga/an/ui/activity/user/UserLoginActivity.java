@@ -172,7 +172,7 @@ public class UserLoginActivity extends BaseActivity {
             public void onFailed(int what, Response<String> response) {
                 super.onFailed(what, response);
                 dismissLoading();
-                Log.i(TAG, "onFailed==" + response.get());
+                //Log.i(TAG, "onFailed==" + response.get());
             }
         });
     }

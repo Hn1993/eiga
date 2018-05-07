@@ -7,7 +7,7 @@
     <TextView
         android:drawableTop="@drawable/sales_work_tab2_selector"
         android:layout_centerHorizontal="true"
-        android:text="已审核"
+        android:text="已放款"
         android:textColor="@color/tab_color"
         android:textSize="45px"
         android:drawablePadding="30px"

@@ -323,21 +323,21 @@ public class MainFragment extends BaseFragment {
         carquotaTvPrice.setText("￥"+String.valueOf(model.User.SimpleQuotaLimit));
         if (model.User.IdentityCardOCRAuthentication==true){
             carquotaIdCard.setText("认证成功");
-            carquotaIdCard.setClickable(false);
+            //carquotaIdCard.setClickable(false);
         }else {
             carquotaIdCard.setText("立即认证");
         }
 
         if (model.User.Carrieroperator!=null){
             carquotaTvPhone.setText("认证成功");
-            carquotaTvPhone.setClickable(false);
+            //carquotaTvPhone.setClickable(false);
         }else {
             carquotaTvPhone.setText("立即认证");
         }
 
         if (model.BankCardIsAuthentication==true){
             carquotaTvBank.setText("认证成功");
-            carquotaTvBank.setClickable(false);
+            //carquotaTvBank.setClickable(false);
         }else {
             carquotaTvBank.setText("立即认证");
         }

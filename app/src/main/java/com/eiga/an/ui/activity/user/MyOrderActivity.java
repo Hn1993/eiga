@@ -1,6 +1,7 @@
 package com.eiga.an.ui.activity.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,9 @@ import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiMyOrderListModel;
+import com.eiga.an.ui.activity.sales.SalesOrderInfoActivity;
+import com.eiga.an.ui.activity.sales.SalesWorkActivity;
+import com.eiga.an.utils.GlideUtils;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.eiga.an.utils.SpacesItemDecoration;
@@ -139,10 +143,24 @@ public class MyOrderActivity extends BaseActivity {
                 TextView price=viewHolder.findViewById(R.id.my_order_item_car_price);
                 ImageView carImage=viewHolder.findViewById(R.id.my_order_item_image);
 
-
+                carName.setText(item.CreditProductName);
                 status.setText(item.StatusName);
+                carNameType.setText(item.CarBrand+item.CarModel);
+                price.setText("参考价:"+item.CarPrice+"元");
+
+                //GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common+item.CarPicture,carImage);
             }
         };
+
+        mAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent=new Intent(MyOrderActivity.this,SalesOrderInfoActivity.class);
+                intent.putExtra(Constant.Sales_Order_Id,mData.get(position).Id);
+                intent.putExtra(Constant.Order_Info_Type,"user");
+                startActivity(intent);
+            }
+        });
 
         mRecyclerView.setAdapter(mAdapter);
     }
