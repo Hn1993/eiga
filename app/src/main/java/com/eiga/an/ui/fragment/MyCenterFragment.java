@@ -90,7 +90,7 @@ public class MyCenterFragment extends BaseFragment {
                         if (model.Status==1){
                             setHttpData(model);
                         }else {
-                            PhoneUtils.toast(getActivity(),model.Msg.toString());
+                            //PhoneUtils.toast(getActivity(),model.Msg.toString());
                         }
                     }catch (Exception e){
                         Log.e(TAG,"Exception="+e);
@@ -112,14 +112,19 @@ public class MyCenterFragment extends BaseFragment {
         myName.setText(TextUtils.isEmpty(model.UserName)?model.Nick: model.UserName);
         GlideUtils.getGlideUtils().glideCircleImage(getActivity(),Constant.Url_Common+model.HeadSculpture,myHead);
 
-        if (0<=Integer.valueOf(model.FinalScore)&&Integer.valueOf(model.FinalScore)<20){
-            grade="信用等级:A";
-        }else if (20<=Integer.valueOf(model.FinalScore)&&Integer.valueOf(model.FinalScore)<60){
-            grade="信用等级:B";
+        if (model.FinalScore!=null){
+            if (0<=Integer.valueOf(model.FinalScore)&&Integer.valueOf(model.FinalScore)<20){
+                grade="信用等级:A";
+            }else if (20<=Integer.valueOf(model.FinalScore)&&Integer.valueOf(model.FinalScore)<60){
+                grade="信用等级:B";
+            }else {
+                grade="信用等级:C";
+            }
+            myGrade.setText(TextUtils.isEmpty(model.FinalScore)?"信用等级:无":grade);
         }else {
-            grade="信用等级:C";
+            myGrade.setText("信用等级:无");
         }
-        myGrade.setText(TextUtils.isEmpty(model.FinalScore)?"信用等级:无":grade);
+
     }
 
     private void findViews() {

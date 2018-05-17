@@ -353,6 +353,9 @@ public class MainFragment extends BaseFragment {
         httpGetMainData(false);
     }
 
+
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

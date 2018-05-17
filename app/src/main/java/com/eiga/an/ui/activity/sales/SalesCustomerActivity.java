@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -124,7 +125,7 @@ public class SalesCustomerActivity extends BaseActivity {
                 TextView phone=viewHolder.findViewById(R.id.sales_customer_item_phone);
 
                 GlideUtils.getGlideUtils().glideCircleImage(SalesCustomerActivity.this,Constant.Url_Common+item.HeadSculpture,head);
-                name.setText("姓名:"+item.RealName);
+                name.setText(TextUtils.isEmpty(item.RealName)?"姓名:"+item.Nick:"姓名:"+item.RealName);
                 phone.setText("电话:"+item.CellPhone);
 
                 viewHolder.findViewById(R.id.sales_customer_item_signing).

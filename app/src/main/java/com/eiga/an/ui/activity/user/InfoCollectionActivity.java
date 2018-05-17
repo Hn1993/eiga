@@ -32,6 +32,8 @@ import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 import com.yanzhenjie.nohttp.rest.StringRequest;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,7 +103,7 @@ public class InfoCollectionActivity extends BaseActivity {
         Log.e(TAG,"httpGetInfo=");
         showLoading();
         StringRequest mStringRequest = new StringRequest(Constant.Url_Info_Collection, RequestMethod.POST);
-        mStringRequest.setCacheMode(CacheMode.NONE_CACHE_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -136,7 +138,7 @@ public class InfoCollectionActivity extends BaseActivity {
         dataList=data;
 
 
-        Log.e(TAG,"date.size="+data.size());
+        Log.e(TAG,"data.size="+data.size());
 
         vp1TagTitle0.setText(data.get(0).CateGoryName);
         vp1TagTitle1.setText(data.get(1).CateGoryName);
@@ -536,11 +538,19 @@ public class InfoCollectionActivity extends BaseActivity {
                     try {
                         model=new Gson().fromJson(response.get(),ApiInfoUploadModel.class);
                         if (model.Status==1){
+                            EventBus.getDefault().post("bond_success","bond_success");
+
                             SharedPreferencesUtils.putShared(InfoCollectionActivity.this,Constant.User_Is_Have_Evaluation,model.Quota);
                             Intent intent=new Intent(InfoCollectionActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();
-                        }else {
+                        }else if (model.Status==2){
+                            //SharedPreferencesUtils.putShared(InfoCollectionActivity.this,Constant.User_Is_Have_Evaluation,model.Quota);
+                            Intent intent=new Intent(InfoCollectionActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
                             PhoneUtils.toast(InfoCollectionActivity.this,model.Msg);
                         }
                     }catch (Exception e){

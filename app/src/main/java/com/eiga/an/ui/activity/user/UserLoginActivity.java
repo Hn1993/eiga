@@ -68,6 +68,7 @@ public class UserLoginActivity extends BaseActivity {
 
     private void findViews() {
         userMainEtPhone.setText((String) SharedPreferencesUtils.getShared(UserLoginActivity.this,Constant.User_Login_Name,""));
+        userMainEtPhone.setSelection(((String) SharedPreferencesUtils.getShared(UserLoginActivity.this,Constant.User_Login_Name,"")).length());
     }
 
     @OnClick({R.id.user_main_tv_getcode, R.id.fg_main_tv_go})

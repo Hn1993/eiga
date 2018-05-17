@@ -51,6 +51,7 @@ public class SalesLoginActivity extends BaseActivity {
 
     private void findViews() {
         salesLoginName.setText(salesPhone);
+        salesLoginName.setSelection(salesPhone.length());
     }
 
     @OnClick({R.id.sales_login_finish, R.id.sales_login_go, R.id.sales_login_forgot})
