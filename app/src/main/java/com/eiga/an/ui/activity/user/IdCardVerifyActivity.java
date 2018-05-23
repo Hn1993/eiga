@@ -120,7 +120,7 @@ public class IdCardVerifyActivity extends BaseActivity {
      * 把身份证照片上传
      */
     private void httpCommitPhoto() {
-
+        showLoading();
         StringRequest mStringRequest = new StringRequest(Constant.Url_Upload_Idcard, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         mStringRequest.add("CellPhone",phone);
@@ -145,7 +145,7 @@ public class IdCardVerifyActivity extends BaseActivity {
                             EventBus.getDefault().post("bond_success","bond_success");
                             finish();
                         }
-                        //PhoneUtils.toast(UserLoginActivity.this,model.Msg);
+                        PhoneUtils.toast(IdCardVerifyActivity.this,model.Msg);
                     }catch (Exception e){
                         Log.e(TAG,"Exception="+e);
                     }

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!--网络权限-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--打开相册-->
     <uses-permission android:name="android.permission.CAMERA" /><!--打开相机-->
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!-- 这个权限用于访问GPS定位-->
@@ -69,6 +69,7 @@
         <activity android:name=".ui.activity.user.FixInfoActivity"/>
         <activity android:name=".ui.activity.user.MyOrderActivity"/>
         <activity android:name=".ui.activity.WebActivity"/>
+        <activity android:name=".ui.activity.PreImageActivity"/>
 
         <activity android:name=".ui.activity.user.ChooseIdentityActivity"
             android:launchMode="singleTask"/>
@@ -87,6 +88,8 @@
         <activity android:name=".ui.activity.sales.SalesChooseContractActivity"/>
         <activity android:name=".ui.activity.sales.SalesOrderInfoActivity"/>
         <activity android:name=".ui.activity.sales.SalesChooseCarActivity"/>
+        <activity android:name=".ui.activity.sales.SalesSigningUploadContractActivity"/>
+
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">
         </meta-data>

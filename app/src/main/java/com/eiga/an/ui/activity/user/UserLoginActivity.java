@@ -162,7 +162,7 @@ public class UserLoginActivity extends BaseActivity {
                             }
 
                         }
-                        //PhoneUtils.toast(UserLoginActivity.this,model.Msg);
+                        PhoneUtils.toast(UserLoginActivity.this,model.Msg);
                     }catch (Exception e){
                         Log.e(TAG,"Exception="+e);
                     }

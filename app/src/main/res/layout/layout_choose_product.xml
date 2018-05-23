@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textColor="@color/common_title_text_color"
+        android:text="请选择产品"
+        android:textSize="55px"
+        android:paddingLeft="60px"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="110px" />
+    <!--<TextView-->
+        <!--android:id="@+id/pay_way_over"-->
+        <!--android:drawableLeft="@mipmap/icon_chery"-->
+        <!--android:drawablePadding="30px"-->
+        <!--android:textSize="46px"-->
+        <!--android:layout_marginLeft="40px"-->
+        <!--android:textColor="@color/color_33"-->
+        <!--android:text="奇瑞金融"-->
+        <!--android:gravity="left|center_vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200px" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/pay_way_over12"-->
+        <!--android:drawableLeft="@mipmap/icon_chery"-->
+        <!--android:drawablePadding="30px"-->
+        <!--android:textSize="46px"-->
+        <!--android:layout_marginLeft="40px"-->
+        <!--android:textColor="@color/color_33"-->
+        <!--android:text="奇瑞金融"-->
+        <!--android:gravity="left|center_vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200px" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/choose_product_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

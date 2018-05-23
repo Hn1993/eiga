@@ -15,7 +15,7 @@ public class ApiGetBankInfoModel {
 
     public BankCardBean BankCard;
     public int Status;
-    public Object Msg;
+    public String Msg;
     public Object Data;
 
     public static class BankCardBean {

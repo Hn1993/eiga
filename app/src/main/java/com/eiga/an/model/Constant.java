@@ -3,7 +3,8 @@ package com.eiga.an.model;
 public class Constant {
 
     //http://192.168.1.196:8010/api/UserIndexPage/GetQuotaCategoryList
-    public static final String Url_Common="http://192.168.1.196:8010";
+    public static final String Url_Common="http://192.168.1.196:8010";//http://admin.zjglcar.com
+    public static final String Url_Common_Test="http://192.168.1.196:8010";
     public static final String Jd_key="54ae1b27174cf9b5263ec47f50259138";
     public static final String Url_Jd_miguan="https://way.jd.com/juxinli/henypot4JD";
     public static final String Url_Jd_jiedai="https://way.jd.com/XinShu/compBQuery";//个人黑名单多头借贷综合查询
@@ -36,6 +37,8 @@ public class Constant {
     public static final String Url_Sales_Work_Order_List=Url_Common+"/api/ClerkPage/GetCreditFlowList";//工作订单列表
     public static final String Url_Sales_Work_Order_Info=Url_Common+"/api/ClerkPage/GetCreditFlowDetail";//工作订单详情
     public static final String Url_Sales_Get_Car_List=Url_Common+"/api/ClerkPage/GetCarModeInfo";//获取车型列表
+    public static final String Url_Sales_Upload_Single_Contract=Url_Common_Test+"/api/Clerk/ProcessContractPhoto";//上传单张合同照
+    public static final String Url_Sales_Upload_Contracts=Url_Common_Test+"/api/Clerk/CreateCarCreditFlowFinanceCompany";//提交贷款合同
 
 
     public static final String LocationLongitude="Location_Longitude";//定位的经纬度  以及城市
@@ -54,6 +57,7 @@ public class Constant {
     public static final String Sales_Login_Nickname="Sales_Login_Nickname";//业务员的昵称
     public static final String Sales_User_Id="Sales_User_Id";//业务员办业务的id
     public static final String Sales_Order_Id="sales_order_id";//业务员办业务订单ID
+    public static final String Sales_CreditProduct_Id="Sales_CreditProduct_Id";//贷款产品id
     public static final String Order_Info_Type="Order_Info_Type";//业判断是哪个页面进入的产品详情
 
 }

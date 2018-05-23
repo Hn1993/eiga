@@ -108,6 +108,7 @@ public class PhoneVerifyActivity extends BaseActivity {
                             EventBus.getDefault().post("bond_success","bond_success");
                             finish();
                         }
+                        PhoneUtils.toast(PhoneVerifyActivity.this,model.Msg);
                     }catch (Exception e){
                         Log.e(TAG,"Exception="+e);
                     }
