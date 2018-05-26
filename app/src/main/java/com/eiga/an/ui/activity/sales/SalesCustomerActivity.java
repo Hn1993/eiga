@@ -143,6 +143,7 @@ public class SalesCustomerActivity extends BaseActivity {
                 TextView status=viewHolder.findViewById(R.id.sales_product_item_status);
                 TextView name=viewHolder.findViewById(R.id.sales_product_item_name);
 
+                GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common+item.Picture,imageView);
                 money.setText("最高可贷:"+item.MaximumLoanAmount);
                 status.setText(item.IsRecommand?"推荐":"不推荐");
                 name.setText(item.Name);

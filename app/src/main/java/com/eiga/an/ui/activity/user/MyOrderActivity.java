@@ -51,7 +51,7 @@ public class MyOrderActivity extends BaseActivity {
 
     private Context context;
     private String token, phone;
-    private int status = -1, offset = 0, limit = 10;
+    private int status = 0, offset = 0, limit = 10;
 
     private RecyclerAdapter<ApiMyOrderListModel.DataBean> mAdapter;
 
@@ -89,6 +89,11 @@ public class MyOrderActivity extends BaseActivity {
         mStringRequest.add("Status", status);
         mStringRequest.add("Offset", offset);
         mStringRequest.add("Limit", limit);
+        Log.e(TAG,"CellPhone="+phone);
+        Log.e(TAG,"Token="+token);
+        Log.e(TAG,"Status="+status);
+        Log.e(TAG,"Offset="+offset);
+        Log.e(TAG,"Limit="+limit);
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -137,18 +142,23 @@ public class MyOrderActivity extends BaseActivity {
         mAdapter=new RecyclerAdapter<ApiMyOrderListModel.DataBean>(R.layout.layout_myorder_item,mData) {
             @Override
             protected void onBindData(RecyclerViewHolder viewHolder, int position, ApiMyOrderListModel.DataBean item) {
-                TextView carName=viewHolder.findViewById(R.id.my_order_item_name);
-                TextView carNameType=viewHolder.findViewById(R.id.my_order_item_name_type);
+                ImageView productImage=viewHolder.findViewById(R.id.my_order_item_name);
+
+                TextView productName=viewHolder.findViewById(R.id.my_order_item_product_name);
                 TextView status=viewHolder.findViewById(R.id.my_order_item_status);
-                TextView price=viewHolder.findViewById(R.id.my_order_item_car_price);
-                ImageView carImage=viewHolder.findViewById(R.id.my_order_item_image);
+                TextView time=viewHolder.findViewById(R.id.my_order_item_time);
+                TextView orderNum=viewHolder.findViewById(R.id.my_order_item_id_number);
+                TextView userName=viewHolder.findViewById(R.id.my_order_item_user_name);
 
-                carName.setText(item.CreditProductName);
+                productName.setText(item.CreditProductName.substring(0,2)+"\n"+item.CreditProductName.substring(2,4));
+                time.setText("创建时间:"+item.CreateDate);
+                orderNum.setText("订单号:"+item.OrderId);
+                userName.setText("业务员:"+item.ClerkName);
+                //carName.setText(item.CreditProductName);
                 status.setText(item.StatusName);
-                carNameType.setText(item.CarBrand+item.CarModel);
-                price.setText("参考价:"+item.CarPrice+"元");
 
-                //GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common+item.CarPicture,carImage);
+
+                GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common+item.CreditProcuctPicture,productImage);
             }
         };
 

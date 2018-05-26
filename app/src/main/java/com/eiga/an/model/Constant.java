@@ -37,8 +37,10 @@ public class Constant {
     public static final String Url_Sales_Work_Order_List=Url_Common+"/api/ClerkPage/GetCreditFlowList";//工作订单列表
     public static final String Url_Sales_Work_Order_Info=Url_Common+"/api/ClerkPage/GetCreditFlowDetail";//工作订单详情
     public static final String Url_Sales_Get_Car_List=Url_Common+"/api/ClerkPage/GetCarModeInfo";//获取车型列表
-    public static final String Url_Sales_Upload_Single_Contract=Url_Common_Test+"/api/Clerk/ProcessContractPhoto";//上传单张合同照
-    public static final String Url_Sales_Upload_Contracts=Url_Common_Test+"/api/Clerk/CreateCarCreditFlowFinanceCompany";//提交贷款合同
+    public static final String Url_Sales_Upload_Single_Contract=Url_Common+"/api/Clerk/ProcessContractPhoto";//上传单张合同照
+    public static final String Url_Sales_Upload_Contracts=Url_Common+"/api/Clerk/CreateCarCreditFlowFinanceCompany";//提交贷款合同
+    public static final String Url_Sales_Info_Process_Details=Url_Common+"/api/ClerkPage/GetFlowHtmlString?ContractType=2&";//提交贷款合同
+    public static final String Url_Sales_Upload_Contracts_Recommit=Url_Common+"/api/clerk/ReSubmit";//重新提交贷款合同
 
 
     public static final String LocationLongitude="Location_Longitude";//定位的经纬度  以及城市
@@ -59,5 +61,6 @@ public class Constant {
     public static final String Sales_Order_Id="sales_order_id";//业务员办业务订单ID
     public static final String Sales_CreditProduct_Id="Sales_CreditProduct_Id";//贷款产品id
     public static final String Order_Info_Type="Order_Info_Type";//业判断是哪个页面进入的产品详情
+    public static final String Order_Info_Status="Order_Info_Status";//判断当前是哪个状态
 
 }

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,9 @@ import com.yanzhenjie.nohttp.rest.CacheMode;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 import com.yanzhenjie.nohttp.rest.StringRequest;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +85,7 @@ public class SalesWorkActivity extends BaseActivity {
         ButterKnife.bind(this);
         autoVirtualKeys();
         setImmersedNavigationBar(this, R.color.light_blue);
-
+        EventBus.getDefault().register(this);
 
         context = this;
         salesPhone = (String) SharedPreferencesUtils.getShared(context, Constant.Sales_Login_Phone, "");
@@ -162,9 +166,9 @@ public class SalesWorkActivity extends BaseActivity {
         tab.setCustomView(R.layout.layout_sales_work_tab2);
         salesWorkTab.addTab(tab);
 
-        tab=salesWorkTab.newTab();
-        tab.setCustomView(R.layout.layout_sales_work_tab3);
-        salesWorkTab.addTab(tab);
+//        tab=salesWorkTab.newTab();
+//        tab.setCustomView(R.layout.layout_sales_work_tab3);
+//        salesWorkTab.addTab(tab);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(30));
@@ -203,11 +207,11 @@ public class SalesWorkActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition()==0){
-                    status=0; //待审核
+                    status=0; //正常
                 }else if (tab.getPosition()==1){
-                    status=2; //已放款
+                    status=3; //被驳回
                 }else {
-                    status=5; //已还款
+                    //status=5; //已还款
 
                 }
                 data.clear();
@@ -245,6 +249,7 @@ public class SalesWorkActivity extends BaseActivity {
         if (list.size()<=limit){
             mRecyclerView.setLoadingMoreEnabled(false);
         }
+        data.clear();
         data.addAll(list);
 
         mAdapter=new RecyclerAdapter<ApiSalesWorkListModel.DataBean>(R.layout.layout_sales_work_item,data) {
@@ -256,14 +261,16 @@ public class SalesWorkActivity extends BaseActivity {
                 TextView money=viewHolder.findViewById(R.id.sales_work_item_money);
                 TextView order=viewHolder.findViewById(R.id.sales_work_item_order);
                 TextView dkje=viewHolder.findViewById(R.id.sales_work_item_dkje);
-                TextView status=viewHolder.findViewById(R.id.sales_work_item_status);
+                TextView tv_status=viewHolder.findViewById(R.id.sales_work_item_status);
                 TextView name=viewHolder.findViewById(R.id.sales_work_item_name);
+                TextView recommit=viewHolder.findViewById(R.id.sales_work_item_recommit);
 
+                recommit.setVisibility(status==0?View.GONE:View.GONE);
 
                 GlideUtils.getGlideUtils().glideCircleImage(context,Constant.Url_Common+item.UserHeadSculpture,head);
-                order.setText("产品名称:"+item.CreditProductName);
+                order.setText("产品:"+item.CreditProductName);
                 name.setText("贷款人:"+item.UserName);
-                status.setText(item.StatusName);
+                tv_status.setText(item.StatusName);
 
 
                 dkje.setVisibility(View.GONE);
@@ -298,6 +305,7 @@ public class SalesWorkActivity extends BaseActivity {
                 Intent intent=new Intent(SalesWorkActivity.this,SalesOrderInfoActivity.class);
                 intent.putExtra(Constant.Sales_Order_Id,data.get(position).Id);
                 intent.putExtra(Constant.Order_Info_Type,"sales");
+                intent.putExtra(Constant.Order_Info_Status,status);
                 Log.e(TAG,"id="+data.get(position).Id);
                 startActivity(intent);
             }
@@ -314,5 +322,18 @@ public class SalesWorkActivity extends BaseActivity {
             case R.id.sales_title_notice:
                 break;
         }
+    }
+
+
+    @Subscriber(tag = "recommit")
+    public void chooseContractEvent(String reason){
+        Log.e(TAG,"reason="+reason);
+        httpGetSalesWorkList(false,0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

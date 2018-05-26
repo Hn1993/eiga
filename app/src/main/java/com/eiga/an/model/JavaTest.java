@@ -13,13 +13,7 @@ public class JavaTest {
     private static List<String> data=new ArrayList<>();
     public static void main(String[] args) {
         System.out.println(PhoneUtils.get2Decimal(17.777777777777777777777));
-        for (int i = 0; i < 4; i++) {
-            data.add(i+"");
-        }
 
-        data.set(2,"222");
-        for (int i = 0; i < data.size(); i++) {
-            System.out.println(data.get(i));
-        }
+        System.out.println(3/2);
     }
 }

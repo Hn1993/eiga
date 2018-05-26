@@ -148,7 +148,7 @@ public class SalesSigningUploadContractActivity extends BaseActivity {
                 }else {
                     image.setVisibility(View.VISIBLE);
                     layout.setVisibility(View.GONE);
-                    GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common_Test+item,image);
+                    GlideUtils.getGlideUtils().glideImage(context,Constant.Url_Common+item,image);
                 }
 
                 image.setOnClickListener(new View.OnClickListener() {
@@ -213,18 +213,6 @@ public class SalesSigningUploadContractActivity extends BaseActivity {
         if (showList==null){
             showList=new ArrayList<>();
         }
-//        else {
-//            //preList=showList;
-//            for (int i = 0; i < showList.size(); i++) {
-//                preList.add(Constant.Url_Common+showList.get(i));
-//                Log.e(TAG,"preList.get i="+preList.get(i));
-//            }
-//        }
-
-//        showList.clear();
-//        showList.add("https://ws1.sinaimg.cn/large/610dc034ly1fgepc1lpvfj20u011i0wv.jpg");
-//        showList.add("https://ws1.sinaimg.cn/large/610dc034ly1fgepc1lpvfj20u011i0wv.jpg");
-//        showList.add("https://ws1.sinaimg.cn/large/610dc034ly1fgepc1lpvfj20u011i0wv.jpg");
 
         for (int i = 0; i < showList.size(); i++) {
                 //preList.add(Constant.Url_Common+showList.get(i));

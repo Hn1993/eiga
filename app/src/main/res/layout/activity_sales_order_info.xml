@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="100px"
                 android:layout_marginTop="40px"
@@ -29,12 +30,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="450px"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5px"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="330px"
                     android:paddingLeft="60px"
@@ -76,13 +78,14 @@
                 </RelativeLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/light_grey" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="120px"
                     android:paddingLeft="60px"
                     android:paddingRight="60px">
 
@@ -127,7 +130,7 @@
                 app:v_interval="50dp"
                 app:v_pro_color="@color/light_blue"
                 app:v_pro_radius="5dp"
-                app:v_textMoveTop="5dp"
+                app:v_textMoveTop="10dp"
                 app:v_textPaddingLeft="17dp"
                 app:v_textsize="12dp" />
 
@@ -138,6 +141,7 @@
                 android:background="@color/white">
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/sales_order_info_info"
                     android:layout_width="220px"
                     android:layout_height="65px"
@@ -147,196 +151,262 @@
                     android:background="@drawable/react_selector"
                     android:gravity="center"
                     android:text="查看详情" />
-            </RelativeLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_marginTop="40px"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="60px"
-                android:text="购车明细(仅供参考)"
-                android:textColor="@color/common_title_text_color"
-                android:textSize="45px" />
-
-            <RelativeLayout
-                android:layout_marginTop="5px"
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:background="@color/white">
-
-                <TextView
-                    style="@style/text_45px"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text="首付金额"
-                    android:textColor="@color/common_title_text_color" />
-
-                <TextView
-                    android:id="@+id/sales_order_info_first_money"
-                    style="@style/text_35px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text=""
-                    android:textColor="@color/common_title_text_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/light_grey" />
-            </RelativeLayout>
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:background="@color/white">
-
-                <TextView
-                    style="@style/text_45px"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text="分期金额"
-                    android:textColor="@color/common_title_text_color" />
-
-                <TextView
-                    android:id="@+id/sales_order_info_loan_amount"
-                    style="@style/text_35px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text=""
-                    android:textColor="@color/common_title_text_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/light_grey" />
-            </RelativeLayout>
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:background="@color/white">
-
-                <TextView
-                    style="@style/text_45px"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text="月供"
-                    android:textColor="@color/common_title_text_color" />
-
-                <TextView
-                    android:id="@+id/sales_order_info_month"
-                    style="@style/text_35px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text=""
-                    android:textColor="@color/common_title_text_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/light_grey" />
-            </RelativeLayout>
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:background="@color/white">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/text_45px"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text="订单编号"
-                    android:textColor="@color/common_title_text_color" />
-
-                <TextView
-                    android:id="@+id/sales_order_info_order_number"
-                    style="@style/text_35px"
-                    android:layout_alignBaseline="@+id/textView2"
-                    android:layout_alignBottom="@+id/textView2"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text=""
-                    android:textColor="@color/common_title_text_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/light_grey" />
-            </RelativeLayout>
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:background="@color/white">
-
-                <TextView
-
-                    style="@style/text_45px"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text="创建时间"
-                    android:textColor="@color/common_title_text_color" />
-
-                <TextView
-                    android:id="@+id/sales_order_info_time"
-                    style="@style/text_35px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60px"
-                    android:layout_marginRight="60px"
-                    android:text=""
-                    android:textColor="@color/common_title_text_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/light_grey"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="190px"
-                android:background="@color/white"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/sales_order_info_cancel"
-                    android:layout_width="220px"
-                    android:layout_height="65px"
+                <com.eiga.an.view.DrawableCenterTextView
+                    android:id="@+id/sales_order_info_call"
+                    android:layout_width="300px"
+                    android:layout_height="75px"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="60px"
+                    android:drawablePadding="15px"
+                    android:drawableLeft="@mipmap/icon_call"
                     android:background="@drawable/react_selector"
-                    android:gravity="center"
-                    android:text="取消订单" />
+                    android:gravity="center_vertical"
+                    android:text="联系用户" />
             </RelativeLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:layout_marginTop="40px"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="60px"
+                    android:text="购车明细(仅供参考)"
+                    android:textColor="@color/common_title_text_color"
+                    android:textSize="45px" />
+
+                <RelativeLayout
+                    android:layout_marginTop="5px"
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:background="@color/white">
+
+                    <TextView
+                        style="@style/text_45px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text="首付金额"
+                        android:textColor="@color/common_title_text_color" />
+
+                    <TextView
+                        android:id="@+id/sales_order_info_first_money"
+                        style="@style/text_35px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text=""
+                        android:textColor="@color/common_title_text_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/light_grey" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:background="@color/white">
+
+                    <TextView
+                        style="@style/text_45px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text="分期金额"
+                        android:textColor="@color/common_title_text_color" />
+
+                    <TextView
+                        android:id="@+id/sales_order_info_loan_amount"
+                        style="@style/text_35px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text=""
+                        android:textColor="@color/common_title_text_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/light_grey" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:background="@color/white">
+
+                    <TextView
+                        style="@style/text_45px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text="月供"
+                        android:textColor="@color/common_title_text_color" />
+
+                    <TextView
+                        android:id="@+id/sales_order_info_month"
+                        style="@style/text_35px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text=""
+                        android:textColor="@color/common_title_text_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/light_grey" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/text_45px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text="订单编号"
+                        android:textColor="@color/common_title_text_color" />
+
+                    <TextView
+                        android:id="@+id/sales_order_info_order_number"
+                        style="@style/text_35px"
+                        android:layout_alignBaseline="@+id/textView2"
+                        android:layout_alignBottom="@+id/textView2"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text=""
+                        android:textColor="@color/common_title_text_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/light_grey" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:background="@color/white">
+
+                    <TextView
+
+                        style="@style/text_45px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text="创建时间"
+                        android:textColor="@color/common_title_text_color" />
+
+                    <TextView
+                        android:id="@+id/sales_order_info_time"
+                        style="@style/text_35px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginRight="60px"
+                        android:text=""
+                        android:textColor="@color/common_title_text_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/light_grey"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="190px"
+                    android:background="@color/white"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/sales_order_info_cancel"
+                        android:layout_width="220px"
+                        android:layout_height="65px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="60px"
+                        android:background="@drawable/react_selector"
+                        android:gravity="center"
+                        android:text="取消订单" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sales_order_info_back_layout"
+                android:orientation="vertical"
+                android:layout_marginTop="60px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginLeft="60px"
+                    android:textColor="@color/common_title_text_color"
+                    android:textSize="45px"
+                    android:gravity="center_vertical"
+                    android:text="驳回理由:"
+                    android:layout_width="match_parent"
+                    android:layout_height="120px" />
+
+                <TextView
+                    android:id="@+id/sales_order_info_back_reason"
+                    android:layout_marginLeft="60px"
+                    android:textColor="@color/color_66"
+                    android:textSize="40px"
+                    android:gravity="center_vertical"
+                    android:text="合同照第一张不清晰,请重新上传"
+                    android:layout_width="match_parent"
+                    android:layout_height="120px" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginBottom="60px"
+                    android:id="@+id/sales_order_info_back_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/sales_order_info_back_commit"
+                    android:layout_marginBottom="60px"
+                    style="@style/tv_button"
+                    android:text="重新提交"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/light_blue"/>
+            </LinearLayout>
+
         </LinearLayout>
 
 

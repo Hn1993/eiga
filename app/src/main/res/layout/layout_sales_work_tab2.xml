@@ -7,7 +7,7 @@
     <TextView
         android:drawableTop="@drawable/sales_work_tab2_selector"
         android:layout_centerHorizontal="true"
-        android:text="已放款"
+        android:text="被驳回订单"
         android:textColor="@color/tab_color"
         android:textSize="45px"
         android:drawablePadding="30px"

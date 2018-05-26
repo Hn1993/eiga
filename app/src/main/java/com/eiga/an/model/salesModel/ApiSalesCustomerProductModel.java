@@ -30,6 +30,7 @@ public class ApiSalesCustomerProductModel {
 
         public String CreditProductId;
         public String Name;
+        public String Picture;
         public boolean IsRecommand;
         public boolean IsChoosed=false;
         public double MaximumLoanAmount;

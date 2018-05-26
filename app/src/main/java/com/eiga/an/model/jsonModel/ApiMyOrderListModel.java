@@ -43,6 +43,7 @@ public class ApiMyOrderListModel {
         public String CarBrand;
         public double CarPrice;
         public String OrderId;
+        public String CreditProcuctPicture;
         public String UserHeadSculpture;
         public String Id;
         public int Status;

@@ -10,15 +10,13 @@
         android:paddingRight="60px"
         android:paddingLeft="60px"
         android:layout_width="match_parent"
-        android:layout_height="100px">
+        android:layout_height="125px">
 
-        <TextView
+        <ImageView
             android:id="@+id/my_order_item_name"
             android:background="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="45px"
-            android:text="比亚迪宋MAX"
             android:layout_centerVertical="true"
             android:textColor="@color/common_title_text_color"/>
 
@@ -41,36 +39,49 @@
         android:paddingRight="60px"
         android:layout_width="match_parent"
         android:layout_height="365px">
-        <ImageView
-            android:id="@+id/my_order_item_image"
-            android:scaleType="fitXY"
+        <RelativeLayout
+            android:id="@+id/my_order_item_product_name_layout"
+            android:background="@color/base_bg"
             android:layout_centerVertical="true"
-            android:layout_width="270px"
-            android:layout_height="140px" />
+            android:layout_width="250px"
+            android:layout_height="250px">
+            <TextView
+                android:id="@+id/my_order_item_product_name"
+                android:layout_centerInParent="true"
+                android:textColor="@color/light_blue"
+                android:textSize="70px"
+                android:text="奇瑞\n金融"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
         <TextView
-            android:id="@+id/my_order_item_name_type"
+            android:id="@+id/my_order_item_user_name"
             android:layout_marginLeft="70px"
             android:layout_marginTop="70px"
-            android:text="比亚迪宋MAX"
+            android:text="张三"
             android:textColor="@color/common_title_text_color"
-            android:layout_toRightOf="@+id/my_order_item_image"
+            android:layout_toRightOf="@+id/my_order_item_product_name_layout"
             style="@style/text_45px" />
         <TextView
-            android:id="@+id/my_order_item_features"
-            android:layout_toRightOf="@+id/my_order_item_image"
+            android:id="@+id/my_order_item_id_number"
+            android:layout_toRightOf="@+id/my_order_item_product_name_layout"
             android:layout_marginLeft="70px"
-            android:text="新车含购置税，全车年检"
+            android:text="订单号"
+            android:layout_marginRight="30px"
+            android:singleLine="true"
             style="@style/text_35px"
             android:layout_centerVertical="true"
             />
         <TextView
-            android:id="@+id/my_order_item_car_price"
+            android:id="@+id/my_order_item_time"
             android:layout_marginLeft="70px"
             android:layout_marginBottom="70px"
+            android:layout_marginRight="30px"
             android:layout_alignParentBottom="true"
-            android:textColor="@color/light_blue"
-            android:text="参考价:11万"
-            android:layout_toRightOf="@+id/my_order_item_image"
+            android:text="创建时间:11万"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/my_order_item_product_name_layout"
             style="@style/text_35px" />
 
         <ImageView

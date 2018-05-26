@@ -14,7 +14,6 @@
         <ImageView
             android:id="@+id/sales_product_item_image"
             android:layout_marginLeft="60px"
-            android:background="@mipmap/icon_chery"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
