@@ -29,6 +29,7 @@ public class ApiSalesCustomerProductModel {
          */
 
         public String CreditProductId;
+        public int ContractPhoto;
         public String Name;
         public String Picture;
         public boolean IsRecommand;

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baoyachi.stepview.VerticalStepView;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
@@ -78,8 +79,8 @@ public class SalesOrderInfoActivity extends BaseActivity {
     @BindView(R.id.sales_order_info_product_image)
     ImageView salesOrderInfoProductImage;
 
-    @BindView(R.id.sales_order_info_step)
-    FlowViewVertical salesOrderInfoStep;
+    @BindView(R.id.sales_order_info_step_view)
+    VerticalStepView salesOrderInfoStepView;
     @BindView(R.id.sales_order_info_first_money)
     TextView salesOrderInfoFirstMoney;
     @BindView(R.id.sales_order_info_loan_amount)
@@ -174,24 +175,18 @@ public class SalesOrderInfoActivity extends BaseActivity {
                     PhoneUtils.showLargeLog(response.get(), 3900, TAG);
                     ApiSalesOrderInfoModel model = null;
 
-                    model = new Gson().fromJson(response.get(), ApiSalesOrderInfoModel.class);
-                    if (model.Status == 1) {
-                        setHttpData(model);
+                    try {
+                        model = new Gson().fromJson(response.get(), ApiSalesOrderInfoModel.class);
+                        if (model.Status == 1) {
+                            setHttpData(model);
 
-                    } else {
+                        } else {
+
+                        }
                         PhoneUtils.toast(context, model.Msg.toString());
+                    } catch (Exception e) {
+                        Log.e(TAG, "Exception=" + e);
                     }
-//                    try {
-//                        model = new Gson().fromJson(response.get(), ApiSalesOrderInfoModel.class);
-//                        if (model.Status == 1) {
-//                            setHttpData(model);
-//
-//                        } else {
-//                            PhoneUtils.toast(context, model.Msg.toString());
-//                        }
-//                    } catch (Exception e) {
-//                        Log.e(TAG, "Exception=" + e);
-//                    }
                 }
             }
 
@@ -463,48 +458,35 @@ public class SalesOrderInfoActivity extends BaseActivity {
     }
 
     private void setStepData(int orderStatus,List<ApiSalesOrderInfoModel.CreditFlowLogBean> logList) {
-
+        List<String> stepList=new ArrayList<>();
         Collections.reverse(logList);
-
-        List steps=new ArrayList();
-//        steps.add("业务员已签约");
-//        steps.add("业务负责人审核");
-//        steps.add("风控安装GPS");
-//        steps.add("放贷审核");
-//        steps.add("财务放款");
-//        steps.add("订单完成");
-//        String []titles=new String[6];
-//
-//        for (int i = 0; i < titles.length; i++) {
-//            titles[i]=steps.get(i)+"\n";
-//        }
-//
-//
-//        if (orderStatus>1&&orderStatus<11){
-//            orderStatus=orderStatus / 2;
-//        }else if (orderStatus==11){
-//            orderStatus=6;
-//        }
-//
-//        for (int i = 0; i < logList.size(); i++) {
-//            if (logList.get(i).Step!=10){
-//                titles[i]+=logList.get(i).CreateDateString;
-//            }else {
-//                Log.e(TAG,"break=");
-//                break;
-//            }
-//        }
-//
-//        Log.e(TAG,"orderStatus="+orderStatus);
-//        Log.e(TAG,"steps="+steps.size());
-
-        String []titles=new String[logList.size()];
-        Log.e(TAG,"titles="+titles.length);
-        Log.e(TAG,"logList.size()="+logList.size());
         for (int i = 0; i < logList.size(); i++) {
-            titles[i]=logList.get(i).StepName+"\n"+logList.get(i).CreateDateString;
+            stepList.add(logList.get(i).StepName+"\t\t"+logList.get(i).CreateDateString);
         }
-        salesOrderInfoStep.setProgress(logList.size(),titles.length,titles,null);
+
+        salesOrderInfoStepView.setStepsViewIndicatorComplectingPosition(stepList.size())//设置完成的步数
+                .reverseDraw(false)//default is true
+                .setTextSize(12)
+                .setStepViewTexts(stepList)//总步骤
+                .setStepsViewIndicatorCompletedLineColor(getResources().getColor(R.color.light_blue))//设置StepsViewIndicator完成线的颜色
+                .setStepsViewIndicatorUnCompletedLineColor(getResources().getColor(R.color.light_grey))//设置StepsViewIndicator未完成线的颜色
+                .setStepViewComplectedTextColor(getResources().getColor(R.color.light_blue))//设置StepsView text完成线的颜色
+                .setStepViewUnComplectedTextColor(getResources().getColor(R.color.light_grey))//设置StepsView text未完成线的颜色
+
+                .setStepsViewIndicatorCompleteIcon(getResources().getDrawable(R.drawable.icon_light_blue))//设置StepsViewIndicator CompleteIcon
+                .setStepsViewIndicatorDefaultIcon(getResources().getDrawable(R.drawable.icon_light_grey))//设置StepsViewIndicator DefaultIcon
+                .setStepsViewIndicatorAttentionIcon(getResources().getDrawable(R.drawable.icon_light_blue));//设置StepsViewIndicator AttentionIcon
+
+
+//        String []titles=new String[logList.size()];
+//        Log.e(TAG,"titles="+titles.length);
+//        Log.e(TAG,"logList.size()="+logList.size());
+//        for (int i = 0; i < logList.size(); i++) {
+//            titles[i]=logList.get(i).StepName+"\n"+logList.get(i).CreateDateString;
+//        }
+//        //salesOrderInfoStep.s
+//        salesOrderInfoStep.setProgress(logList.size(),logList.size(),titles,null);
+//        //salesOrderInfoStep.setProgress(6,titles.length,titles,null);
     }
 
     @OnClick({R.id.sales_title_back, R.id.sales_order_info_info,
@@ -531,6 +513,7 @@ public class SalesOrderInfoActivity extends BaseActivity {
                 startActivity(dialIntent);
                 break;
             case R.id.sales_order_info_back_commit://重新提交
+
                 httpFixContractPhoto();
                 break;
         }
@@ -541,8 +524,13 @@ public class SalesOrderInfoActivity extends BaseActivity {
         for (int i = 0; i < reIdsList.size(); i++) {
             fixContractString+=reIdsList.get(i)+":"+rePhotosList.get(i)+",";
         }
-        fixContractString=fixContractString.substring(0,fixContractString.length()-1);
 
+        if (TextUtils.isEmpty(fixContractString)){
+            PhoneUtils.toast(context,"请更换图片之后重新提交");
+            return;
+        }else {
+            fixContractString=fixContractString.substring(0,fixContractString.length()-1);
+        }
 
         showLoading();
         StringRequest mStringRequest = new StringRequest(Constant.Url_Sales_Upload_Contracts_Recommit, RequestMethod.POST);

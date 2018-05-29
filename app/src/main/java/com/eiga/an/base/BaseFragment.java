@@ -52,6 +52,19 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * 跳转到登陆页
+     * @param mContext
+     * @param isFinishThis
+     */
+    public void gotoLogin(Context mContext, boolean isFinishThis){
+        Intent intent=new Intent(mContext,UserLoginActivity.class);
+        startActivity(intent);
+        if (isFinishThis){
+            getActivity().finish();
+        }
+    }
+
     //提供给子类请求使用。
     public <T> void StringRequest(int what, Request<String> request, SimpleResponseListener<String> listener) {
         queue = NoHttp.newRequestQueue();

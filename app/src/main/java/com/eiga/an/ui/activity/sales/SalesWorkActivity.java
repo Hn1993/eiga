@@ -308,6 +308,9 @@ public class SalesWorkActivity extends BaseActivity {
                 intent.putExtra(Constant.Order_Info_Status,status);
                 Log.e(TAG,"id="+data.get(position).Id);
                 startActivity(intent);
+
+//                Intent intent=new Intent(SalesWorkActivity.this,SalesOrderInfoTest.class);
+//                startActivity(intent);
             }
         });
 

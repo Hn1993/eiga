@@ -20,7 +20,8 @@ public class ApiMainModel {
     public boolean BankCardIsAuthentication;
     public int TokenStatus;
     public int Status;
-    public Object Msg;
+    public String Msg;
+    public boolean NeedReLogin;
     public Object Data;
 
     public static class UserBean {

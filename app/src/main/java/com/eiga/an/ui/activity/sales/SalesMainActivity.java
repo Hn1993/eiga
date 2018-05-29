@@ -136,6 +136,10 @@ public class SalesMainActivity extends BaseActivity {
                         model = new Gson().fromJson(response.get(), ApiSalesMainModel.class);
                         if (model.Status == 1) {
                             setHttpData(model);
+                        }else if (model.Status==2){
+                            if (model.NeedReLogin){
+                                gotoSalesLogin(SalesMainActivity.this,true);
+                            }
                         }
                     } catch (Exception e) {
                         Log.e(TAG, "Exception=" + e);

@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/base_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/sales_common_title"/>
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+            <include layout="@layout/sales_common_title"/>
             <TextView
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -116,23 +115,16 @@
                 android:textColor="@color/common_title_text_color"
                 android:textSize="45px" />
 
-            <com.xyz.step.FlowViewVertical
-                android:id="@+id/sales_order_info_step"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5px"
+            <com.baoyachi.stepview.VerticalStepView
                 android:background="@color/white"
-                android:paddingBottom="34dp"
-                android:paddingTop="17dp"
-                app:v_bgPositionX="25dp"
-                app:v_bg_color="@color/light_grey"
-                app:v_bg_radius="4.5dp"
-                app:v_interval="50dp"
-                app:v_pro_color="@color/light_blue"
-                app:v_pro_radius="5dp"
-                app:v_textMoveTop="10dp"
-                app:v_textPaddingLeft="17dp"
-                app:v_textsize="12dp" />
+                android:paddingLeft="30px"
+                android:paddingTop="30px"
+                android:paddingBottom="30px"
+                android:id="@+id/sales_order_info_step_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.baoyachi.stepview.VerticalStepView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -410,5 +402,5 @@
         </LinearLayout>
 
 
-    </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+    <!--</ScrollView>-->
+</ScrollView>

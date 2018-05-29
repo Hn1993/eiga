@@ -141,7 +141,7 @@ public class IdCardVerifyActivity extends BaseActivity {
                         Intent intent=null;
                         if (model.Status==1){
                             //在这里请求接
-                            PhoneUtils.toast(IdCardVerifyActivity.this,"认证成功");
+                            //PhoneUtils.toast(IdCardVerifyActivity.this,"认证成功");
                             EventBus.getDefault().post("bond_success","bond_success");
                             finish();
                         }

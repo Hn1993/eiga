@@ -78,6 +78,8 @@ public class SalesSigningUploadContractActivity extends BaseActivity {
     private AlertDialog.Builder mDialog;
 
     private String salesPhone, salesToken,salesUserId,SalesCreditProductId;
+
+    private int photoNum=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +93,7 @@ public class SalesSigningUploadContractActivity extends BaseActivity {
         mDialog=new android.app.AlertDialog.Builder(this);
         salesUserId = getIntent().getStringExtra(Constant.Sales_User_Id);
         SalesCreditProductId = getIntent().getStringExtra(Constant.Sales_CreditProduct_Id);
+        photoNum = getIntent().getIntExtra(Constant.Sales_Need_Photo_Num,1);
         findViews();
     }
 
@@ -350,6 +353,11 @@ public class SalesSigningUploadContractActivity extends BaseActivity {
 
     //提交
     private void httpCommitImageContracts() {
+        if (selectList.size()<photoNum){
+            PhoneUtils.toast(context,"合同照片不能少于"+photoNum+"张");
+            return;
+        }
+
         String photos = "";
 
         for (int i = 0; i < selectList.size(); i++) {

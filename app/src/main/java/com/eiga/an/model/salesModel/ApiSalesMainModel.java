@@ -21,6 +21,7 @@ public class ApiSalesMainModel {
     public String OfficialPartnerName;
     public String ClerkName;
     public String HeadSculpture;
+    public boolean NeedReLogin;
     public int Status;
     public Object Msg;
     public Object Data;

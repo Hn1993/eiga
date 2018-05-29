@@ -158,6 +158,7 @@ public class SalesCustomerActivity extends BaseActivity {
                         Intent intent=new Intent(context,SalesSigningUploadContractActivity.class);
                         intent.putExtra(Constant.Sales_User_Id,UserId);
                         intent.putExtra(Constant.Sales_CreditProduct_Id,item.CreditProductId);
+                        intent.putExtra(Constant.Sales_Need_Photo_Num,item.ContractPhoto);
                         startActivity(intent);
                     }
                 });
