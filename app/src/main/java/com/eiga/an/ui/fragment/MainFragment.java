@@ -32,6 +32,7 @@ import com.eiga.an.ui.activity.user.BankVerifyActivity;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
+import com.eiga.an.ui.activity.user.QueryTDInfoActivity;
 import com.eiga.an.ui.activity.user.UserLoginActivity;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
@@ -68,6 +69,10 @@ public class MainFragment extends BaseFragment {
     TextView carquotaTvPhone;
     @BindView(R.id.carquota_tv_bank)
     TextView carquotaTvBank;
+    @BindView(R.id.carquota_tv_recommit_td)
+    TextView reQueryTd;
+    @BindView(R.id.carquota_tv_td_his)
+    TextView seeTdHis;
     private View mRootView;
 
     private String TAG = getClass().getName();
@@ -75,7 +80,7 @@ public class MainFragment extends BaseFragment {
     public LocationClient mLocationClient = null;//定位
     private BroadcastReceiver mConnectNetReceiver; //监听网络状态
 
-    private String token,phone,isHaveEvaluation,locationLat,locationLng;
+    private String token,phone,isHaveEvaluation,isHaveQueryTd,locationLat,locationLng;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,17 +93,27 @@ public class MainFragment extends BaseFragment {
         token= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Token,"");
         phone= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Login_Name,"");
         isHaveEvaluation= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Is_Have_Evaluation,"");
+        isHaveQueryTd= (String) SharedPreferencesUtils.getShared(getActivity(),Constant.User_Is_Have_QueryTd,"");
         if (TextUtils.isEmpty(token)||TextUtils.isEmpty(phone)){//判断是否登录
             startActivity(new Intent(getActivity(), UserLoginActivity.class));
             getActivity().finish();
         }else {//判断是否评估过
-            if (TextUtils.isEmpty(isHaveEvaluation)){
-                startActivity(new Intent(getActivity(), InfoCollectionActivity.class));
+//            if (TextUtils.isEmpty(isHaveEvaluation)){
+//                startActivity(new Intent(getActivity(), InfoCollectionActivity.class));
+//                getActivity().finish();
+//            }
+            if (TextUtils.isEmpty(isHaveQueryTd)){
+                Intent intent=new Intent(getActivity(), QueryTDInfoActivity.class);
+                startActivity(intent);
                 getActivity().finish();
-            }else {
+            }
+
+            else {
                 findViews();
                 addBroadCastReceiver();
             }
+
+
 
         }
 
@@ -129,7 +144,7 @@ public class MainFragment extends BaseFragment {
         getActivity().registerReceiver(mConnectNetReceiver, mFilter);
     }
 
-    @OnClick({ R.id.carquota_tv_recommit,
+    @OnClick({ R.id.carquota_tv_recommit,R.id.carquota_tv_recommit_td,R.id.carquota_tv_td_his,
             R.id.carquota_tv_idcard, R.id.carquota_tv_phone, R.id.carquota_tv_bank})
     public void onViewClicked(View view) {
         Intent intent=null;
@@ -149,6 +164,14 @@ public class MainFragment extends BaseFragment {
             case R.id.carquota_tv_bank:
                 intent=new Intent(getActivity(),BankVerifyActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.carquota_tv_recommit_td:
+                intent=new Intent(getActivity(),QueryTDInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.carquota_tv_td_his://历史记录
+//                intent=new Intent(getActivity(),BankVerifyActivity.class);
+//                startActivity(intent);
                 break;
         }
     }

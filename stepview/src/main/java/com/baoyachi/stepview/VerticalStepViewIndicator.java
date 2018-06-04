@@ -125,7 +125,7 @@ public class VerticalStepViewIndicator extends View
         mCompletedLineHeight = 0.03f * defaultStepIndicatorNum;
         //圆的半径  set mCircleRadius
         //mCircleRadius = 0.28f * defaultStepIndicatorNum;
-        mCircleRadius = 0.15f * defaultStepIndicatorNum;
+        mCircleRadius = 0.20f * defaultStepIndicatorNum;
         //线与线之间的间距    set mLinePadding
         //mLinePadding = 0.85f * defaultStepIndicatorNum;
         mLinePadding = 1.5f * defaultStepIndicatorNum;

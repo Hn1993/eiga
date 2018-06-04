@@ -49,8 +49,7 @@
         </activity>
 
         <activity android:name=".ui.activity.user.UserLoginActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan|stateVisible">
+            android:launchMode="singleTask">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
@@ -68,6 +67,9 @@
         <activity android:name=".ui.activity.user.AboutActivity"/>
         <activity android:name=".ui.activity.user.FixInfoActivity"/>
         <activity android:name=".ui.activity.user.MyOrderActivity"/>
+        <activity android:name=".ui.activity.user.QueryTDInfoActivity"/>
+        <activity android:name=".ui.activity.user.QueryTDPayActivity"/>
+        <activity android:name=".ui.activity.user.QueryTDPaySuccessActivity"/>
         <activity android:name=".ui.activity.WebActivity"/>
         <activity android:name=".ui.activity.PreImageActivity"/>
 
@@ -77,14 +79,15 @@
             android:launchMode="singleTask"/>
         <activity android:name=".ui.activity.sales.SalesLoginActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan|stateVisible"/>
+            />
+        <!-- android:windowSoftInputMode="stateHidden|adjustPan" -->
         <activity android:name=".ui.activity.sales.SalesFixInfoActivity"/>
         <activity android:name=".ui.activity.sales.SalesSettingActivity"/>
         <activity android:name=".ui.activity.sales.SalesFixPswActivity"/>
         <activity android:name=".ui.activity.sales.SalesWorkActivity"/>
         <activity android:name=".ui.activity.sales.SalesCustomerActivity"/>
         <activity android:name=".ui.activity.sales.SalesSigningActivity"
-            android:windowSoftInputMode="adjustPan|stateVisible"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.activity.sales.SalesChooseContractActivity"/>
         <activity android:name=".ui.activity.sales.SalesOrderInfoActivity"/>
         <activity android:name=".ui.activity.sales.SalesChooseCarActivity"/>

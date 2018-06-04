@@ -24,6 +24,9 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,18 +53,22 @@ public class MainActivity extends BaseActivity {
         autoVirtualKeys();//华为等底部虚拟按键的手机
         ButterKnife.bind(this);
         setImmersedNavigationBar(this,R.color.white);
+        EventBus.getDefault().register(this);
 
         isFirstOpenApp= (String) SharedPreferencesUtils.getShared(this,Constant.IsFirstOpenApp,"");
+        Log.e(TAG,"isFirstOpenApp="+isFirstOpenApp);
         if (TextUtils.isEmpty(isFirstOpenApp)){
             Intent intent=new Intent(this, ChooseIdentityActivity.class);
             startActivity(intent);
             finish();
+
         }else {
             if (isFirstOpenApp.equals("1")){
                 Intent intent=new Intent(this, SalesMainActivity.class);
                 startActivity(intent);
                 finish();
             }
+
         }
 
         AndPermission.with(this)
@@ -141,5 +148,16 @@ public class MainActivity extends BaseActivity {
         tabMyCenter.setIcon(R.drawable.tab_mycenter);
         //TabKeeper.setIcon(R.drawable.tab_mycenter);
 
+    }
+
+    @Subscriber (tag = "up_grade")
+    public void onUpGradeEvent(String str){
+        mainVp.setCurrentItem(0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

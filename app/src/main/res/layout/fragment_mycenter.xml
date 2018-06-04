@@ -10,14 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <include layout="@layout/layout_common_title"/>
-        <ImageView
+
+        <RelativeLayout
             android:id="@+id/my_setting"
-            android:background="@mipmap/icon_setting"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="60px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="@dimen/base_actionbar_height"
+            android:layout_height="@dimen/base_actionbar_height">
+            <ImageView
+                android:background="@mipmap/icon_setting"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="60px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout

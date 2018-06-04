@@ -1,12 +1,15 @@
 package com.eiga.an.ui.activity.user;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eiga.an.R;
@@ -46,6 +49,8 @@ public class UserLoginActivity extends BaseActivity {
     TextView downTimer;
     @BindView(R.id.user_main_tv_getcode)
     TextView getCode;
+    @BindView(R.id.fg_main_layout)
+    LinearLayout fgMainLayout;
     private String TAG = getClass().getName();
 
     private String isHaveEvaluation;//判断是否评估过
@@ -69,6 +74,35 @@ public class UserLoginActivity extends BaseActivity {
     private void findViews() {
         userMainEtPhone.setText((String) SharedPreferencesUtils.getShared(UserLoginActivity.this,Constant.User_Login_Name,""));
         userMainEtPhone.setSelection(((String) SharedPreferencesUtils.getShared(UserLoginActivity.this,Constant.User_Login_Name,"")).length());
+        addLayoutListener(fgMainLayout,fgMainTvGo);
+    }
+
+
+    public void addLayoutListener(final View main, final View scroll) {
+        main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                //1、获取main在窗体的可视区域
+                main.getWindowVisibleDisplayFrame(rect);
+                //2、获取main在窗体的不可视区域高度，在键盘没有弹起时，main.getRootView().getHeight()调节度应该和rect.bottom高度一样
+                int mainInvisibleHeight = main.getRootView().getHeight() - rect.bottom;
+                int screenHeight = main.getRootView().getHeight();//屏幕高度
+                //3、不可见区域大于屏幕本身高度的1/4：说明键盘弹起了
+                if (mainInvisibleHeight > screenHeight / 5) {
+                    int[] location = new int[2];
+                    scroll.getLocationInWindow(location);
+                    // 4､获取Scroll的窗体坐标，算出main需要滚动的高度
+                    int srollHeight = (location[1] + scroll.getHeight()) - rect.bottom;
+                    //5､让界面整体上移键盘的高度
+                    Log.e(TAG,"srollHeight="+srollHeight);
+                    main.scrollTo(0, srollHeight>0?srollHeight:screenHeight / 5);
+                } else {
+                    //3、不可见区域小于屏幕高度1/4时,说明键盘隐藏了，把界面下移，移回到原有高度
+                    main.scrollTo(0, 0);
+                }
+            }
+        });
     }
 
     @OnClick({R.id.user_main_tv_getcode, R.id.fg_main_tv_go})
@@ -76,27 +110,28 @@ public class UserLoginActivity extends BaseActivity {
         Intent intent=null;
         switch (view.getId()) {
             case R.id.user_main_tv_getcode:
-                DownTimer timer = new DownTimer();//实例化
-                timer.setTotalTime(120*1000);//设置毫秒数
-                timer.setIntervalTime(1000);//设置间隔数
-                timer.setTimerLiener(new DownTimer.TimeListener() {
-                    @Override
-                    public void onFinish() {
-                        //Toast.makeText(MainActivity.this, "完成倒计时", Toast.LENGTH_SHORT).show();
-                        //完成倒计时 重新请求接口
-                        downTimer.setVisibility(View.GONE);
-                        getCode.setVisibility(View.VISIBLE);
-                    }
-                    @Override
-                    public void onInterval(long remainTime) {
-                        getCode.setVisibility(View.GONE);
-                        downTimer.setVisibility(View.VISIBLE);
-                        downTimer.setText(remainTime / 1000 +" 秒后重新获取");
-                    }
-                });
-                timer.start();
-
                 if (PhoneUtils.isMobile(userMainEtPhone.getText().toString())){
+
+                    DownTimer timer = new DownTimer();//实例化
+                    timer.setTotalTime(120*1000);//设置毫秒数
+                    timer.setIntervalTime(1000);//设置间隔数
+                    timer.setTimerLiener(new DownTimer.TimeListener() {
+                        @Override
+                        public void onFinish() {
+                            //Toast.makeText(MainActivity.this, "完成倒计时", Toast.LENGTH_SHORT).show();
+                            //完成倒计时 重新请求接口
+                            downTimer.setVisibility(View.GONE);
+                            getCode.setVisibility(View.VISIBLE);
+                        }
+                        @Override
+                        public void onInterval(long remainTime) {
+                            getCode.setVisibility(View.GONE);
+                            downTimer.setVisibility(View.VISIBLE);
+                            downTimer.setText(remainTime / 1000 +" 秒后重新获取");
+                        }
+                    });
+                    timer.start();
+
                     httpGetCode();
                 }else {
                     PhoneUtils.toast(UserLoginActivity.this,"请填写正确的手机号");

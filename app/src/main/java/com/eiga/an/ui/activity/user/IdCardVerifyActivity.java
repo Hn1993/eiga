@@ -181,7 +181,7 @@ public class IdCardVerifyActivity extends BaseActivity {
         Album.image(context)
                 .singleChoice()
                 .requestCode(200)
-                .camera(false)
+                .camera(true)
                 .columnCount(2)
                 .widget(Widget.newDarkBuilder(this)
                         .navigationBarColor(getResources().getColor(R.color.light_blue))

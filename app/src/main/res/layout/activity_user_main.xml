@@ -1,123 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="150px"
-    android:paddingRight="150px"
-    android:background="@color/light_blue">
+<!--<github.ll.view.FloatOnKeyboardLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="@color/light_blue">-->
 
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_marginTop="290px"
-        android:textSize="120px"
-        android:textColor="@color/white"
-        android:text="预估贷款额度"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60px"
-        android:textSize="65px"
-        android:textColor="@color/white"
-        android:text="10秒极速预估"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:textColor="@color/white"
-        android:textSize="40px"
-        android:id="@+id/user_main_et_phone"
-        android:layout_marginTop="220px"
-        android:hint="请输入手机号"
-        android:background="@null"
-        android:gravity="bottom"
-        android:inputType="phone"
-        android:paddingBottom="40px"
-        android:textColorHint="@color/text_hint"
-        android:layout_width="match_parent"
-        android:layout_height="180px" />
-    <View
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
     <LinearLayout
-        android:id="@+id/fg_main_et_code_layout"
-        android:layout_below="@+id/user_main_et_phone"
-        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:paddingLeft="150px"
+        android:paddingRight="150px"
+        android:id="@+id/fg_main_layout"
+        android:background="@color/light_blue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginTop="290px"
+            android:textSize="120px"
+            android:textColor="@color/white"
+            android:text="预估贷款额度"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60px"
+            android:textSize="65px"
+            android:textColor="@color/white"
+            android:text="10秒极速预估"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <EditText
             android:textColor="@color/white"
             android:textSize="40px"
+            android:id="@+id/user_main_et_phone"
+            android:layout_marginTop="220px"
+            android:hint="请输入手机号"
             android:background="@null"
-            android:id="@+id/user_main_et_code"
-            android:hint="请输验证码"
-            android:inputType="number"
             android:gravity="bottom"
+            android:inputType="phone"
             android:paddingBottom="40px"
             android:textColorHint="@color/text_hint"
-            android:layout_width="0px"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="180px" />
-        <TextView
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <LinearLayout
+            android:id="@+id/fg_main_et_code_layout"
+            android:layout_below="@+id/user_main_et_phone"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/white"
+                android:textSize="40px"
+                android:background="@null"
+                android:id="@+id/user_main_et_code"
+                android:hint="请输验证码"
+                android:inputType="number"
+                android:gravity="bottom"
+                android:paddingBottom="40px"
+                android:textColorHint="@color/text_hint"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="180px" />
+            <TextView
 
-        android:id="@+id/user_main_tv_getcode"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingBottom="40px"
-        android:gravity="bottom"
-        android:textColor="@color/white"
-        android:textSize="35px"
-        android:text="获取验证码"
-        android:layout_toRightOf="@+id/fg_main_et_code"/>
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/user_main_tv_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingBottom="40px"
-            android:gravity="bottom"
+                android:id="@+id/user_main_tv_getcode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="40px"
+                android:gravity="bottom"
+                android:textColor="@color/white"
+                android:textSize="35px"
+                android:text="获取验证码"
+                android:layout_toRightOf="@+id/fg_main_et_code"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/user_main_tv_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="40px"
+                android:gravity="bottom"
+                android:textColor="@color/white"
+                android:textSize="35px"
+                android:text="120S后重新获取"
+                android:layout_toRightOf="@+id/fg_main_et_code"/>
+        </LinearLayout>
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <EditText
             android:textColor="@color/white"
-            android:textSize="35px"
-            android:text="120S后重新获取"
-            android:layout_toRightOf="@+id/fg_main_et_code"/>
+            android:textSize="40px"
+            android:gravity="bottom"
+            android:paddingBottom="40px"
+            android:id="@+id/user_main_et_recommend"
+            android:hint="请输入推荐码(非必填)"
+            android:background="@null"
+            android:inputType="text"
+            android:textColorHint="@color/text_hint"
+            android:layout_width="match_parent"
+            android:layout_height="180px" />
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <TextView
+            android:id="@+id/fg_main_tv_go"
+            android:text="立即评估"
+            android:textSize="55px"
+            android:gravity="center"
+            android:textColor="@color/light_blue"
+            android:layout_below="@+id/user_main_et_recommend"
+            android:layout_marginTop="120px"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_white_bg_selector"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_button_height" />
     </LinearLayout>
-    <View
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
-
-    <EditText
-        android:textColor="@color/white"
-        android:textSize="40px"
-        android:gravity="bottom"
-        android:paddingBottom="40px"
-        android:id="@+id/user_main_et_recommend"
-        android:hint="请输入推荐码(非必填)"
-        android:background="@null"
-        android:inputType="text"
-        android:textColorHint="@color/text_hint"
-        android:layout_width="match_parent"
-        android:layout_height="180px" />
-    <View
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
-    <TextView
-        android:id="@+id/fg_main_tv_go"
-        android:text="立即评估"
-        android:textSize="55px"
-        android:gravity="center"
-        android:textColor="@color/light_blue"
-        android:layout_below="@+id/user_main_et_recommend"
-        android:layout_marginTop="120px"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_white_bg_selector"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_button_height" />
 
 
-</LinearLayout>
+<!--</github.ll.view.FloatOnKeyboardLayout>-->

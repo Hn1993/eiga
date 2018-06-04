@@ -158,6 +158,7 @@ public class MyCenterFragment extends BaseFragment {
                 doLogout();
                 break;
             case R.id.my_up_grade:
+                EventBus.getDefault().post("up_grade","up_grade");
                 break;
             case R.id.my_car_layout:
                 intent=new Intent(getActivity(), MyOrderActivity.class);
