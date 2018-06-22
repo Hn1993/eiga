@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px">
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="@color/common_title_text_color"
+            android:text="请选择期望的贷款金额"
+            android:textSize="50px"
+            style="@style/text_45px" />
+        <TextView
+            android:id="@+id/main_dialog_pick_cancel"
+            android:layout_centerVertical="true"
+            android:textColor="@color/common_title_text_color"
+            android:text="取消"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:paddingRight="60px"
+            android:paddingLeft="60px"
+            style="@style/text_45px" />
+        <TextView
+            android:id="@+id/main_dialog_pick_ok"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="60px"
+            android:paddingLeft="60px"
+            android:textColor="@color/common_title_text_color"
+            android:text="确定"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            style="@style/text_45px" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <com.eiga.an.view.EasyPickerView
+            android:id="@+id/main_dialog_pick_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            custom:epvMaxShowNum="3"
+            custom:epvRecycleMode="true"
+            custom:epvTextColor="@color/colorPrimary"
+            custom:epvTextMaxScale="2.0"
+            custom:epvTextMinAlpha="0.35"
+            custom:epvTextPadding="10dp"
+            custom:epvTextSize="25sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="70dp"
+            android:text="万"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
+            />
+    </LinearLayout>
+</LinearLayout>

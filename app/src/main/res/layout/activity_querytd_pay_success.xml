@@ -7,19 +7,38 @@
 
     <include layout="@layout/layout_common_title"/>
     <ImageView
+        android:id="@+id/pay_success_image"
         android:layout_marginTop="200px"
         android:layout_gravity="center_horizontal"
         android:background="@mipmap/icon_pay_success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
+        android:id="@+id/pay_success_msg"
         android:textSize="70px"
         android:text="支付成功"
         android:layout_marginTop="90px"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/common_title_text_color"
         style="@style/text_45px"/>
+
     <TextView
+        android:visibility="visible"
+        android:id="@+id/pay_success_waiting"
+        android:layout_width="wrap_content"
+        android:layout_height="100px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="170px"
+        android:background="@drawable/box_selector"
+        android:gravity="center"
+        android:text="信用报告正在生成中,请稍后.."
+        android:paddingLeft="50px"
+        android:paddingRight="50px"
+        android:textColor="@color/common_title_text_color"
+        android:textSize="40px" />
+
+    <TextView
+        android:visibility="visible"
         android:id="@+id/pay_success_commit"
         android:layout_marginTop="170px"
         android:textSize="40px"
@@ -28,6 +47,19 @@
         android:text="查看信用报告"
         android:gravity="center"
         android:background="@drawable/box_selector"
+        android:layout_width="400px"
+        android:layout_height="100px"
+        />
+
+    <TextView
+        android:id="@+id/pay_success_look"
+        android:layout_marginTop="60px"
+        android:textSize="40px"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:text="先去选择贷款产品"
+        android:gravity="center"
+        android:background="@drawable/blue_box_selector"
         android:layout_width="400px"
         android:layout_height="100px"
         />

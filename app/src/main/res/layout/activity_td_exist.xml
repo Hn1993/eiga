@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_common_title"/>
+
+    <TextView
+        android:id="@+id/pay_exist_text"
+        style="@style/text_45px"
+        android:layout_marginTop="300px"
+        android:text="信用报告尚未过期,无需重新查询"
+        android:textColor="@color/common_title_text_color"
+        android:textSize="60px" />
+
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/pay_exist_his"
+        android:layout_marginTop="570px"
+        android:textSize="40px"
+        android:textColor="@color/common_title_text_color"
+        android:layout_gravity="center_horizontal"
+        android:text="查看历史信用报告"
+        android:gravity="center"
+        android:background="@drawable/box_selector"
+        android:layout_width="400px"
+        android:layout_height="100px"
+        />
+
+    <TextView
+        android:id="@+id/pay_exist_main"
+        android:layout_marginTop="60px"
+        android:textSize="40px"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:text="返回首页"
+        android:gravity="center"
+        android:background="@drawable/blue_box_selector"
+        android:layout_width="400px"
+        android:layout_height="100px"
+        />
+</LinearLayout>

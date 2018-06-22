@@ -72,6 +72,11 @@
         <activity android:name=".ui.activity.user.QueryTDPaySuccessActivity"/>
         <activity android:name=".ui.activity.WebActivity"/>
         <activity android:name=".ui.activity.PreImageActivity"/>
+        <activity android:name=".ui.activity.user.TDReportWebActivity"/>
+        <activity android:name=".ui.activity.user.QueryTDExistActivity"/>
+        <activity android:name=".ui.activity.user.TdHisActivity"/>
+        <activity android:name=".ui.activity.user.ShowTdReportActivity"/>
+
 
         <activity android:name=".ui.activity.user.ChooseIdentityActivity"
             android:launchMode="singleTask"/>
@@ -92,6 +97,36 @@
         <activity android:name=".ui.activity.sales.SalesOrderInfoActivity"/>
         <activity android:name=".ui.activity.sales.SalesChooseCarActivity"/>
         <activity android:name=".ui.activity.sales.SalesSigningUploadContractActivity"/>
+
+
+        <!-- 微信支付   微信开放平台申请的id wxac781390a3adb385-->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:launchMode="singleTop"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wxac781390a3adb385"/>
+            </intent-filter>
+        </activity>
+        <!--支付宝支付-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
 
         <!-- 搭配autolayout使用,屏幕适配 -->
         <meta-data android:name="design_width" android:value="1080">

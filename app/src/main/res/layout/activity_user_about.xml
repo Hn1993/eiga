@@ -47,6 +47,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/about_protocol"
         android:paddingLeft="60px"
         android:paddingRight="60px"
@@ -67,6 +68,7 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/about_review"
         android:paddingLeft="60px"
         android:paddingRight="60px"

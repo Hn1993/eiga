@@ -1,5 +1,6 @@
 package com.eiga.an.ui.activity.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiGetBankInfoModel;
+import com.eiga.an.ui.activity.WebActivity;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.google.gson.Gson;
@@ -57,20 +59,29 @@ public class PhoneVerifyActivity extends BaseActivity {
     }
 
     private void findViews() {
-        commonTitleTv.setText("运营商认证");
+        commonTitleTv.setText("上传手机号信息");
     }
 
-    @OnClick({R.id.common_title_back, R.id.phone_verify_commit})
+    @OnClick({R.id.common_title_back, R.id.phone_verify_commit,R.id.phone_verify_protocol})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.common_title_back:
                 finish();
                 break;
+            case R.id.phone_verify_protocol:
+                String url=Constant.H5_Eiga_Protocol+"2";
+                intent=new Intent(PhoneVerifyActivity.this, WebActivity.class);
+                intent.putExtra(Constant.WebUrl,url);
+                intent.putExtra(Constant.WebTitle,"运营商协议");
+                startActivity(intent);
+                break;
             case R.id.phone_verify_commit:
-                if (PhoneUtils.isMobile(phoneVerifyPhone.getText().toString())&&
-                        !TextUtils.isEmpty(phoneVerifyType.getText().toString())){
+                if (PhoneUtils.isMobile(phoneVerifyPhone.getText().toString())){
                     if (phoneVerifyCheckbox.isChecked()){
-                        httpPhoneVerify();
+                        //httpPhoneVerify();
+                        EventBus.getDefault().post(phoneVerifyPhone.getText().toString(),"upload_phone");
+                        finish();
                     }else {
                         PhoneUtils.toast(PhoneVerifyActivity.this,"请先同意运营商协议");
                     }

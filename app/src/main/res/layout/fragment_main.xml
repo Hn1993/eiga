@@ -102,7 +102,27 @@
 
     </LinearLayout>
 
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:background="@color/white">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_product_vp"
+            android:layout_width="450px"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:clipChildren="false"
+            android:layout_margin="30dp">
+
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+
     <LinearLayout
+        android:visibility="gone"
         android:orientation="vertical"
         android:layout_marginTop="30px"
         android:background="@color/white"

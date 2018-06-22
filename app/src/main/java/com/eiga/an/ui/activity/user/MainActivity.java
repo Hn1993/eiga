@@ -43,7 +43,8 @@ public class MainActivity extends BaseActivity {
     private android.support.design.widget.TabLayout.Tab tabMain,tabMall,TabKeeper,tabMyCenter;
 
     //,"信用管家"
-    private String[] mTitles=new String[]{"首页","商城","个人中心"};
+    //private String[] mTitles=new String[]{"首页","商城","个人中心"};
+    private String[] mTitles=new String[]{"首页","个人中心"};
 
     private String isFirstOpenApp,userName;
     @Override
@@ -106,16 +107,18 @@ public class MainActivity extends BaseActivity {
     private void findViews() {
 
         mainVp.setScanScroll(false);
-        mainVp.setOffscreenPageLimit(3);
+        mainVp.setOffscreenPageLimit(0);
         mainVp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
 
                 if (position==0){
                     return new MainFragment();
-                }else if (position==1){
-                    return new MallFragment();
                 }
+
+//                else if (position==1){
+//                    return new MallFragment();
+//                }
 //                else if (position==2){
 //                    return new KeeperFragment();
 //                }
@@ -139,12 +142,12 @@ public class MainActivity extends BaseActivity {
 
         mainTab.setupWithViewPager(mainVp);
         tabMain=mainTab.getTabAt(0);
-        tabMall=mainTab.getTabAt(1);
-        tabMyCenter=mainTab.getTabAt(2);
+        //tabMall=mainTab.getTabAt(1);
+        tabMyCenter=mainTab.getTabAt(1);
         //TabKeeper=mainTab.getTabAt(3);
 
         tabMain.setIcon(R.drawable.tab_main);
-        tabMall.setIcon(R.drawable.tab_mall);
+        //tabMall.setIcon(R.drawable.tab_mall);
         tabMyCenter.setIcon(R.drawable.tab_mycenter);
         //TabKeeper.setIcon(R.drawable.tab_mycenter);
 

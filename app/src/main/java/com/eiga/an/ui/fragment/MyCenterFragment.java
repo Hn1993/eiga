@@ -177,6 +177,7 @@ public class MyCenterFragment extends BaseFragment {
         Intent intent=new Intent(getActivity(), UserLoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+
     }
 
 }

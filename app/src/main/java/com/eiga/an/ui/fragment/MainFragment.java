@@ -2,6 +2,7 @@ package com.eiga.an.ui.fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -10,14 +11,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -26,16 +33,24 @@ import com.eiga.an.R;
 import com.eiga.an.base.BaseFragment;
 import com.eiga.an.base.MyApplication;
 import com.eiga.an.model.Constant;
-import com.eiga.an.model.jsonModel.ApiInfoCollectModel;
 import com.eiga.an.model.jsonModel.ApiMainModel;
+import com.eiga.an.model.jsonModel.ApiMallLoadTypeModel;
+import com.eiga.an.model.jsonModel.ApiMallUploadLoadModel;
 import com.eiga.an.ui.activity.user.BankVerifyActivity;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
+import com.eiga.an.ui.activity.user.QueryTDExistActivity;
 import com.eiga.an.ui.activity.user.QueryTDInfoActivity;
+import com.eiga.an.ui.activity.user.QueryTDPayActivity;
+import com.eiga.an.ui.activity.user.QueryTDPaySuccessActivity;
+import com.eiga.an.ui.activity.user.TdHisActivity;
 import com.eiga.an.ui.activity.user.UserLoginActivity;
+import com.eiga.an.utils.GlideUtils;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
+import com.eiga.an.view.EasyPickerView;
+import com.eiga.an.view.ZoomOutPageTransformer;
 import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.CacheMode;
@@ -45,6 +60,9 @@ import com.yanzhenjie.nohttp.rest.StringRequest;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +91,8 @@ public class MainFragment extends BaseFragment {
     TextView reQueryTd;
     @BindView(R.id.carquota_tv_td_his)
     TextView seeTdHis;
+    @BindView(R.id.main_product_vp)
+    ViewPager mProductVp;
     private View mRootView;
 
     private String TAG = getClass().getName();
@@ -81,6 +101,14 @@ public class MainFragment extends BaseFragment {
     private BroadcastReceiver mConnectNetReceiver; //监听网络状态
 
     private String token,phone,isHaveEvaluation,isHaveQueryTd,locationLat,locationLng;
+
+    private List<ApiMallLoadTypeModel.CreditTypesBean> mTypeList = new ArrayList<>();
+
+    private BottomSheetDialog mDialog;
+    private EasyPickerView mPickView;
+    private String loadLimit;
+
+    private boolean isTdReportTiming;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -131,9 +159,218 @@ public class MainFragment extends BaseFragment {
         //httpGetMiGuanData();
         //httpGetJiedaiData();
         commonTitleBack.setVisibility(View.GONE);
-        commonTitleTv.setText("我的贷款额度");
+        commonTitleTv.setText("最高可贷");
+
+        httpGetProductType();
+
     }
 
+    private void httpGetProductType() {
+
+        StringRequest mStringRequest = new StringRequest(Constant.Url_User_Loan_Type, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone", phone);
+        mStringRequest.add("Token", token);
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    Log.e(TAG,response.get() );
+                    ApiMallLoadTypeModel model = null;
+                    try {
+                        model = new Gson().fromJson(response.get(), ApiMallLoadTypeModel.class);
+                        if (model.Status == 1) {
+                            setProductData(model);
+                        } else {
+                            //PhoneUtils.toast(getActivity(),model.Msg.toString());
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Exception=" + e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.e(TAG, "onFailed==" + response.get());
+                //PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
+            }
+        });
+    }
+
+    private void setProductData(ApiMallLoadTypeModel model) {
+        mTypeList = model.CreditTypes;
+
+        mProductVp.setAdapter(new MyPagerAdapter(mTypeList));
+        mProductVp.setOffscreenPageLimit(2);
+        mProductVp.setPageMargin(10);
+        mProductVp.setPageTransformer(true,new ZoomOutPageTransformer());
+
+    }
+
+
+    private class MyPagerAdapter extends PagerAdapter {
+
+        private List<ApiMallLoadTypeModel.CreditTypesBean> pagerData;
+        public MyPagerAdapter(List<ApiMallLoadTypeModel.CreditTypesBean> data) {
+            super();
+            if (data!=null){
+                pagerData=data;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return pagerData.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, final int position) {
+//            ImageView imageView = new ImageView(getActivity());
+//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//            imageView.setImageResource(R.color.black);
+//            container.addView(imageView);
+//            return imageView;
+
+
+            View view=getLayoutInflater().inflate(R.layout.mall_item,null,false);
+            ImageView imageView = view.findViewById(R.id.mall_item_image);
+            RelativeLayout item_layout = view.findViewById(R.id.mall_item_layout);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            GlideUtils.getGlideUtils().glideImage(getActivity(), Constant.Url_Common + pagerData.get(position).Photo, imageView);
+
+            item_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showChooseMoneyDialog(position);
+                }
+            });
+
+            container.addView(view);
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((ImageView) object);
+        }
+
+    }
+
+    private void showChooseMoneyDialog(final int position) {
+
+
+        View view=getLayoutInflater().inflate(R.layout.fragment_main_dialog,null);
+
+        mDialog=new BottomSheetDialog(getActivity());
+        mDialog.setContentView(view);
+        mDialog.setTitle("请选择你期望的贷款额度");
+        mDialog.show();
+
+
+        mPickView= (EasyPickerView) view.findViewById(R.id.main_dialog_pick_view);
+        final ArrayList<String> mMoneyList=new ArrayList<>();
+
+        for (int i = 1; i <= 100; i++) {
+            mMoneyList.add(i+"");
+        }
+        mPickView.setDataList(mMoneyList);
+        mPickView.setOnScrollChangedListener(new EasyPickerView.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged(int curIndex) {
+                //Log.e(TAG,"onScrollChanged curIndex="+mMoneyList.get(curIndex));
+                //loadLimit=mMoneyList.get(curIndex);
+            }
+
+            @Override
+            public void onScrollFinished(int curIndex) {
+                Log.e(TAG,"onScrollFinished curIndex="+mMoneyList.get(curIndex));
+                loadLimit=mMoneyList.get(curIndex);
+            }
+        });
+
+
+        view.findViewById(R.id.main_dialog_pick_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+
+        view.findViewById(R.id.main_dialog_pick_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+
+                if (TextUtils.isEmpty(loadLimit)){
+                    loadLimit="1";
+                }
+                int limit=Integer.valueOf(loadLimit)*10000;
+                httpUploadLoad(String.valueOf(mTypeList.get(position).Id),String.valueOf(limit));
+            }
+        });
+    }
+
+
+    /**
+     *
+     * 上传想要贷款的额度
+     * @param typeId
+     * @param loadLimit
+     */
+    private void httpUploadLoad(String typeId, String loadLimit) {
+        //showLoading(getActivity());
+        StringRequest mStringRequest = new StringRequest(Constant.Url_User_Input_Loan, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone", phone);
+        mStringRequest.add("Token", token);
+        mStringRequest.add("CreditTypeId", typeId);
+        mStringRequest.add("SimpleQuotaLimit", loadLimit);
+
+        Log.e(TAG, "CreditTypeId=" + typeId);
+        Log.e(TAG, "SimpleQuotaLimit=" + loadLimit);
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    PhoneUtils.showLargeLog(response.get(), 3900, TAG);
+                    ApiMallUploadLoadModel model = null;
+                    try {
+                        model = new Gson().fromJson(response.get(), ApiMallUploadLoadModel.class);
+                        if (model.Status == 1) {
+                            EventBus.getDefault().post("bond_success", "bond_success");
+                            commonTitleTv.setText("我期望的贷款金额");
+                        } else {
+
+                        }
+                        PhoneUtils.toast(getActivity(), model.Msg.toString());
+                    } catch (Exception e) {
+                        Log.e(TAG, "Exception=" + e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.e(TAG, "onFailed==" + response.get());
+                //PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
+            }
+        });
+
+    }
     /**
      * 添加广播监听
      */
@@ -166,12 +403,18 @@ public class MainFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.carquota_tv_recommit_td:
-                intent=new Intent(getActivity(),QueryTDInfoActivity.class);
-                startActivity(intent);
+                if (isTdReportTiming){//存在同盾报告  或者查询过同盾报告  还未过期
+                    intent=new Intent(getActivity(),QueryTDExistActivity.class);
+                    startActivity(intent);
+                }else { //否则  重新调用支付接口  重新支付
+                    intent=new Intent(getActivity(),QueryTDPayActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.carquota_tv_td_his://历史记录
-//                intent=new Intent(getActivity(),BankVerifyActivity.class);
-//                startActivity(intent);
+                intent=new Intent(getActivity(),TdHisActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -347,7 +590,15 @@ public class MainFragment extends BaseFragment {
      * @param model
      */
     private void setHttpData(ApiMainModel model) {
-        carquotaTvPrice.setText("￥"+String.valueOf(model.User.SimpleQuotaLimit));
+        if (model.User.SimpleQuotaLimit>0){
+            carquotaTvPrice.setText("￥"+String.valueOf(model.User.SimpleQuotaLimit));
+        }else {
+            carquotaTvPrice.setText("￥"+String.valueOf(model.MaxAmount));
+        }
+
+
+        isTdReportTiming=model.IsExistTongDunReport;
+
         if (model.User.IdentityCardOCRAuthentication==true){
             carquotaIdCard.setText("认证成功");
             //carquotaIdCard.setClickable(false);

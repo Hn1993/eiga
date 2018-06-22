@@ -13,17 +13,19 @@
         android:layout_width="360px"
         android:layout_height="360px" />
     <EditText
-    android:textColor="@color/common_title_text_color"
-    android:textSize="40px"
-    android:id="@+id/phone_verify_phone"
-    android:layout_marginLeft="110px"
-    android:layout_marginRight="110px"
-    android:layout_marginTop="140px"
-    android:hint="请输入手机号"
-    android:textColorHint="@color/base_text_color"
-    android:layout_width="match_parent"
-    android:layout_height="125px" />
+        android:textColor="@color/common_title_text_color"
+        android:textSize="40px"
+        android:id="@+id/phone_verify_phone"
+        android:layout_marginLeft="110px"
+        android:layout_marginRight="110px"
+        android:layout_marginTop="140px"
+        android:hint="请输入手机号"
+        android:inputType="phone"
+        android:textColorHint="@color/base_text_color"
+        android:layout_width="match_parent"
+        android:layout_height="125px" />
     <EditText
+        android:visibility="gone"
         android:textColor="@color/common_title_text_color"
         android:textSize="40px"
         android:id="@+id/phone_verify_type"
@@ -35,14 +37,17 @@
         android:layout_width="match_parent"
         android:layout_height="125px" />
     <RelativeLayout
+        android:id="@+id/phone_verify_protocol"
         android:layout_marginLeft="110px"
         android:layout_marginRight="100px"
         android:layout_marginTop="40px"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="110px">
         <CheckBox
             android:id="@+id/phone_verify_checkbox"
-            android:shadowColor="@color/light_blue"
+            android:button="@drawable/check_box_selector"
+            android:checked="true"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -58,7 +63,7 @@
     </RelativeLayout>
     <TextView
         android:id="@+id/phone_verify_commit"
-        android:text="立即认证"
+        android:text="立即上传"
         android:layout_marginLeft="0px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="80px"

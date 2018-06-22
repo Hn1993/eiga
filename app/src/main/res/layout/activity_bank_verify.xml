@@ -100,7 +100,7 @@
     </LinearLayout>
     <TextView
         android:id="@+id/bank_verify_commit"
-        android:text="立即绑定"
+        android:text="立即上传"
         style="@style/tv_next"
         android:layout_marginLeft="0px"
         android:layout_gravity="center_horizontal"

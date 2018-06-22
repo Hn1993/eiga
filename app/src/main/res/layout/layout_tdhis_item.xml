@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="300px">
+
+    <TextView
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="60px"
+        android:textColor="@color/common_title_text_color"
+        android:text="张三"
+        android:id="@+id/tdhis_name"
+        style="@style/text_45px" />
+
+    <View
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px"
+        android:layout_marginTop="20px"
+        android:layout_below="@+id/tdhis_name"
+        android:layout_width="match_parent"
+        android:background="@color/color_99"
+        android:layout_height="1px"/>
+
+    <TextView
+        android:layout_marginTop="10px"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="60px"
+        android:layout_marginBottom="30px"
+        android:drawableLeft="@mipmap/icon_report"
+        android:drawablePadding="20px"
+        android:textColor="@color/common_title_text_color"
+        android:text="报告编号:"
+        android:textSize="38px"
+        android:id="@+id/tdhis_id"
+        style="@style/text_45px" />
+    <TextView
+        android:textColor="@color/color_66"
+        android:layout_marginLeft="108px"
+        android:layout_marginBottom="30px"
+        android:text="查询日期:"
+        android:id="@+id/tdhis_time"
+        style="@style/text_45px"
+        android:textSize="38px"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

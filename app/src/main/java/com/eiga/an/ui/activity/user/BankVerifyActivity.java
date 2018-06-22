@@ -14,6 +14,7 @@ import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiBankVerifyModel;
 import com.eiga.an.model.jsonModel.ApiGetBankInfoModel;
 import com.eiga.an.model.jsonModel.ApiMainModel;
+import com.eiga.an.model.jsonModel.EventBusBankResultModel;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.google.gson.Gson;
@@ -45,6 +46,8 @@ public class BankVerifyActivity extends BaseActivity {
     private String TAG = getClass().getName();
 
     private String token,phone;
+
+    private EventBusBankResultModel mBankModel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +61,8 @@ public class BankVerifyActivity extends BaseActivity {
     }
 
     private void findViews() {
-        commonTitleTv.setText("绑定银行卡");
-        httpGetBankInfo();
+        commonTitleTv.setText("上传银行卡信息");
+        //httpGetBankInfo();
     }
 
     @OnClick({R.id.common_title_back, R.id.bank_verify_commit})
@@ -74,7 +77,14 @@ public class BankVerifyActivity extends BaseActivity {
                         TextUtils.isEmpty(bankVerifyName.getText().toString())){
                     PhoneUtils.toast(BankVerifyActivity.this,"信息不能为空");
                 }else {
-                    httpUploadBankInfo();
+                    //httpUploadBankInfo();
+                    mBankModel=new EventBusBankResultModel();
+                    mBankModel.bankCard=bankVerifyBank.getText().toString();
+                    mBankModel.bankName=bankVerifyBankName.getText().toString();
+                    mBankModel.bankUserName=bankVerifyName.getText().toString();
+
+                    EventBus.getDefault().post(mBankModel,"upload_bank");
+                    finish();
                 }
 
                 break;

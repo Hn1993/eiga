@@ -17,6 +17,7 @@ public class ApiUserLoginModel {
     public int UserRegisterStatus;
     public String Token;
     public String SimpleQuotaLimit;//判断是否有额度
+    public boolean IsExistTongDunReport;
     public int Status;
     public String Msg;
     public Object Data;

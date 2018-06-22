@@ -4,7 +4,7 @@ public class Constant {
 
     //http://192.168.1.196:8010/api/UserIndexPage/GetQuotaCategoryList
     public static final String Url_Common="http://admin.zjglcar.com";//http://admin.zjglcar.com
-    public static final String Url_Common_Test="http://192.168.1.196:8010";
+    public static final String Url_Common_Test="http://192.168.1.113:8084";
     public static final String Jd_key="54ae1b27174cf9b5263ec47f50259138";
     public static final String Url_Jd_miguan="https://way.jd.com/juxinli/henypot4JD";
     public static final String Url_Jd_jiedai="https://way.jd.com/XinShu/compBQuery";//个人黑名单多头借贷综合查询
@@ -23,6 +23,18 @@ public class Constant {
     public static final String Url_User_MyCenter=Url_Common+"/api/UserPage/UserCenter";//个人中心
     public static final String Url_User_Order_List=Url_Common+"/api/UserPage/GetCreditFlowList";//订单列表
     public static final String Url_User_Order_Info=Url_Common+"/api/UserPage/GetCreditFlowDetail";//订单详情
+    public static final String Url_User_Query_Pay=Url_Common+"/api/Pay/UnifiedOrder";//支付查询费用
+    public static final String Url_User_Query_Info=Url_Common+"/api/user/BaseInfoVaildate";//支付前上传三要素
+    public static final String Url_User_Loan_Type=Url_Common+"/api/UserPage/GetCreditType";//获取贷款类别  车贷  房贷
+    public static final String Url_User_Input_Loan=Url_Common+"/api/user/UpdateExpectation";//输入贷款额度
+    public static final String H5_TD_Report=Url_Common+"/api/UserPage/TongDunReportShow";
+    public static final String H5_Eiga_Protocol=Url_Common+"/api/UserPage/GetUserProtocolContent?ProtocolType=";
+    public static final String Url_Get_Td_Report=Url_Common+"/api/User/BaseInfoVaildateQuery";//轮询获取同盾+校验
+    public static final String Url_Get_Td_Report_His=Url_Common+"/api/UserPage/TongDunReportList";//轮询获取同盾+校验
+    public static final String Url_Get_Td_Report_Json=Url_Common+"/api/UserPage/GetTongDunReportJson";//轮询获取同盾+校验
+    //public static final String H5_Phone_Protocol=Url_Common+"/api/UserPage/GetUserProtocolContent";
+    //"?CellPhone=18367905175&Token=ecf4b72c600a0c2228d9cfd442c2617d";//支付前上传三要素
+
 
 
     public static final String Url_Sales_Login=Url_Common+"/api/Clerk/Login";//业务员登录
@@ -43,6 +55,9 @@ public class Constant {
     public static final String Url_Sales_Upload_Contracts_Recommit=Url_Common+"/api/clerk/ReSubmit";//重新提交贷款合同
 
 
+
+
+
     public static final String LocationLongitude="Location_Longitude";//定位的经纬度  以及城市
     public static final String LocationLatitude="Location_Latitude";
     public static final String LocationDistrictCity="Location_District_City";//县级市
@@ -52,6 +67,7 @@ public class Constant {
     public static final String User_Login_Nickname="User_Login_Nickname";//用户的昵称
     public static final String WebUrl="web_url";
     public static final String WebTitle="web_title";
+    public static final String User_Td_id="User_Td_id";
 
     public static final String User_Is_Have_Evaluation="User_Is_Have_Evaluation";//判断用户是否评估过
     public static final String User_Is_Have_QueryTd="User_Is_Have_QueryTd";//判断用户是否查询过同盾报告

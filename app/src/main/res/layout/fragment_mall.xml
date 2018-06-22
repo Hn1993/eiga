@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@color/base_bg"
+<LinearLayout android:background="@color/base_bg"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <include layout="@layout/layout_common_title"/>
 
+    <ImageView
 
-</RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="570px"
+        android:background="@mipmap/mall_logo"/>
+
+    <TextView
+        android:layout_margin="60px"
+        android:text="请选择您的金融产品"
+        android:layout_gravity="center_horizontal"
+        style="@style/text_45px" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- PagerSnapHelper一次只能滑动一页 -->
+        <!-- LinearySnapHelper一次能滑动多页 -->
+        <!--<com.ryan.rv_gallery.GalleryRecyclerView-->
+            <!--android:id="@+id/mall_gallery_rv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="600px"-->
+            <!--android:visibility="gone"-->
+            <!--app:helper="PagerSnapHelper">-->
+            <!---->
+        <!--</com.ryan.rv_gallery.GalleryRecyclerView>-->
+
+        <RelativeLayout
+            android:id="@+id/chanpin1"
+            android:layout_width="450px"
+            android:layout_height="600px"
+            android:layout_marginLeft="60px"
+            android:background="@color/white"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/chanpin1_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/chanpin2"
+            android:layout_width="450px"
+            android:layout_height="600px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60px"
+            android:background="@color/white"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/chanpin2_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

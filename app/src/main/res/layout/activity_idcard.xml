@@ -39,7 +39,7 @@
         android:layout_height="match_parent">
         <TextView
             style="@style/tv_next"
-            android:text="立即认证"
+            android:text="立即上传"
             android:id="@+id/idcard_commit"
             />
     </RelativeLayout>

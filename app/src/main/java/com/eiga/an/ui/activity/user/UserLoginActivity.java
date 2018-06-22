@@ -183,18 +183,25 @@ public class UserLoginActivity extends BaseActivity {
                                 SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,"");
                             }
 
+                            if (model.IsExistTongDunReport){
+                                SharedPreferencesUtils.putShared(UserLoginActivity.this, Constant.User_Is_Have_QueryTd,"yes");
+                            }
+
                             SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Name,userMainEtPhone.getText().toString());
                             SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Login_Token,model.Token);
 
-                            if (TextUtils.isEmpty(model.SimpleQuotaLimit)){
-                                intent=new Intent(UserLoginActivity.this, InfoCollectionActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }else {
-                                intent=new Intent(UserLoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
+//                            if (TextUtils.isEmpty(model.SimpleQuotaLimit)){
+//                                intent=new Intent(UserLoginActivity.this, InfoCollectionActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }else {
+//                                intent=new Intent(UserLoginActivity.this, MainActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+                            intent=new Intent(UserLoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
 
                         }
                         PhoneUtils.toast(UserLoginActivity.this,model.Msg);
@@ -224,6 +231,7 @@ public class UserLoginActivity extends BaseActivity {
         mStringRequest.add("CellPhone",userMainEtPhone.getText().toString());
 
         Log.e(TAG,"phone="+userMainEtPhone.getText().toString());
+        Log.e(TAG,"httpGetCode="+Constant.Url_Get_EMSCode);
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

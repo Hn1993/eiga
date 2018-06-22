@@ -278,7 +278,6 @@ public class SalesWorkActivity extends BaseActivity {
                 head.setVisibility(View.VISIBLE);
                 layout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,250));
 
-
 //                Log.e(TAG,"tab_position="+tab_position);
 //                if (tab_position==2){
 //                    dkje.setVisibility(View.VISIBLE);

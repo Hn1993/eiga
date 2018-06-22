@@ -20,6 +20,7 @@ import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiUserLoginModel;
+import com.eiga.an.model.jsonModel.EventBusIDCardResultModel;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.google.gson.Gson;
@@ -67,6 +68,7 @@ public class IdCardVerifyActivity extends BaseActivity {
     private String front_path,back_path;
     private String phone, token;
     private Context context;
+    private EventBusIDCardResultModel mIdCardModel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +83,7 @@ public class IdCardVerifyActivity extends BaseActivity {
     }
 
     private void findViews() {
-        commonTitleTv.setText("身份认证");
+        commonTitleTv.setText("上传身份信息");
 
     }
 
@@ -109,7 +111,12 @@ public class IdCardVerifyActivity extends BaseActivity {
                 if (TextUtils.isEmpty(front_path)||TextUtils.isEmpty(back_path)){
                     PhoneUtils.toast(IdCardVerifyActivity.this,"请先上传身份证照片");
                 }else {
-                    httpCommitPhoto();
+                    //httpCommitPhoto();
+                    mIdCardModel=new EventBusIDCardResultModel();
+                    mIdCardModel.frontBase64=front_path;
+                    mIdCardModel.backBase64=back_path;
+                    EventBus.getDefault().post(mIdCardModel,"upload_idcard");
+                    finish();
                 }
 
                 break;
