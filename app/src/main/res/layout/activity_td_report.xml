@@ -111,6 +111,265 @@
                 </RelativeLayout>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="50px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="300px">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="45px"
+                        android:text="信贷逾期统计"
+                        android:paddingLeft="50px"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/color_33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="90px" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginLeft="50px"
+                    android:layout_marginRight="50px"
+                    android:layout_below="@+id/td_report_info_name"
+                    android:background="@color/color_99"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
+                <RelativeLayout
+                    android:id="@+id/td_report_xindai_layout"
+                    android:visibility="visible"
+                    android:layout_margin="50px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/td_report_xindai_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:textSize="35px"
+                        android:text="平台个数:"
+                        />
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:layout_centerVertical="true"
+                        android:textSize="35px"
+                        android:text="身份证号"
+                        />
+
+                    <TextView
+                        android:id="@+id/td_report_xindai_overtime_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:layout_alignParentBottom="true"
+                        android:textSize="35px"
+                        android:text="逾期次数"
+                        />
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/td_report_xindai_no_risk"
+                    android:layout_margin="50px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:text="本项资质良好,无风险"
+                        style="@style/text_40px" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="50px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="400px">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="90px"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="50px"
+                        android:text="多平台借贷"
+                        android:textColor="@color/color_33"
+                        android:textSize="45px" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginLeft="50px"
+                    android:layout_marginRight="50px"
+                    android:layout_below="@+id/td_report_info_name"
+                    android:background="@color/color_99"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
+                <RelativeLayout
+                    android:id="@+id/td_report_duotoujiedai_layout"
+                    android:visibility="visible"
+                    android:layout_margin="50px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/td_report_duotoujiedai_7days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:textSize="35px"
+                        android:text="7天内申请借款平台数:"
+                        />
+
+                    <TextView
+                        android:id="@+id/td_report_duotoujiedai_30days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:layout_centerVertical="true"
+                        android:textSize="35px"
+                        android:text="一个月内申请借款平台数"
+                        />
+
+                    <TextView
+                        android:id="@+id/td_report_duotoujiedai_90days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:layout_alignParentBottom="true"
+                        android:textSize="35px"
+                        android:text="三个月内申请借款平台数"
+                        />
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/td_report_duotoujiedai_no_risk"
+                    android:layout_margin="50px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:text="本项资质良好,无风险"
+                        style="@style/text_40px" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="30px"
+                android:orientation="vertical"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="50px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="400px">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="90px"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="50px"
+                        android:text="行为风险检测"
+                        android:textColor="@color/color_33"
+                        android:textSize="45px" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginLeft="50px"
+                    android:layout_marginRight="50px"
+                    android:layout_below="@+id/td_report_info_name"
+                    android:background="@color/color_99"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
+
+                <RelativeLayout
+                    android:id="@+id/td_report_fengxian_layout"
+                    android:visibility="visible"
+                    android:layout_margin="50px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/td_report_fengxian_shixin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:textSize="35px"
+                        android:text="是否列入法院失信名单: "
+                        />
+
+                    <TextView
+                        android:id="@+id/td_report_fengxian_zhixing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:layout_centerVertical="true"
+                        android:textSize="35px"
+                        android:text="是否列入法院执行名单: "
+                        />
+
+                    <TextView
+                        android:id="@+id/td_report_fengxian_jiean"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_66"
+                        android:layout_alignParentBottom="true"
+                        android:textSize="35px"
+                        android:text="是否列入法院结案名单: "
+                        />
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/td_report_fengxian_no_risk"
+                    android:layout_margin="50px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:text="本项资质良好,无风险"
+                        style="@style/text_40px" />
+                </RelativeLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
