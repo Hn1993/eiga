@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eiga.an.R;
 import com.eiga.an.alipay.Alipay;
@@ -25,12 +26,15 @@ import com.eiga.an.model.salesModel.ApiSalesCustomerListModel;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.eiga.an.utils.SpacesItemDecoration;
+import com.eiga.an.wxapi.WXPay;
 import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 import com.yanzhenjie.nohttp.rest.StringRequest;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +64,8 @@ public class QueryTDPayActivity extends BaseActivity {
 
     private int payType=0;
 
-    private ApiWxPayModel mWxParams;
+    private ApiWxPayModel param_wx=new ApiWxPayModel();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,25 +134,70 @@ public class QueryTDPayActivity extends BaseActivity {
                                     @Override
                                     public void onCancel() {
                                         Log.e(TAG,"支付取消");
-                                        SharedPreferencesUtils.putShared(mContext, Constant.User_Is_Have_QueryTd,"yes");
-                                        intent= new Intent(mContext,QueryTDPaySuccessActivity.class);
-                                        startActivity(intent);
-                                        finish();
+//                                        SharedPreferencesUtils.putShared(mContext, Constant.User_Is_Have_QueryTd,"yes");
+//                                        intent= new Intent(mContext,QueryTDPaySuccessActivity.class);
+//                                        startActivity(intent);
+//                                        finish();
                                     }
                                 }).doPay();
                             }else if (payType==2){
-                                mWxParams.appid=model.appid;
-                                mWxParams.noncestr=model.noncestr;
-                                mWxParams.packageX=model.packageX;
-                                mWxParams.partnerid=model.partnerid;
-                                mWxParams.sign=model.sign;
-                                mWxParams.timestamp=model.timestamp;
-                                mWxParams.prepayid=model.prepayid;
+
+                                param_wx.prepayid=model.prepayid;
+                                param_wx.appid=model.appid;
+                                param_wx.timestamp=model.timestamp;
+                                param_wx.sign=model.sign;
+                                param_wx.partnerid=model.partnerid;
+                                param_wx.packageX=model.packageX;
+                                param_wx.noncestr=model.noncestr;
+
+                                //WXPay.init(getApplicationContext(), param_wx.appid); //要在支付前调用
+
+//                                HashMap<String,String> mParams=new HashMap<>();
+//                                mParams.put("appid",param_wx.appid);
+//                                mParams.put("partnerid",param_wx.partnerid);
+//                                mParams.put("prepayid",param_wx.prepayid);
+//                                mParams.put("package",param_wx.packageX);
+//                                mParams.put("noncestr",param_wx.noncestr);
+//                                mParams.put("timestamp",param_wx.timestamp);
+//                                mParams.put("sign",param_wx.sign);
 
 
+                                doWxPay();
+
+//                                WXPay.getInstance().doPay(mParams, new WXPay.WXPayResultCallBack() {
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        SharedPreferencesUtils.putShared(mContext, Constant.User_Is_Have_QueryTd,"yes");
+//                                        intent= new Intent(mContext,QueryTDPaySuccessActivity.class);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(int error_code) {
+//                                        Log.e(TAG,"error_code="+error_code);
+//                                        switch (error_code) {
+//
+//                                            case WXPay.NO_OR_LOW_WX:
+//                                                Toast.makeText(getApplication(), "未安装微信或微信版本过低", Toast.LENGTH_SHORT).show();
+//                                                break;
+//
+//                                            case WXPay.ERROR_PAY_PARAM:
+//                                                Toast.makeText(getApplication(), "参数错误", Toast.LENGTH_SHORT).show();
+//                                                break;
+//
+//                                            case WXPay.ERROR_PAY:
+//                                                Toast.makeText(getApplication(), "支付失败", Toast.LENGTH_SHORT).show();
+//                                                break;
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancel() {
+//                                        Log.e(TAG,"支付取消");
+//                                    }
+//                                });
                             }
-
-
 
 
                         } else {
@@ -156,6 +206,7 @@ public class QueryTDPayActivity extends BaseActivity {
                     } catch (Exception e) {
                         Log.e(TAG, "Exception=" + e);
                     }
+
                 }
             }
 
@@ -168,6 +219,60 @@ public class QueryTDPayActivity extends BaseActivity {
             }
         });
     }
+
+    /**
+     * 调起微信支付
+     */
+    private void doWxPay() {
+        Log.e(TAG,"wx_params="+param_wx.toString());
+
+        WXPay.init(getApplicationContext(), param_wx.appid); //要在支付前调用
+
+        HashMap<String,String> mParams=new HashMap<>();
+        mParams.put("appid",param_wx.appid);
+        mParams.put("partnerid",param_wx.partnerid);
+        mParams.put("prepayid",param_wx.prepayid);
+        mParams.put("package",param_wx.packageX);
+        mParams.put("noncestr",param_wx.noncestr);
+        mParams.put("timestamp",param_wx.timestamp);
+        mParams.put("sign",param_wx.sign);
+
+        WXPay.getInstance().doPay(mParams, new WXPay.WXPayResultCallBack() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplication(), "支付成功", Toast.LENGTH_SHORT).show();
+                SharedPreferencesUtils.putShared(mContext, Constant.User_Is_Have_QueryTd,"yes");
+                intent= new Intent(mContext,QueryTDPaySuccessActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(int error_code) {
+                switch (error_code) {
+                    case WXPay.NO_OR_LOW_WX:
+                        Toast.makeText(getApplication(), "未安装微信或微信版本过低", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case WXPay.ERROR_PAY_PARAM:
+                        Toast.makeText(getApplication(), "参数错误", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case WXPay.ERROR_PAY:
+                        Toast.makeText(getApplication(), "支付失败", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+    }
+
+
 
     /**
      * 弹出选择框

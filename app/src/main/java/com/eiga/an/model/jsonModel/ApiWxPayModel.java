@@ -26,4 +26,17 @@ public class ApiWxPayModel {
     public String prepayid;
     public String timestamp;
     public String sign;
+
+    @Override
+    public String toString() {
+        return "ApiWxPayModel{" +
+                "appid='" + appid + '\'' +
+                ", noncestr='" + noncestr + '\'' +
+                ", packageX='" + packageX + '\'' +
+                ", partnerid='" + partnerid + '\'' +
+                ", prepayid='" + prepayid + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", sign='" + sign + '\'' +
+                '}';
+    }
 }

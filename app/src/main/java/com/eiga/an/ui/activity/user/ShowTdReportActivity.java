@@ -172,7 +172,7 @@ public class ShowTdReportActivity extends BaseActivity {
 
     private void setHttpData(ApiShowTdReportModel model) {
         mAntfraud = model.ReportContent.result_desc.ANTIFRAUD;
-        tdReportProgress.setProgress(mAntfraud.final_score);//最终决策分
+        tdReportProgress.setProgress((100-Integer.valueOf(mAntfraud.final_score)));//最终决策分
 
         tdReportInfoPhone.setText("手机号码: " + model.VaildateCellPhone);
         tdReportInfoReportTime.setText("报告时间: " + model.ReportDate);

@@ -103,10 +103,10 @@ public class CircularProgressbarView extends View {
             mPaint.setStrokeWidth(roundWidth);
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeCap(Paint.Cap.ROUND);
-            canvas.drawArc(oval, 0 , 360 * progress / max, false, mPaint);
+            canvas.drawArc(oval, 270 , 360 * progress / max, false, mPaint);
         } else {
             mPaint.setStyle(Paint.Style.FILL);
-            canvas.drawArc(oval, 0 , 360 * progress / max, true, mPaint);
+            canvas.drawArc(oval, 270 , 360 * progress / max, true, mPaint);
         }
 
         // 画进度文字
@@ -119,7 +119,7 @@ public class CircularProgressbarView extends View {
 
 
         Paint mStrPaint=new Paint();
-        String str =  "被拒概率";
+        String str =  "通过概率";
         mStrPaint.setColor(Color.parseColor("#999999"));
         mStrPaint.setTextSize(30);
         mStrPaint.setStrokeWidth(0);

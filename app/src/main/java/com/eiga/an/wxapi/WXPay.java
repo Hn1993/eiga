@@ -98,7 +98,7 @@ public class WXPay {
         if(mCallback == null) {
             return;
         }
-
+        Log.e("WXPAY","error_code="+error_code);
         if(error_code == 0) {   //成功
             mCallback.onSuccess();
         } else if(error_code == -1) {   //错误

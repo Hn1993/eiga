@@ -18,8 +18,9 @@
             <RelativeLayout
                 android:layout_marginTop="20px"
                 android:background="@color/white"
+                android:padding="150px"
                 android:layout_width="match_parent"
-                android:layout_height="800px">
+                android:layout_height="wrap_content">
                 
                 <com.eiga.an.view.CircularProgressbarView
                     android:id="@+id/td_report_progress"

@@ -68,6 +68,7 @@ public class Constant {
     public static final String WebUrl="web_url";
     public static final String WebTitle="web_title";
     public static final String User_Td_id="User_Td_id";
+    public static final String Is_Exist_Td_Info="Is_Exist_Td_Info";
 
     public static final String User_Is_Have_Evaluation="User_Is_Have_Evaluation";//判断用户是否评估过
     public static final String User_Is_Have_QueryTd="User_Is_Have_QueryTd";//判断用户是否查询过同盾报告

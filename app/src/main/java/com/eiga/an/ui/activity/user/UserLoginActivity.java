@@ -64,7 +64,7 @@ public class UserLoginActivity extends BaseActivity {
                 .enableImmersedStatusBar(true)
                 .enableImmersedNavigationBar(true)
                 .into(this);
-        autoVirtualKeys();
+        //autoVirtualKeys();
 
 
 
@@ -159,6 +159,7 @@ public class UserLoginActivity extends BaseActivity {
         mStringRequest.add("CellPhone",userMainEtPhone.getText().toString());
         mStringRequest.add("VaildateCode",userMainEtCode.getText().toString());
         mStringRequest.add("AndroidUDID",PhoneUtils.getDeviceId(UserLoginActivity.this));
+        //mStringRequest.add("AndroidUDID","123456");
         mStringRequest.add("IOSUDID","");
         mStringRequest.add("ReferralCode",userMainEtRecommend.getText().toString());
 

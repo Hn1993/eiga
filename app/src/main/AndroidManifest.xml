@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--打开相册-->
     <uses-permission android:name="android.permission.CAMERA" /><!--打开相机-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!-- 这个权限用于访问GPS定位-->
@@ -100,6 +101,7 @@
 
 
         <!-- 微信支付   微信开放平台申请的id wxac781390a3adb385-->
+        <!-- 微信支付   微信开放平台申请的id wxd22c523ec819b8be-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
@@ -109,7 +111,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wxac781390a3adb385"/>
+                <data android:scheme="wxd22c523ec819b8be"/>
             </intent-filter>
         </activity>
         <!--支付宝支付-->

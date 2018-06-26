@@ -88,7 +88,7 @@ public class QueryTDPaySuccessActivity extends BaseActivity {
     private void httpGetTdReport() {
         Log.e(TAG,"httpGetTdReport");
         handler.postDelayed(runnable, TIME); //延迟加载
-        showLoading();
+        //showLoading();
         StringRequest mStringRequest = new StringRequest(Constant.Url_Get_Td_Report, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         mStringRequest.add("CellPhone", phone);

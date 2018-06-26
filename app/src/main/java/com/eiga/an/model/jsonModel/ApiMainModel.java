@@ -24,6 +24,7 @@ public class ApiMainModel {
     public int TokenStatus;
     public boolean IsCreditPay;
     public boolean IsExistTongDunReport;
+    public boolean IsVaildateBaseInfo;//是否存在验证信息
     public double MaxAmount;
     public int Status;
     public boolean NeedReLogin;

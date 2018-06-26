@@ -1,5 +1,6 @@
 package com.eiga.an.ui.fragment;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.view.PagerAdapter;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -33,6 +36,7 @@ import com.eiga.an.R;
 import com.eiga.an.base.BaseFragment;
 import com.eiga.an.base.MyApplication;
 import com.eiga.an.model.Constant;
+import com.eiga.an.model.jsonModel.ApiGetTDReportModel;
 import com.eiga.an.model.jsonModel.ApiMainModel;
 import com.eiga.an.model.jsonModel.ApiMallLoadTypeModel;
 import com.eiga.an.model.jsonModel.ApiMallUploadLoadModel;
@@ -109,6 +113,8 @@ public class MainFragment extends BaseFragment {
     private String loadLimit;
 
     private boolean isTdReportTiming;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -130,6 +136,7 @@ public class MainFragment extends BaseFragment {
 //                startActivity(new Intent(getActivity(), InfoCollectionActivity.class));
 //                getActivity().finish();
 //            }
+            Log.e(TAG,"isHaveQueryTd="+isHaveQueryTd);
             if (TextUtils.isEmpty(isHaveQueryTd)){
                 Intent intent=new Intent(getActivity(), QueryTDInfoActivity.class);
                 startActivity(intent);
@@ -163,7 +170,10 @@ public class MainFragment extends BaseFragment {
 
         httpGetProductType();
 
+
+
     }
+
 
     private void httpGetProductType() {
 
@@ -244,9 +254,11 @@ public class MainFragment extends BaseFragment {
 
             View view=getLayoutInflater().inflate(R.layout.mall_item,null,false);
             ImageView imageView = view.findViewById(R.id.mall_item_image);
+            TextView textView = view.findViewById(R.id.mall_item_tv);
             RelativeLayout item_layout = view.findViewById(R.id.mall_item_layout);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             GlideUtils.getGlideUtils().glideImage(getActivity(), Constant.Url_Common + pagerData.get(position).Photo, imageView);
+            textView.setText(pagerData.get(position).TypeName);
 
             item_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -316,6 +328,8 @@ public class MainFragment extends BaseFragment {
                 }
                 int limit=Integer.valueOf(loadLimit)*10000;
                 httpUploadLoad(String.valueOf(mTypeList.get(position).Id),String.valueOf(limit));
+
+
             }
         });
     }
@@ -351,6 +365,22 @@ public class MainFragment extends BaseFragment {
                         if (model.Status == 1) {
                             EventBus.getDefault().post("bond_success", "bond_success");
                             commonTitleTv.setText("我期望的贷款金额");
+
+
+                            new MaterialDialog.Builder(getActivity()).title("选择成功,请等待业务人员与您联系.").
+                                    onPositive(new MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                            dialog.dismiss();
+
+                                        }
+                                    }).onNegative(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+
                         } else {
 
                         }
@@ -403,13 +433,10 @@ public class MainFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.carquota_tv_recommit_td:
-                if (isTdReportTiming){//存在同盾报告  或者查询过同盾报告  还未过期
-                    intent=new Intent(getActivity(),QueryTDExistActivity.class);
-                    startActivity(intent);
-                }else { //否则  重新调用支付接口  重新支付
-                    intent=new Intent(getActivity(),QueryTDPayActivity.class);
-                    startActivity(intent);
-                }
+
+                httpGetTdStatus();
+
+
 
                 break;
             case R.id.carquota_tv_td_his://历史记录
@@ -417,6 +444,63 @@ public class MainFragment extends BaseFragment {
                 startActivity(intent);
                 break;
         }
+    }
+
+
+    /**
+     * 查看一下同盾报告的状态
+     */
+    private void httpGetTdStatus() {
+        showLoading(getActivity());
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Main, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone",phone);
+        mStringRequest.add("Token",token);
+        mStringRequest.add("Longitude",locationLng);
+        mStringRequest.add("Latitude",locationLat);
+
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    PhoneUtils.showLargeLog(response.get(),3900,TAG);
+                    ApiMainModel model=null;
+                    try {
+                        model=new Gson().fromJson(response.get(),ApiMainModel.class);
+                        Intent intent = null;
+                        if (model.Status==1){
+                            //setHttpData(model);
+                            isTdReportTiming=model.IsExistTongDunReport;
+                            if (isTdReportTiming){//存在同盾报告  或者查询过同盾报告  还未过期
+                                intent=new Intent(getActivity(),QueryTDExistActivity.class);
+                                startActivity(intent);
+                            }else { //否则  重新调用支付接口  重新支付
+                                intent=new Intent(getActivity(),QueryTDPayActivity.class);
+                                startActivity(intent);
+                            }
+
+                        }else if (model.Status==2){
+                            if (model.NeedReLogin){
+                                gotoLogin(getActivity(),true);
+                            }
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,"Exception="+e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.e(TAG, "onFailed==" + response.get());
+                //PhoneUtils.toast(getActivity(),"网络请求失败,请检查网络后重试");
+            }
+        });
+
     }
 
     /**
@@ -590,6 +674,14 @@ public class MainFragment extends BaseFragment {
      * @param model
      */
     private void setHttpData(ApiMainModel model) {
+        if (model.IsVaildateBaseInfo){
+            SharedPreferencesUtils.putShared(getActivity(),Constant.Is_Exist_Td_Info,"yes");
+        }
+
+        if (model.IsExistTongDunReport){
+            SharedPreferencesUtils.putShared(getActivity(),Constant.User_Is_Have_QueryTd,"yes");
+        }
+
         if (model.User.SimpleQuotaLimit>0){
             carquotaTvPrice.setText("￥"+String.valueOf(model.User.SimpleQuotaLimit));
         }else {
