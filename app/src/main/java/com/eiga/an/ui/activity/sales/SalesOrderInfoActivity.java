@@ -183,7 +183,9 @@ public class SalesOrderInfoActivity extends BaseActivity {
                         } else {
 
                         }
-                        PhoneUtils.toast(context, model.Msg.toString());
+                        if (!TextUtils.isEmpty(model.Msg.toString())){
+                            PhoneUtils.toast(context, model.Msg.toString());
+                        }
                     } catch (Exception e) {
                         Log.e(TAG, "Exception=" + e);
                     }

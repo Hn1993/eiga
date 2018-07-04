@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.eiga.an.service.AppInitIntentService;
 import com.eiga.an.utils.ActivityManager;
 import com.yanzhenjie.nohttp.NoHttp;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 
 public class MyApplication extends Application {
@@ -20,11 +19,6 @@ public class MyApplication extends Application {
         //Stetho.initializeWithDefaults(this);
         myApplication=this;
 
-
-        OkHttpUtils.getInstance()
-                .init(this)
-                .debug(true, "okHttp")
-                .timeout(20 * 1000);
         //注册管理器
         ActivityManager.getInstance().register(this);
         Intent intentService = new Intent(this, AppInitIntentService.class);
