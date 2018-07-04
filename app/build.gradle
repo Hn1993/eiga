@@ -81,6 +81,7 @@ dependencies {
     compile('com.afollestad.material-dialogs:commons:0.9.6.0') {
         exclude group: 'com.android.support'
     }
+    compile 'com.allenliu.versionchecklib:library:1.7.0'
     compile project(':stepview')
     compile files('src/main/jniLibs/BaiduLBS_Android.jar')
     compile files('libs/alipaySdk-20170725.jar')

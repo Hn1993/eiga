@@ -135,6 +135,13 @@
         </meta-data>
         <meta-data android:name="design_height" android:value="1920">
         </meta-data>
+
+
+        <service
+            android:name=".service.LoadService"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
     <supports-screens

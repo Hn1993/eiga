@@ -10,15 +10,22 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.allenliu.versionchecklib.core.AllenChecker;
+import com.allenliu.versionchecklib.core.VersionParams;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
+import com.eiga.an.base.MyApplication;
 import com.eiga.an.model.Constant;
+import com.eiga.an.service.LoadService;
 import com.eiga.an.ui.activity.sales.SalesMainActivity;
 import com.eiga.an.ui.fragment.MainFragment;
 import com.eiga.an.ui.fragment.MallFragment;
 import com.eiga.an.ui.fragment.MyCenterFragment;
+import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
+import com.eiga.an.utils.UpdateAppHttpUtil;
 import com.eiga.an.view.NoScrollViewPager;
+import com.vector.update_app.UpdateAppManager;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
@@ -47,6 +54,8 @@ public class MainActivity extends BaseActivity {
     private String[] mTitles=new String[]{"首页","个人中心"};
 
     private String isFirstOpenApp,userName;
+    private double versionCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +159,40 @@ public class MainActivity extends BaseActivity {
         //tabMall.setIcon(R.drawable.tab_mall);
         tabMyCenter.setIcon(R.drawable.tab_mycenter);
         //TabKeeper.setIcon(R.drawable.tab_mycenter);
+
+
+
+        if (!TextUtils.isEmpty(PhoneUtils.getVersionCode(MyApplication.getInstance()))&&
+                !TextUtils.isEmpty((String) SharedPreferencesUtils.getShared(MainActivity.this,Constant.App_Version_Code,""))){
+            versionCode= (double) SharedPreferencesUtils.getShared(MainActivity.this,Constant.App_Version_Code,0.0);
+
+            Log.e(TAG,"versionCode="+versionCode);
+            Log.e(TAG,"PhoneUtils.getVersionCode(MyApplication.getInstance())="
+                    +Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance())));
+            //检查更新
+            if (versionCode>Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance()))){
+                Log.e(TAG,"VersionParams");
+                VersionParams.Builder builder = new VersionParams.Builder()
+                        .setRequestUrl(Constant.Url_Main)
+                        .setTitle("版本更新：")
+                        .setUpdateMsg("1111")
+                        .setDownloadUrl("https://www.pgyer.com/RtL8")
+                        .setService(LoadService.class);
+                AllenChecker.startVersionCheck(MainActivity.this, builder.build());
+
+            new UpdateAppManager
+                    .Builder()
+                    //当前Activity
+                    .setActivity(MainActivity.this)
+                    //更新地址
+                    .setUpdateUrl("https://www.pgyer.com/RtL8")
+                    //实现httpManager接口的对象
+                    .setHttpManager(new UpdateAppHttpUtil())
+                    .build()
+                    .update();
+            }
+
+        }
 
     }
 

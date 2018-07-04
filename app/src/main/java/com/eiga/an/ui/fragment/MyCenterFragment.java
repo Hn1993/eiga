@@ -174,6 +174,8 @@ public class MyCenterFragment extends BaseFragment {
      */
     private void doLogout() {
         SharedPreferencesUtils.clearSp(getActivity(),Constant.User_Login_Token);
+        SharedPreferencesUtils.clearSp(getActivity(),Constant.Is_Exist_Td_Info);
+        SharedPreferencesUtils.clearSp(getActivity(),Constant.User_Is_Have_QueryTd);
         Intent intent=new Intent(getActivity(), UserLoginActivity.class);
         startActivity(intent);
         getActivity().finish();

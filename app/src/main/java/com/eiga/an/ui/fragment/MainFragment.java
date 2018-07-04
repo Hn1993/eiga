@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,11 +29,14 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.allenliu.versionchecklib.core.AllenChecker;
+import com.allenliu.versionchecklib.core.VersionParams;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.eiga.an.R;
+import com.eiga.an.base.BaseActivity;
 import com.eiga.an.base.BaseFragment;
 import com.eiga.an.base.MyApplication;
 import com.eiga.an.model.Constant;
@@ -40,9 +44,11 @@ import com.eiga.an.model.jsonModel.ApiGetTDReportModel;
 import com.eiga.an.model.jsonModel.ApiMainModel;
 import com.eiga.an.model.jsonModel.ApiMallLoadTypeModel;
 import com.eiga.an.model.jsonModel.ApiMallUploadLoadModel;
+import com.eiga.an.service.LoadService;
 import com.eiga.an.ui.activity.user.BankVerifyActivity;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
+import com.eiga.an.ui.activity.user.MainActivity;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
 import com.eiga.an.ui.activity.user.QueryTDExistActivity;
 import com.eiga.an.ui.activity.user.QueryTDInfoActivity;
@@ -53,6 +59,7 @@ import com.eiga.an.ui.activity.user.UserLoginActivity;
 import com.eiga.an.utils.GlideUtils;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
+import com.eiga.an.utils.UpdateAppHttpUtil;
 import com.eiga.an.view.EasyPickerView;
 import com.eiga.an.view.ZoomOutPageTransformer;
 import com.google.gson.Gson;
@@ -97,6 +104,8 @@ public class MainFragment extends BaseFragment {
     TextView seeTdHis;
     @BindView(R.id.main_product_vp)
     ViewPager mProductVp;
+    @BindView(R.id.ll_gallery_outer)
+    RelativeLayout mProductVpOuter;
     private View mRootView;
 
     private String TAG = getClass().getName();
@@ -113,7 +122,7 @@ public class MainFragment extends BaseFragment {
     private String loadLimit;
 
     private boolean isTdReportTiming;
-
+    private AlertDialog.Builder mAlertDialog;
 
     @Nullable
     @Override
@@ -167,6 +176,7 @@ public class MainFragment extends BaseFragment {
         //httpGetJiedaiData();
         commonTitleBack.setVisibility(View.GONE);
         commonTitleTv.setText("最高可贷");
+        mAlertDialog=new AlertDialog.Builder(getActivity());
 
         httpGetProductType();
 
@@ -219,6 +229,12 @@ public class MainFragment extends BaseFragment {
         mProductVp.setOffscreenPageLimit(2);
         mProductVp.setPageMargin(10);
         mProductVp.setPageTransformer(true,new ZoomOutPageTransformer());
+        mProductVpOuter.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return mProductVp.dispatchTouchEvent(motionEvent);
+            }
+        });
 
     }
 
@@ -366,20 +382,34 @@ public class MainFragment extends BaseFragment {
                             EventBus.getDefault().post("bond_success", "bond_success");
                             commonTitleTv.setText("我期望的贷款金额");
 
-
-                            new MaterialDialog.Builder(getActivity()).title("选择成功,请等待业务人员与您联系.").
-                                    onPositive(new MaterialDialog.SingleButtonCallback() {
-                                        @Override
-                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                            dialog.dismiss();
-
-                                        }
-                                    }).onNegative(new MaterialDialog.SingleButtonCallback() {
+                            mAlertDialog.show();
+                            mAlertDialog.setTitle("选择成功,请等待业务人员与您联系.");
+                            mAlertDialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                 }
-                            }).show();
+                            });
+                            mAlertDialog.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+//                            new MaterialDialog.Builder(getActivity()).title("选择成功,请等待业务人员与您联系.").
+//                                    onPositive(new MaterialDialog.SingleButtonCallback() {
+//                                        @Override
+//                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                            dialog.dismiss();
+//
+//                                        }
+//                                    }).onNegative(new MaterialDialog.SingleButtonCallback() {
+//                                @Override
+//                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                    dialog.dismiss();
+//                                }
+//                            }).show();
 
                         } else {
 
@@ -710,6 +740,32 @@ public class MainFragment extends BaseFragment {
             //carquotaTvBank.setClickable(false);
         }else {
             carquotaTvBank.setText("立即认证");
+        }
+
+//        Log.e(TAG,"model.AppVersion.Version="+model.AppVersion.Version);
+//        Log.e(TAG,"Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance()))="+
+//                Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance())));
+
+        //SharedPreferencesUtils.putShared(getActivity(),Constant.App_Version_Code,model.AppVersion.Version);
+
+        if (!TextUtils.isEmpty(PhoneUtils.getVersionCode(MyApplication.getInstance()))){
+            //versionCode= (double) SharedPreferencesUtils.getShared(MainActivity.this,Constant.App_Version_Code,0.0);
+            //检查更新
+            if (Double.valueOf(model.AppVersion.Version)>Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance()))) {
+                Log.e(TAG, "VersionParams");
+                Log.e(TAG,"versionCode="+Double.valueOf(model.AppVersion.Version));
+                        Log.e(TAG,"PhoneUtils.getVersionCode(MyApplication.getInstance())="
+                                +Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance())));
+                VersionParams.Builder builder = new VersionParams.Builder()
+                        .setRequestUrl("https://www.pgyer.com/RtL8")
+                        .setTitle("版本更新："+model.AppVersion.VersionName)
+                        .setUpdateMsg(model.AppVersion.HighLight)
+                        .setDownloadUrl(model.AppVersion.DownloadURL)
+                        .setService(LoadService.class);
+                AllenChecker.startVersionCheck(MyApplication.getInstance().getApplicationContext(), builder.build());
+
+
+            }
         }
     }
 

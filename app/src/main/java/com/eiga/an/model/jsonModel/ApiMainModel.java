@@ -8,11 +8,14 @@ public class ApiMainModel {
 
 
     /**
-     * User : {"Id":2,"CellPhone":"18367905175","LoginPassword":"d568112207b7573a4074b724ce9585e1","PayPassword":null,"HeadSculpture":null,"Nick":"18367905175","Sex":"男","IdentityCardId":"360681199306032210","RealName":"黄安","CreateDate":"2018-06-12T14:30:29.67","LastLoginDate":"2018-06-20T12:11:36.293","LoginToken":"ef38f8be4b876d1bc89a9443e64763ee","BelongToClerk":null,"CreditLevel":0,"LoginStatus":0,"IdentityCardOCRAuthentication":false,"IdentityCardOCRStatus":null,"Carrieroperator":null,"IdentityCardFrontPhoto":null,"IdentityCardBackPhoto":null,"Adress":null,"CarPurchaseDemandType":null,"IsSimpleQuota":false,"SimpleQuotaLimit":800000,"AndroidUDID":"865166027766305","IOSUDID":"","CellPhoneProvince":null,"CellPhoneCity":null,"ReportId":"WF2018061409581516731721","ReportReasonCode":200,"FinalDecision":1,"CreditProductIds":null,"MaximumLoanAmount":20000,"FinalScore":null,"AdminDecision":4,"ExpectationCreditType":1,"ApplyDate":"2018-06-14T11:43:21.093","TrialDate":"2018-06-13T10:28:55.783","FinalDate":"2018-06-13T10:29:10.827","TrialAdminId":7,"FinalAdminId":2,"VaildateCellPhone":null}
-     * BankCardIsAuthentication : false
+     * User : {"Id":14,"CellPhone":"18367905175","LoginPassword":"d568112207b7573a4074b724ce9585e1","PayPassword":null,"HeadSculpture":null,"Nick":"18367905175","Sex":"男","IdentityCardId":"330782199510165113","RealName":"苗江伟","CreateDate":"2018-06-26T09:00:27.647","LastLoginDate":"2018-06-30T09:36:42.86","LoginToken":"c236d475f927f71fbf584d818aacc5fb","BelongToClerk":null,"CreditLevel":0,"LoginStatus":0,"IdentityCardOCRAuthentication":true,"IdentityCardOCRStatus":1,"Carrieroperator":"移动","IdentityCardFrontPhoto":null,"IdentityCardBackPhoto":null,"Adress":"浙江省义乌市江东街道供店村5组","CarPurchaseDemandType":null,"IsSimpleQuota":false,"SimpleQuotaLimit":90000,"AndroidUDID":"865166027766305","IOSUDID":"","CellPhoneProvince":"浙江","CellPhoneCity":"金华","ReportId":"WF2018062609014011968617","ReportReasonCode":100,"FinalDecision":1,"CreditProductIds":"1,2,3","MaximumLoanAmount":null,"FinalScore":15,"AdminDecision":1,"ExpectationCreditType":1,"ApplyDate":"2018-06-26T09:01:40.803","TrialDate":null,"FinalDate":null,"TrialAdminId":null,"FinalAdminId":null,"VaildateCellPhone":"13105791215"}
+     * BankCardIsAuthentication : true
      * TokenStatus : 1
-     * IsCreditPay : false
+     * IsCreditPay : true
      * IsExistTongDunReport : true
+     * MaxAmount : 400000.0
+     * IsVaildateBaseInfo : true
+     * AppVersion : {"Id":1,"Version":1,"CreateDate":"2018-06-30T08:43:30.193","HighLight":"首版","DownloadURL":"https://www.pgyer.com/RtL8"}
      * Status : 1
      * NeedReLogin : false
      * Msg : null
@@ -24,8 +27,9 @@ public class ApiMainModel {
     public int TokenStatus;
     public boolean IsCreditPay;
     public boolean IsExistTongDunReport;
-    public boolean IsVaildateBaseInfo;//是否存在验证信息
     public double MaxAmount;
+    public boolean IsVaildateBaseInfo;
+    public AppVersionBean AppVersion;
     public int Status;
     public boolean NeedReLogin;
     public String Msg;
@@ -33,48 +37,48 @@ public class ApiMainModel {
 
     public static class UserBean {
         /**
-         * Id : 2
+         * Id : 14
          * CellPhone : 18367905175
          * LoginPassword : d568112207b7573a4074b724ce9585e1
          * PayPassword : null
          * HeadSculpture : null
          * Nick : 18367905175
          * Sex : 男
-         * IdentityCardId : 360681199306032210
-         * RealName : 黄安
-         * CreateDate : 2018-06-12T14:30:29.67
-         * LastLoginDate : 2018-06-20T12:11:36.293
-         * LoginToken : ef38f8be4b876d1bc89a9443e64763ee
+         * IdentityCardId : 330782199510165113
+         * RealName : 苗江伟
+         * CreateDate : 2018-06-26T09:00:27.647
+         * LastLoginDate : 2018-06-30T09:36:42.86
+         * LoginToken : c236d475f927f71fbf584d818aacc5fb
          * BelongToClerk : null
          * CreditLevel : 0
          * LoginStatus : 0
-         * IdentityCardOCRAuthentication : false
-         * IdentityCardOCRStatus : null
-         * Carrieroperator : null
+         * IdentityCardOCRAuthentication : true
+         * IdentityCardOCRStatus : 1
+         * Carrieroperator : 移动
          * IdentityCardFrontPhoto : null
          * IdentityCardBackPhoto : null
-         * Adress : null
+         * Adress : 浙江省义乌市江东街道供店村5组
          * CarPurchaseDemandType : null
          * IsSimpleQuota : false
-         * SimpleQuotaLimit : 800000.0
+         * SimpleQuotaLimit : 90000.0
          * AndroidUDID : 865166027766305
          * IOSUDID :
-         * CellPhoneProvince : null
-         * CellPhoneCity : null
-         * ReportId : WF2018061409581516731721
-         * ReportReasonCode : 200
+         * CellPhoneProvince : 浙江
+         * CellPhoneCity : 金华
+         * ReportId : WF2018062609014011968617
+         * ReportReasonCode : 100
          * FinalDecision : 1
-         * CreditProductIds : null
-         * MaximumLoanAmount : 20000.0
-         * FinalScore : null
-         * AdminDecision : 4
+         * CreditProductIds : 1,2,3
+         * MaximumLoanAmount : null
+         * FinalScore : 15
+         * AdminDecision : 1
          * ExpectationCreditType : 1
-         * ApplyDate : 2018-06-14T11:43:21.093
-         * TrialDate : 2018-06-13T10:28:55.783
-         * FinalDate : 2018-06-13T10:29:10.827
-         * TrialAdminId : 7
-         * FinalAdminId : 2
-         * VaildateCellPhone : null
+         * ApplyDate : 2018-06-26T09:01:40.803
+         * TrialDate : null
+         * FinalDate : null
+         * TrialAdminId : null
+         * FinalAdminId : null
+         * VaildateCellPhone : 13105791215
          */
 
         public int Id;
@@ -93,31 +97,48 @@ public class ApiMainModel {
         public int CreditLevel;
         public int LoginStatus;
         public boolean IdentityCardOCRAuthentication;
-        public Object IdentityCardOCRStatus;
-        public Object Carrieroperator;
+        public int IdentityCardOCRStatus;
+        public String Carrieroperator;
         public Object IdentityCardFrontPhoto;
         public Object IdentityCardBackPhoto;
-        public Object Adress;
+        public String Adress;
         public Object CarPurchaseDemandType;
         public boolean IsSimpleQuota;
         public double SimpleQuotaLimit;
         public String AndroidUDID;
         public String IOSUDID;
-        public Object CellPhoneProvince;
-        public Object CellPhoneCity;
+        public String CellPhoneProvince;
+        public String CellPhoneCity;
         public String ReportId;
         public int ReportReasonCode;
         public int FinalDecision;
-        public Object CreditProductIds;
-        public double MaximumLoanAmount;
-        public Object FinalScore;
+        public String CreditProductIds;
+        public Object MaximumLoanAmount;
+        public int FinalScore;
         public int AdminDecision;
         public int ExpectationCreditType;
         public String ApplyDate;
-        public String TrialDate;
-        public String FinalDate;
-        public int TrialAdminId;
-        public int FinalAdminId;
-        public Object VaildateCellPhone;
+        public Object TrialDate;
+        public Object FinalDate;
+        public Object TrialAdminId;
+        public Object FinalAdminId;
+        public String VaildateCellPhone;
+    }
+
+    public static class AppVersionBean {
+        /**
+         * Id : 1
+         * Version : 1.0
+         * CreateDate : 2018-06-30T08:43:30.193
+         * HighLight : 首版
+         * DownloadURL : https://www.pgyer.com/RtL8
+         */
+
+        public int Id;
+        public double Version;
+        public String VersionName;
+        public String CreateDate;
+        public String HighLight;
+        public String DownloadURL;
     }
 }
