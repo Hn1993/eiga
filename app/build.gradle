@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'com.mob.sdk'
 android {
 //    signingConfigs {
 //        debug {
@@ -32,6 +33,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+
+/**
+ * Mob的配置
+ */
+MobSDK {
+    appKey "26b04381a07da"
+    appSecret "d82622e5e5bfbb0d5224917f12d07aba"
+    ShareSDK {}
+}
+
+MobSDK {
+    appKey "26b04381a07da"
+    appSecret "d82622e5e5bfbb0d5224917f12d07aba"
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            Wechat {
+                appId "wxac781390a3adb385"
+                appSecret "e7ba4ea6b159b83945f33ae169ba0858"
+            }
+
+            WechatMoments{
+                appId "wxac781390a3adb385"
+                appSecret "e7ba4ea6b159b83945f33ae169ba0858"
+            }
+        }
+    }
+
 }
 
 
@@ -78,6 +109,8 @@ dependencies {
     compile('com.xyz.step:step:1.0.4') { exclude group: 'com.android.support' }
     compile('com.just.agentweb:agentweb:1.2.6') { exclude group: 'com.android.support' }
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
+    compile 'com.canyinghao:caneffect:1.0.3'
     compile('com.afollestad.material-dialogs:commons:0.9.6.0') {
         exclude group: 'com.android.support'
     }

@@ -3,6 +3,8 @@ package com.eiga.an.ui.activity.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.eiga.an.R;
@@ -41,14 +43,25 @@ public class ChooseIdentityActivity extends BaseActivity {
                 intent=new Intent(ChooseIdentityActivity.this, MainActivity.class);
                 startActivity(intent);
                 SharedPreferencesUtils.putShared(ChooseIdentityActivity.this, Constant.IsFirstOpenApp,"0");//0 - user
-                finish();
+                //finish();
                 break;
             case R.id.choose_id_sales:
                 intent=new Intent(ChooseIdentityActivity.this, SalesMainActivity.class);
                 startActivity(intent);
                 SharedPreferencesUtils.putShared(ChooseIdentityActivity.this, Constant.IsFirstOpenApp,"1");//1 - sales
-                finish();
+                //finish();
                 break;
         }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            Log.e(TAG,"key_back");
+            SharedPreferencesUtils.clearSp(ChooseIdentityActivity.this,Constant.IsFirstOpenApp); //清除这里的值
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

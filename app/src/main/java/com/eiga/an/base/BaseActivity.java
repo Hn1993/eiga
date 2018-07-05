@@ -101,4 +101,9 @@ public class BaseActivity extends AutoLayoutActivity {
         queue = NoHttp.newRequestQueue();
         autoVirtualKeys();
     }
+
+
+    public String get2DecimalPlaces(double d){
+        return new java.text.DecimalFormat("#.00").format(d);
+    };
 }

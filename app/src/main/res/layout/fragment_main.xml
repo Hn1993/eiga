@@ -6,261 +6,289 @@
     android:layout_height="match_parent">
     <include layout="@layout/layout_common_title"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!---->
+    <!--</android.support.v4.widget.NestedScrollView>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="500px"
+                android:layout_marginLeft="90px"
+                android:layout_marginRight="90px"
+                android:layout_marginTop="20px"
+                android:background="@mipmap/carquota_money_bg">
+
+                <TextView
+                    android:id="@+id/carquota_tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="100px"
+                    android:text="￥"
+                    android:textColor="@color/white"
+                    android:textSize="130px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="90px"
+                    android:layout_marginLeft="60px"
+                    android:text="*车贷额度是根据您提供的资质进行测算的结果,仅供参考。"
+                    android:textColor="@color/white"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ac_carquota_evaluation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="40px"
+                    android:layout_marginLeft="60px"
+                    android:text="*重新评估可重新提交您的资质信息进行评估。"
+                    android:textColor="@color/white"
+                    android:textSize="28px" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/carquota_tv_recommit"
+                style="@style/tv_next"
+                android:layout_below="@+id/ac_carquota_evaluation"
+                android:layout_marginBottom="60px"
+                android:layout_gravity="center"
+                android:layout_marginLeft="0px"
+                android:layout_marginTop="80px"
+                android:text="重新评估" />
+
+            <RelativeLayout
+                android:layout_below="@+id/ac_carquota_evaluation"
+                android:paddingLeft="100px"
+                android:paddingRight="100px"
+                android:layout_marginTop="30px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/carquota_tv_recommit_td"
+                    android:background="@drawable/box_selector"
+                    android:gravity="center"
+                    android:textColor="@color/common_title_text_color"
+                    android:layout_centerVertical="false"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="30px"
+                    android:layout_height="90px"
+                    android:layout_width="400px"
+                    android:textSize="40px"
+                    android:text="立即查信用" />
+
+                <TextView
+                    android:id="@+id/carquota_tv_td_his"
+                    android:background="@drawable/box_selector"
+                    android:gravity="center"
+                    android:textColor="@color/common_title_text_color"
+                    android:layout_marginBottom="30px"
+                    android:layout_height="90px"
+                    android:layout_width="400px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="false"
+                    android:textSize="40px"
+                    android:text="查看历史记录" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30px"/>
 
         <RelativeLayout
+            android:id="@+id/ll_gallery_outer"
+            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="500px"
-            android:layout_marginLeft="90px"
-            android:layout_marginRight="90px"
-            android:layout_marginTop="40px"
-            android:background="@mipmap/carquota_money_bg">
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:background="@color/white">
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="90px"
+                    android:layout_width="5px"
+                    android:background="@color/light_blue"
+                    android:layout_height="45px" />
+                <TextView
+                    android:text="选择产品"
+                    android:textColor="@color/color_33"
+                    android:layout_marginLeft="30px"
+                    style="@style/text_45px" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/carquota_tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/main_product_vp"
+                android:layout_width="500px"
+                android:layout_height="700px"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="100px"
-                android:text="￥"
-                android:textColor="@color/white"
-                android:textSize="130px" />
+                android:clipChildren="false"
+                android:layout_marginBottom="20px"
+                android:layout_marginTop="40dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="90px"
-                android:layout_marginLeft="60px"
-                android:text="*车贷额度是根据您提供的资质进行测算的结果,仅供参考。"
-                android:textColor="@color/white"
-                android:textSize="28px" />
-
-            <TextView
-                android:id="@+id/ac_carquota_evaluation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="40px"
-                android:layout_marginLeft="60px"
-                android:text="*重新评估可重新提交您的资质信息进行评估。"
-                android:textColor="@color/white"
-                android:textSize="28px" />
-
-
+            </android.support.v4.view.ViewPager>
         </RelativeLayout>
 
-        <TextView
+        <LinearLayout
             android:visibility="gone"
-            android:id="@+id/carquota_tv_recommit"
-            style="@style/tv_next"
-            android:layout_below="@+id/ac_carquota_evaluation"
-            android:layout_marginBottom="60px"
-            android:layout_gravity="center"
-            android:layout_marginLeft="0px"
-            android:layout_marginTop="80px"
-            android:text="重新评估" />
-
-        <RelativeLayout
-            android:layout_below="@+id/ac_carquota_evaluation"
-            android:paddingLeft="100px"
-            android:paddingRight="100px"
-            android:layout_marginTop="60px"
+            android:orientation="vertical"
+            android:layout_marginTop="30px"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/carquota_tv_recommit_td"
-                android:background="@drawable/box_selector"
-                android:gravity="center"
                 android:textColor="@color/common_title_text_color"
-                android:layout_centerVertical="false"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="60px"
-                android:layout_height="90px"
-                android:layout_width="400px"
-                android:textSize="40px"
-                android:text="立即查信用" />
-
-            <TextView
-                android:id="@+id/carquota_tv_td_his"
-                android:background="@drawable/box_selector"
-                android:gravity="center"
-                android:textColor="@color/common_title_text_color"
-                android:layout_marginBottom="60px"
-                android:layout_height="90px"
-                android:layout_width="400px"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="false"
-                android:textSize="40px"
-                android:text="查看历史记录" />
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/ll_gallery_outer"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:background="@color/white">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/main_product_vp"
-            android:layout_width="450px"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:clipChildren="false"
-            android:layout_margin="30dp">
-
-        </android.support.v4.view.ViewPager>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:visibility="gone"
-        android:orientation="vertical"
-        android:layout_marginTop="30px"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textColor="@color/common_title_text_color"
-            android:paddingLeft="60px"
-            android:gravity="center_vertical"
-            android:textSize="45px"
-            android:text="完成认证提升额度"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="135px" />
-        <View
-            android:layout_marginLeft="60px"
-            android:layout_marginRight="60px"
-            android:background="@color/base_text_color"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <RelativeLayout
-            android:orientation="horizontal"
-            android:textColor="@color/common_title_text_color"
-            android:paddingLeft="60px"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="180px" >
-            <TextView
-                android:text="手机运营商认证"
+                android:paddingLeft="60px"
+                android:gravity="center_vertical"
                 android:textSize="45px"
-                android:drawablePadding="30px"
-                android:gravity="center"
-                android:drawableLeft="@mipmap/icon_operator"
-                android:textColor="@color/common_title_text_color"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/carquota_tv_phone"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:text="立即认证"
-                android:background="@drawable/button_selector_radius_2px"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="65px"
-                android:layout_width="210px"
-                android:layout_height="60px" />
-        </RelativeLayout>
-        <View
-            android:layout_marginLeft="60px"
-            android:layout_marginRight="60px"
-            android:background="@color/base_text_color"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <RelativeLayout
-            android:orientation="horizontal"
-            android:textColor="@color/common_title_text_color"
-            android:paddingLeft="60px"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="180px" >
-            <TextView
-                android:text="身份认证"
-                android:textSize="45px"
-                android:drawablePadding="30px"
-                android:gravity="center"
-                android:drawableLeft="@mipmap/icon_idcard"
-                android:textColor="@color/common_title_text_color"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView" />
-            <TextView
-                android:id="@+id/carquota_tv_idcard"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:text="立即认证"
-                android:background="@drawable/button_selector_radius_2px"
+                android:text="完成认证提升额度"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="135px" />
+            <View
+                android:layout_marginLeft="60px"
                 android:layout_marginRight="60px"
-                android:layout_width="210px"
-                android:layout_height="65px"
-                android:layout_alignBaseline="@+id/textView"
-                android:layout_alignBottom="@+id/textView"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp" />
-        </RelativeLayout>
+                android:background="@color/base_text_color"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:textColor="@color/common_title_text_color"
+                android:paddingLeft="60px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="180px" >
+                <TextView
+                    android:text="手机运营商认证"
+                    android:textSize="45px"
+                    android:drawablePadding="30px"
+                    android:gravity="center"
+                    android:drawableLeft="@mipmap/icon_operator"
+                    android:textColor="@color/common_title_text_color"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/carquota_tv_phone"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="立即认证"
+                    android:background="@drawable/button_selector_radius_2px"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="65px"
+                    android:layout_width="210px"
+                    android:layout_height="60px" />
+            </RelativeLayout>
+            <View
+                android:layout_marginLeft="60px"
+                android:layout_marginRight="60px"
+                android:background="@color/base_text_color"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:textColor="@color/common_title_text_color"
+                android:paddingLeft="60px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="180px" >
+                <TextView
+                    android:text="身份认证"
+                    android:textSize="45px"
+                    android:drawablePadding="30px"
+                    android:gravity="center"
+                    android:drawableLeft="@mipmap/icon_idcard"
+                    android:textColor="@color/common_title_text_color"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView" />
+                <TextView
+                    android:id="@+id/carquota_tv_idcard"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="立即认证"
+                    android:background="@drawable/button_selector_radius_2px"
+                    android:layout_marginRight="60px"
+                    android:layout_width="210px"
+                    android:layout_height="65px"
+                    android:layout_alignBaseline="@+id/textView"
+                    android:layout_alignBottom="@+id/textView"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp" />
+            </RelativeLayout>
 
 
+            <View
+                android:layout_marginLeft="60px"
+                android:layout_marginRight="60px"
+                android:background="@color/base_text_color"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:textColor="@color/common_title_text_color"
+                android:paddingLeft="60px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="180px" >
+                <TextView
+                    android:text="还款银行卡认证"
+                    android:textSize="45px"
+                    android:drawablePadding="30px"
+                    android:gravity="center"
+                    android:drawableLeft="@mipmap/icon_bank"
+                    android:textColor="@color/common_title_text_color"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/carquota_tv_bank"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="立即认证"
+                    android:background="@drawable/button_selector_radius_2px"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="60px"
+                    android:layout_width="210px"
+                    android:layout_height="65px" />
+            </RelativeLayout>
+        </LinearLayout>
         <View
+            android:visibility="gone"
             android:layout_marginLeft="60px"
             android:layout_marginRight="60px"
             android:background="@color/base_text_color"
             android:layout_width="match_parent"
             android:layout_height="1px"/>
         <RelativeLayout
-            android:orientation="horizontal"
-            android:textColor="@color/common_title_text_color"
-            android:paddingLeft="60px"
             android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="180px" >
-            <TextView
-                android:text="还款银行卡认证"
-                android:textSize="45px"
-                android:drawablePadding="30px"
-                android:gravity="center"
-                android:drawableLeft="@mipmap/icon_bank"
-                android:textColor="@color/common_title_text_color"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/carquota_tv_bank"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:text="立即认证"
-                android:background="@drawable/button_selector_radius_2px"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="60px"
-                android:layout_width="210px"
-                android:layout_height="65px" />
+            android:layout_height="match_parent">
         </RelativeLayout>
-    </LinearLayout>
-    <View
-        android:visibility="gone"
-        android:layout_marginLeft="60px"
-        android:layout_marginRight="60px"
-        android:background="@color/base_text_color"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
-    <RelativeLayout
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </RelativeLayout>
 
 </LinearLayout>

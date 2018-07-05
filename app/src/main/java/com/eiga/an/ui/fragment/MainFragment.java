@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.canyinghao.caneffect.CanShadowDrawable;
 import com.eiga.an.R;
 import com.eiga.an.base.BaseFragment;
 import com.eiga.an.base.MyApplication;
@@ -42,6 +45,7 @@ import com.eiga.an.service.LoadService;
 import com.eiga.an.ui.activity.user.BankVerifyActivity;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
+import com.eiga.an.ui.activity.user.LoanCalculatorActivity;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
 import com.eiga.an.ui.activity.user.QueryTDExistActivity;
 import com.eiga.an.ui.activity.user.QueryTDInfoActivity;
@@ -159,6 +163,11 @@ public class MainFragment extends BaseFragment {
     }
 
 
+    public int dp2Px(float dpValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
     private void findViews() {
 //        fgMainInputImage.setImageDrawable(getResources().getDrawable(R.mipmap.white_bg));
 //        fgMainInputImage.setImageShadowColor(getResources().getColor(R.color.color_shadow));
@@ -262,17 +271,41 @@ public class MainFragment extends BaseFragment {
             View view=getLayoutInflater().inflate(R.layout.mall_item,null,false);
             ImageView imageView = view.findViewById(R.id.mall_item_image);
             TextView textView = view.findViewById(R.id.mall_item_tv);
-            RelativeLayout item_layout = view.findViewById(R.id.mall_item_layout);
+            LinearLayout item_layout = view.findViewById(R.id.mall_item_layout);
+
+
+
+
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             GlideUtils.getGlideUtils().glideImage(getActivity(), Constant.Url_Common + pagerData.get(position).Photo, imageView);
             textView.setText(pagerData.get(position).TypeName);
 
+            CanShadowDrawable.Builder.on(item_layout)
+                    .bgColor(getResources().getColor(R.color.white))
+                    .radius(dp2Px(0))
+                    .shadowColor(Color.parseColor("#E3E5E6"))
+
+                    .shadowRange(dp2Px(5))
+                    .offsetTop(dp2Px(5))
+                    .offsetBottom(dp2Px(5))
+                    .offsetLeft(dp2Px(5))
+                    .offsetRight(dp2Px(5))
+                    .create();
+
+
             item_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showChooseMoneyDialog(position);
+                    //showChooseMoneyDialog(position);
+                    Intent intent = new Intent(getActivity(), LoanCalculatorActivity.class);
+                    intent.putExtra(Constant.Main_Product_Id,mTypeList.get(position).Id);
+                    intent.putExtra(Constant.Main_Product_Name,mTypeList.get(position).TypeName);
+                    startActivity(intent);
                 }
             });
+
+
+
 
             container.addView(view);
             return view;

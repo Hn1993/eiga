@@ -77,6 +77,7 @@
         <activity android:name=".ui.activity.user.QueryTDExistActivity"/>
         <activity android:name=".ui.activity.user.TdHisActivity"/>
         <activity android:name=".ui.activity.user.ShowTdReportActivity"/>
+        <activity android:name=".ui.activity.user.LoanCalculatorActivity"/>
 
 
         <activity android:name=".ui.activity.user.ChooseIdentityActivity"

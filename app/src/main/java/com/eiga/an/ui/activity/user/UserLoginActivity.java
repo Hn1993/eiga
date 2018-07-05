@@ -158,8 +158,8 @@ public class UserLoginActivity extends BaseActivity {
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         mStringRequest.add("CellPhone",userMainEtPhone.getText().toString());
         mStringRequest.add("VaildateCode",userMainEtCode.getText().toString());
-        mStringRequest.add("AndroidUDID",PhoneUtils.getDeviceId(UserLoginActivity.this));
-        //mStringRequest.add("AndroidUDID","123456");
+        //mStringRequest.add("AndroidUDID",PhoneUtils.getDeviceId(UserLoginActivity.this));
+        mStringRequest.add("AndroidUDID","123456");
         mStringRequest.add("IOSUDID","");
         mStringRequest.add("ReferralCode",userMainEtRecommend.getText().toString());
 
@@ -177,6 +177,7 @@ public class UserLoginActivity extends BaseActivity {
                         Intent intent=null;
                         if (model.Status==1){
                             //在这里请求接口   获取返回值的时候   获取一个用户是否已经评估过的字段   然后保存进share
+                            //SharedPreferencesUtils.putShared(UserLoginActivity.this, Constant.IsFirstOpenApp,"0");//0 - user
 
                             if (model.SimpleQuotaLimit!=null){
                                 SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,model.SimpleQuotaLimit);

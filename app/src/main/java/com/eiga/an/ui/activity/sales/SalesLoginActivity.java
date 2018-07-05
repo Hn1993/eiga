@@ -109,6 +109,9 @@ public class SalesLoginActivity extends BaseActivity {
                         model=new Gson().fromJson(response.get(),ApiSalesLoginModel.class);
                         if (model.Status==1){
                             //setHttpData(model.BankCard);
+
+                            //SharedPreferencesUtils.putShared(SalesLoginActivity.this, Constant.IsFirstOpenApp,"1");//1 - sales
+
                             SharedPreferencesUtils.putShared(SalesLoginActivity.this, Constant.Sales_Login_Phone, salesLoginName.getText().toString());
                             SharedPreferencesUtils.putShared(SalesLoginActivity.this, Constant.Sales_Login_Token, model.Token);
                             Intent intent=new Intent(SalesLoginActivity.this,SalesMainActivity.class);

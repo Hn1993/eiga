@@ -68,7 +68,6 @@ public class MainActivity extends BaseActivity {
             Intent intent=new Intent(this, ChooseIdentityActivity.class);
             startActivity(intent);
             finish();
-
         }else {
             if (isFirstOpenApp.equals("1")){
                 Intent intent=new Intent(this, SalesMainActivity.class);
