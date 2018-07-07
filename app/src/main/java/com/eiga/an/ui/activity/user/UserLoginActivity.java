@@ -17,6 +17,7 @@ import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiGetCodeModel;
 import com.eiga.an.model.jsonModel.ApiUserLoginModel;
+import com.eiga.an.utils.ActivityManager;
 import com.eiga.an.utils.DownTimer;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
@@ -67,7 +68,8 @@ public class UserLoginActivity extends BaseActivity {
         //autoVirtualKeys();
 
 
-
+        //保留DActivity,其余全部关闭
+        ActivityManager.getInstance().finishAllActivityByWhitelist(UserLoginActivity.class);
         findViews();
     }
 

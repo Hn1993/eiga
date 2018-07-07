@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * Created by ASUS on 2018/6/21.
@@ -73,6 +73,8 @@ public class ShowTdReportActivity extends BaseActivity {
     RelativeLayout tdReportDuotoujiedaiLayout;
     @BindView(R.id.td_report_duotoujiedai_no_risk)
     RelativeLayout tdReportDuotoujiedaiNoRisk;
+    @BindView(R.id.td_report_share)
+    RelativeLayout tdReportShare;
 
     // 法院风险检测
     @BindView(R.id.td_report_fengxian_layout)
@@ -172,7 +174,7 @@ public class ShowTdReportActivity extends BaseActivity {
 
     private void setHttpData(ApiShowTdReportModel model) {
         mAntfraud = model.ReportContent.result_desc.ANTIFRAUD;
-        tdReportProgress.setProgress((100-Integer.valueOf(mAntfraud.final_score)));//最终决策分
+        tdReportProgress.setProgress((100 - Integer.valueOf(mAntfraud.final_score)));//最终决策分
 
         tdReportInfoPhone.setText("手机号码: " + model.VaildateCellPhone);
         tdReportInfoReportTime.setText("报告时间: " + model.ReportDate);
@@ -195,8 +197,6 @@ public class ShowTdReportActivity extends BaseActivity {
             if (mAntfraud.risk_items.get(i).risk_detail.get(0).type.equals("black_list")) {
                 mFengxianList.add(mAntfraud.risk_items.get(i).risk_detail.get(0));
             }
-
-
 
 
         }
@@ -248,26 +248,25 @@ public class ShowTdReportActivity extends BaseActivity {
             tdReportFengxianNoRisk.setVisibility(View.VISIBLE);
 
             for (int i = 0; i < mFengxianList.size(); i++) {
-                if (mFengxianList.get(i).description.equals("身份证命中法院失信名单")){
-                    tdReportFengxian_shixin.setText("是否列入法院失信名单: "+"是");
-                }else {
-                    tdReportFengxian_shixin.setText("是否列入法院失信名单: "+"否");
+                if (mFengxianList.get(i).description.equals("身份证命中法院失信名单")) {
+                    tdReportFengxian_shixin.setText("是否列入法院失信名单: " + "是");
+                } else {
+                    tdReportFengxian_shixin.setText("是否列入法院失信名单: " + "否");
                 }
 
-                if (mFengxianList.get(i).description.equals("身份证命中法院执行名单")){
-                    tdReportFengxian_shixin.setText("是否列入法院执行名单: "+"是");
-                }else {
-                    tdReportFengxian_shixin.setText("是否列入法院执行名单: "+"否");
+                if (mFengxianList.get(i).description.equals("身份证命中法院执行名单")) {
+                    tdReportFengxian_shixin.setText("是否列入法院执行名单: " + "是");
+                } else {
+                    tdReportFengxian_shixin.setText("是否列入法院执行名单: " + "否");
                 }
 
-                if (mFengxianList.get(i).description.equals("身份证命中法院结案名单")){
-                    tdReportFengxian_shixin.setText("是否列入法院结案名单: "+"是");
-                }else {
-                    tdReportFengxian_shixin.setText("是否列入法院结案名单: "+"否");
+                if (mFengxianList.get(i).description.equals("身份证命中法院结案名单")) {
+                    tdReportFengxian_shixin.setText("是否列入法院结案名单: " + "是");
+                } else {
+                    tdReportFengxian_shixin.setText("是否列入法院结案名单: " + "否");
                 }
             }
         }
-
 
 
     }
@@ -276,9 +275,45 @@ public class ShowTdReportActivity extends BaseActivity {
         commonTitleTv.setText("查看信用报告");
         tdReportProgress.setProgress(80);
     }
+    
 
-    @OnClick(R.id.common_title_back)
-    public void onViewClicked() {
-        finish();
+    @OnClick({R.id.common_title_back, R.id.td_report_share})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.common_title_back:
+                finish();
+                break;
+            case R.id.td_report_share:
+                shareTdReport("咖喱车服信用分享","咖喱车服信用分享","www.baidu.com","https://timgsa.baidu.com/timg" +
+                        "?image&quality=80&size=b9999_10000&sec=1530870640103&di" +
+                        "=e8d093e5122e6ad813161a0d9010b2cb&imgtype=0&src=http%3A%2F%" +
+                        "2Fimg.taopic.com%2Fuploads%2Fallimg%2F121019%2F234917-121019231h258.jpg");
+                break;
+        }
+    }
+
+    private void shareTdReport(String title,String content,String url,String image) {
+
+        Log.e(TAG,"title="+title);
+        Log.e(TAG,"content="+content);
+        Log.e(TAG,"url="+url);
+        Log.e(TAG,"image="+image);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle(title);
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl(url);
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(content);
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImageUrl(image);//确保SDcard下面存在此张图片
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl(url);
+        oks.setSite(getString(R.string.app_name));
+        // 启动分享GUI
+        oks.show(this);
     }
 }

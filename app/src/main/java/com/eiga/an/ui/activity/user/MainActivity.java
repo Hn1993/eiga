@@ -20,6 +20,7 @@ import com.eiga.an.service.LoadService;
 import com.eiga.an.ui.activity.sales.SalesMainActivity;
 import com.eiga.an.ui.fragment.MainFragment;
 import com.eiga.an.ui.fragment.MyCenterFragment;
+import com.eiga.an.utils.ActivityManager;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.eiga.an.view.NoScrollViewPager;

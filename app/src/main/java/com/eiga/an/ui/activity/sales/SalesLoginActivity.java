@@ -19,6 +19,7 @@ import com.eiga.an.model.jsonModel.ApiGetBankInfoModel;
 import com.eiga.an.model.salesModel.ApiSalesLoginModel;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
 import com.eiga.an.ui.activity.user.UserLoginActivity;
+import com.eiga.an.utils.ActivityManager;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.google.gson.Gson;
@@ -56,6 +57,8 @@ public class SalesLoginActivity extends BaseActivity {
         setContentView(R.layout.activity_sales_login);
         ButterKnife.bind(this);
         salesPhone= (String) SharedPreferencesUtils.getShared(SalesLoginActivity.this,Constant.Sales_Login_Phone,"");
+        //保留DActivity,其余全部关闭
+        ActivityManager.getInstance().finishAllActivityByWhitelist(SalesLoginActivity.class);
         findViews();
     }
 
