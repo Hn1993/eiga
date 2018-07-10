@@ -57,8 +57,7 @@ public class SalesLoginActivity extends BaseActivity {
         setContentView(R.layout.activity_sales_login);
         ButterKnife.bind(this);
         salesPhone= (String) SharedPreferencesUtils.getShared(SalesLoginActivity.this,Constant.Sales_Login_Phone,"");
-        //保留DActivity,其余全部关闭
-        ActivityManager.getInstance().finishAllActivityByWhitelist(SalesLoginActivity.class);
+
         findViews();
     }
 
@@ -114,7 +113,8 @@ public class SalesLoginActivity extends BaseActivity {
                             //setHttpData(model.BankCard);
 
                             //SharedPreferencesUtils.putShared(SalesLoginActivity.this, Constant.IsFirstOpenApp,"1");//1 - sales
-
+                            //保留DActivity,其余全部关闭
+                            ActivityManager.getInstance().finishAllActivityByWhitelist(SalesLoginActivity.class);
                             SharedPreferencesUtils.putShared(SalesLoginActivity.this, Constant.Sales_Login_Phone, salesLoginName.getText().toString());
                             SharedPreferencesUtils.putShared(SalesLoginActivity.this, Constant.Sales_Login_Token, model.Token);
                             Intent intent=new Intent(SalesLoginActivity.this,SalesMainActivity.class);

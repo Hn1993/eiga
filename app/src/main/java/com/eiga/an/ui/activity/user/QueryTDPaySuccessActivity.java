@@ -86,8 +86,7 @@ public class QueryTDPaySuccessActivity extends BaseActivity {
     }
 
     private void httpGetTdReport() {
-        Log.e(TAG,"httpGetTdReport");
-        handler.postDelayed(runnable, TIME); //延迟加载
+
         //showLoading();
         StringRequest mStringRequest = new StringRequest(Constant.Url_Get_Td_Report, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
@@ -144,6 +143,10 @@ public class QueryTDPaySuccessActivity extends BaseActivity {
                 PhoneUtils.toast(mContext, "网络请求失败,请检查网络后重试");
             }
         });
+
+        Log.e(TAG,"httpGetTdReport");
+        handler.postDelayed(runnable, TIME); //延迟加载
+
     }
 
     /**
@@ -252,6 +255,7 @@ public class QueryTDPaySuccessActivity extends BaseActivity {
             case R.id.pay_success_look:
                 intent = new Intent(mContext, MainActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
 

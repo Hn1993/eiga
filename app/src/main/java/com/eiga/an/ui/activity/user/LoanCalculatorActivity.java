@@ -71,6 +71,7 @@ public class LoanCalculatorActivity extends BaseActivity {
 //    private int roomCarType=2; //房抵押贷款 -2
 //    private int leaseCarType=3; //融资租赁 -3
 
+    private int loadNumbers=24;
 
     private AlertDialog.Builder mAlertDialog;
     private String token,phone;
@@ -218,7 +219,12 @@ public class LoanCalculatorActivity extends BaseActivity {
                 break;
             case R.id.loan_calculator_ok:
 
-                httpUploadLoadInfo();
+                if (!TextUtils.isEmpty(loanCalculatorCarMoney.getText().toString())){
+                    httpUploadLoadInfo();
+                }else {
+                    PhoneUtils.toast(LoanCalculatorActivity.this,"贷款金额不能为空.");
+                }
+
                 break;
             case R.id.loan_calculator_cancel:
                 finish();
@@ -232,15 +238,44 @@ public class LoanCalculatorActivity extends BaseActivity {
 
     //上传客户的贷款信息
     private void httpUploadLoadInfo() {
+
+//        mAlertDialog.setTitle("提交成功,请等待业务人员与您联系.");
+//        mAlertDialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                LoanCalculatorActivity.this.finish();
+//            }
+//        });
+//        mAlertDialog.show();
+
+        if (loanCalculatorCb24.isChecked()){
+            loadNumbers=24;
+        }else {
+            loadNumbers=36;
+        }
+
         StringRequest mStringRequest = new StringRequest(Constant.Url_User_Input_Loan, RequestMethod.POST);
         mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
         mStringRequest.add("CellPhone", phone);
         mStringRequest.add("Token", token);
-        mStringRequest.add("CreditTypeId", productId);
-//        mStringRequest.add("SimpleQuotaLimit", loadLimit);
 
-//        Log.e(TAG, "CreditTypeId=" + typeId);
-//        Log.e(TAG, "SimpleQuotaLimit=" + loadLimit);
+        mStringRequest.add("CreditTypeId", productId);
+        mStringRequest.add("ApplyCarPrice", loanCalculatorCarMoney.getText().toString()); // 车价
+        mStringRequest.add("CreditLimit", loadNumbers); // 贷款的期数
+        mStringRequest.add("FirstPayProportion", (int) newCarFirstMoneyPercent); // 首付比例
+        mStringRequest.add("FirstPayAmount", loanCalculatorFirstMoney.getText().toString()); // 首付金额
+        mStringRequest.add("MonthlyPay", loanCalculatorMonthMoney.getText().toString()); //  月供
+
+        Log.e(TAG, "CellPhone=" + phone);
+        Log.e(TAG, "Token=" + token);
+        Log.e(TAG, "CreditTypeId=" + productId);
+        Log.e(TAG, "ApplyCarPrice=" + loanCalculatorCarMoney.getText().toString());
+        Log.e(TAG, "CreditLimit=" + loadNumbers);
+        Log.e(TAG, "FirstPayProportion=" + newCarFirstMoneyPercent);
+        Log.e(TAG, "FirstPayAmount=" + loanCalculatorFirstMoney.getText().toString());
+        Log.e(TAG, "MonthlyPay=" + loanCalculatorMonthMoney.getText().toString());
+
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -255,26 +290,23 @@ public class LoanCalculatorActivity extends BaseActivity {
                             EventBus.getDefault().post("bond_success", "bond_success");
                             commonTitleTv.setText("我期望的贷款金额");
 
-                            mAlertDialog.show();
-                            mAlertDialog.setTitle("选择成功,请等待业务人员与您联系.");
+
+                            mAlertDialog.setTitle("提交成功,请等待业务人员与您联系.");
                             mAlertDialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
+                                    LoanCalculatorActivity.this.finish();
                                 }
                             });
-                            mAlertDialog.setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
+                            mAlertDialog.show();
+
 
 
                         } else {
-
+                            PhoneUtils.toast(LoanCalculatorActivity.this, model.Msg.toString());
                         }
-                        PhoneUtils.toast(LoanCalculatorActivity.this, model.Msg.toString());
+                        //
                     } catch (Exception e) {
                         Log.e(TAG, "Exception=" + e);
                     }
@@ -297,7 +329,7 @@ public class LoanCalculatorActivity extends BaseActivity {
         new MaterialDialog.Builder(this)
                 .title("请选择首付比例")
                 .items(R.array.newCarPercent)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(2, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         /**

@@ -30,6 +30,8 @@ public class Constant {
     public static final String H5_TD_Report=Url_Common+"/api/UserPage/TongDunReportShow";
     public static final String H5_Eiga_Protocol=Url_Common+"/api/UserPage/GetUserProtocolContent?ProtocolType=";
     public static final String Url_Get_Td_Report=Url_Common+"/api/User/BaseInfoVaildateQuery";//轮询获取同盾+校验
+    public static final String Url_Get_Td_Report_Share=Url_Common+"/api/user/GetReferralUrl";// 获取分享同盾报告的url
+    //public static final String Url_Get_Td_Report_Share="http://192.168.1.114:8084/api/user/GetReferralUrl";// 获取分享同盾报告的url
     public static final String Url_Get_Td_Report_His=Url_Common+"/api/UserPage/TongDunReportList";//轮询获取同盾+校验
     public static final String Url_Get_Td_Report_Json=Url_Common+"/api/UserPage/GetTongDunReportJson";//轮询获取同盾+校验
     //public static final String H5_Phone_Protocol=Url_Common+"/api/UserPage/GetUserProtocolContent";

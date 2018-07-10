@@ -13,6 +13,7 @@ import com.eiga.an.R;
 import com.eiga.an.base.BaseActivity;
 import com.eiga.an.model.Constant;
 import com.eiga.an.model.jsonModel.ApiShowTdReportModel;
+import com.eiga.an.model.jsonModel.ApiTDReportShareModel;
 import com.eiga.an.utils.PhoneUtils;
 import com.eiga.an.utils.SharedPreferencesUtils;
 import com.eiga.an.view.CircularProgressbarView;
@@ -93,7 +94,7 @@ public class ShowTdReportActivity extends BaseActivity {
 
     private String TdReportId;
 
-    private String token, phone;
+    private String token, phone,share_url,share_image;
     private Context mContext;
 
     private ApiShowTdReportModel.ReportContentBean.ResultDescBean.ANTIFRAUDBean mAntfraud;
@@ -124,6 +125,43 @@ public class ShowTdReportActivity extends BaseActivity {
 
 
         httpGetTdReport();
+        httpGetTdReportShareInfo();
+    }
+
+    private void httpGetTdReportShareInfo() {
+        StringRequest mStringRequest = new StringRequest(Constant.Url_Get_Td_Report_Share, RequestMethod.POST);
+        mStringRequest.setCacheMode(CacheMode.ONLY_REQUEST_NETWORK);//设置缓存模式
+        mStringRequest.add("CellPhone", phone);
+        mStringRequest.add("Token", token);
+
+        StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                super.onSucceed(what, response);
+                dismissLoading();
+                if (what == 101) {
+                    PhoneUtils.showLargeLog(response.get(), 2000, TAG);
+                    ApiTDReportShareModel model = null;
+                    try {
+                        model = new Gson().fromJson(response.get(), ApiTDReportShareModel.class);
+                        if (model.Status == 1) {
+                            share_url=Constant.Url_Common+model.ReferralUrl;
+                            share_image=Constant.Url_Common+model.IcoUrl;
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Exception=" + e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<String> response) {
+                super.onFailed(what, response);
+                dismissLoading();
+                Log.e(TAG, "onFailed==" + response.get());
+                PhoneUtils.toast(mContext, "网络请求失败,请检查网络后重试");
+            }
+        });
     }
 
     private void httpGetTdReport() {
@@ -284,10 +322,7 @@ public class ShowTdReportActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.td_report_share:
-                shareTdReport("咖喱车服信用分享","咖喱车服信用分享","www.baidu.com","https://timgsa.baidu.com/timg" +
-                        "?image&quality=80&size=b9999_10000&sec=1530870640103&di" +
-                        "=e8d093e5122e6ad813161a0d9010b2cb&imgtype=0&src=http%3A%2F%" +
-                        "2Fimg.taopic.com%2Fuploads%2Fallimg%2F121019%2F234917-121019231h258.jpg");
+                shareTdReport("查看我的信用报告","我正在咖喱分期APP上查信用报告,复制我的邀请码,下载APP,查征信,得30元红包.",share_url,share_image);
                 break;
         }
     }

@@ -68,8 +68,6 @@ public class UserLoginActivity extends BaseActivity {
         //autoVirtualKeys();
 
 
-        //保留DActivity,其余全部关闭
-        ActivityManager.getInstance().finishAllActivityByWhitelist(UserLoginActivity.class);
         findViews();
     }
 
@@ -180,7 +178,8 @@ public class UserLoginActivity extends BaseActivity {
                         if (model.Status==1){
                             //在这里请求接口   获取返回值的时候   获取一个用户是否已经评估过的字段   然后保存进share
                             //SharedPreferencesUtils.putShared(UserLoginActivity.this, Constant.IsFirstOpenApp,"0");//0 - user
-
+                            //保留DActivity,其余全部关闭
+                            ActivityManager.getInstance().finishAllActivityByWhitelist(UserLoginActivity.class);
                             if (model.SimpleQuotaLimit!=null){
                                 SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Have_Evaluation,model.SimpleQuotaLimit);
                             }else {

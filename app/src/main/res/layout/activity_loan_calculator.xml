@@ -130,33 +130,31 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:background="@color/white"
-        android:layout_marginTop="20px"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
         android:layout_marginLeft="35px"
         android:layout_marginRight="35px"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="120px">
+        android:layout_marginTop="20px"
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <TextView
-            android:textColor="@color/color_66"
-            android:layout_marginLeft="45px"
+            style="@style/text_45px"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="45px"
             android:text="首付金额"
-            style="@style/text_45px"/>
+            android:textColor="@color/color_66" />
 
         <TextView
             android:id="@+id/loan_calculator_first_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="350px"
             android:gravity="center_vertical"
-            android:textSize="45px"
             android:text=""
             android:textColor="@color/color_33"
-            android:layout_marginLeft="350px"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:textSize="45px" />
     </RelativeLayout>
-
-
 
 
     <RelativeLayout
@@ -221,7 +219,7 @@
         android:textColor="@color/color_33"
         android:gravity="center"
         android:textSize="40px"
-        android:text="* 计算价格为预估价格,仅供参考,具体以业务员为准."
+        android:text="* 计算价格为预估价格,仅供参考."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView

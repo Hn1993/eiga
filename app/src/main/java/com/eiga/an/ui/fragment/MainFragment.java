@@ -117,6 +117,8 @@ public class MainFragment extends BaseFragment {
     private String loadLimit;
 
     private boolean isTdReportTiming;
+    private boolean isChooseProduct=false;
+
     private AlertDialog.Builder mAlertDialog;
 
     @Nullable
@@ -297,10 +299,15 @@ public class MainFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     //showChooseMoneyDialog(position);
-                    Intent intent = new Intent(getActivity(), LoanCalculatorActivity.class);
-                    intent.putExtra(Constant.Main_Product_Id,mTypeList.get(position).Id);
-                    intent.putExtra(Constant.Main_Product_Name,mTypeList.get(position).TypeName);
-                    startActivity(intent);
+                    if (isChooseProduct){
+                        PhoneUtils.toast(getActivity(),"亲,请不要重复提交贷款产品~");
+                    }else {
+                        Intent intent = new Intent(getActivity(), LoanCalculatorActivity.class);
+                        intent.putExtra(Constant.Main_Product_Id,mTypeList.get(position).Id);
+                        intent.putExtra(Constant.Main_Product_Name,mTypeList.get(position).TypeName);
+                        startActivity(intent);
+                    }
+
                 }
             });
 
@@ -736,12 +743,18 @@ public class MainFragment extends BaseFragment {
             SharedPreferencesUtils.putShared(getActivity(),Constant.User_Is_Have_QueryTd,"yes");
         }
 
+
+        if (model.IsUpdateExpectation){
+            isChooseProduct=true;
+        }
+
         if (model.User.SimpleQuotaLimit>0){
             carquotaTvPrice.setText("￥"+String.valueOf(model.User.SimpleQuotaLimit));
+
         }else {
             carquotaTvPrice.setText("￥"+String.valueOf(model.MaxAmount));
         }
-
+        Log.e(TAG,"isChooseProduct="+isChooseProduct);
 
         isTdReportTiming=model.IsExistTongDunReport;
 
@@ -771,7 +784,7 @@ public class MainFragment extends BaseFragment {
 //                Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance())));
 
         //SharedPreferencesUtils.putShared(getActivity(),Constant.App_Version_Code,model.AppVersion.Version);
-
+        Log.e(TAG,"PhoneUtils.getVersionCode(MyApplication.getInstance()="+PhoneUtils.getVersionCode(MyApplication.getInstance()));
         if (!TextUtils.isEmpty(PhoneUtils.getVersionCode(MyApplication.getInstance()))){
             //versionCode= (double) SharedPreferencesUtils.getShared(MainActivity.this,Constant.App_Version_Code,0.0);
             //检查更新

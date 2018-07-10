@@ -10,6 +10,7 @@
         android:layout_height="@dimen/base_actionbar_height">
         <include layout="@layout/layout_common_title"/>
         <RelativeLayout
+            android:visibility="visible"
             android:id="@+id/td_report_share"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/base_actionbar_height"

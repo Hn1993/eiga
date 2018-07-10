@@ -30,7 +30,7 @@ public class ApiMallLoadTypeModel {
          * Photo : /Storage/CarTypePhoto/936858f4-d007-4826-8b09-69691be7a30c.PNG
          */
 
-        public int Id;
+        public String Id;
         public String TypeName;
         public int MaxCreditAmount;
         public String Photo;

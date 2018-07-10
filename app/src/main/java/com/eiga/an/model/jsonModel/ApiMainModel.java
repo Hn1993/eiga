@@ -29,6 +29,7 @@ public class ApiMainModel {
     public boolean IsExistTongDunReport;
     public double MaxAmount;
     public boolean IsVaildateBaseInfo;
+    public boolean IsUpdateExpectation; //是否提交了需求
     public AppVersionBean AppVersion;
     public int Status;
     public boolean NeedReLogin;
