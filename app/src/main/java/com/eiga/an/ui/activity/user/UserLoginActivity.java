@@ -74,6 +74,7 @@ public class UserLoginActivity extends BaseActivity {
     private void findViews() {
         userMainEtPhone.setText((String) SharedPreferencesUtils.getShared(UserLoginActivity.this,Constant.User_Login_Name,""));
         userMainEtPhone.setSelection(((String) SharedPreferencesUtils.getShared(UserLoginActivity.this,Constant.User_Login_Name,"")).length());
+        //addLayoutListener(fgMainLayout,userMainEtRecommend);
         addLayoutListener(fgMainLayout,fgMainTvGo);
     }
 
@@ -96,7 +97,8 @@ public class UserLoginActivity extends BaseActivity {
                     int srollHeight = (location[1] + scroll.getHeight()) - rect.bottom;
                     //5､让界面整体上移键盘的高度
                     Log.e(TAG,"srollHeight="+srollHeight);
-                    main.scrollTo(0, srollHeight>0?srollHeight:screenHeight / 5);
+                    main.scrollTo(0, srollHeight>0?srollHeight:(screenHeight) / 5);
+                    //main.scrollTo(0,Math.abs(screenHeight) / 6);
                 } else {
                     //3、不可见区域小于屏幕高度1/4时,说明键盘隐藏了，把界面下移，移回到原有高度
                     main.scrollTo(0, 0);
@@ -139,6 +141,9 @@ public class UserLoginActivity extends BaseActivity {
                 break;
             case R.id.fg_main_tv_go:
                 if (PhoneUtils.isMobile(userMainEtPhone.getText().toString())&& !TextUtils.isEmpty(userMainEtCode.getText().toString())){
+                    if (!TextUtils.isEmpty(userMainEtRecommend.getText().toString())){
+                        SharedPreferencesUtils.putShared(UserLoginActivity.this,Constant.User_Is_Input_Code,userMainEtRecommend.getText().toString());
+                    }
                     httpDoLogin();
                 }else {
                     PhoneUtils.toast(UserLoginActivity.this,"信息有误,请检查后重试");

@@ -77,6 +77,7 @@ public class Constant {
 
     public static final String User_Is_Have_Evaluation="User_Is_Have_Evaluation";//判断用户是否评估过
     public static final String User_Is_Have_QueryTd="User_Is_Have_QueryTd";//判断用户是否查询过同盾报告
+    public static final String User_Is_Input_Code="User_Is_Input_Code";//判断用户是否填写过推荐码
     public static final String Sales_Login_Phone="Sales_Login_Phone";//业务员的登录账号
     public static final String Sales_Login_Token="Sales_Login_Token";//业务员的token
     public static final String Sales_Login_Nickname="Sales_Login_Nickname";//业务员的昵称

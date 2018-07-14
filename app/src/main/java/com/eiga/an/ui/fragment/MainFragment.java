@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,6 +43,7 @@ import com.eiga.an.model.jsonModel.ApiMainModel;
 import com.eiga.an.model.jsonModel.ApiMallLoadTypeModel;
 import com.eiga.an.model.jsonModel.ApiMallUploadLoadModel;
 import com.eiga.an.service.LoadService;
+import com.eiga.an.ui.activity.WebActivity;
 import com.eiga.an.ui.activity.user.BankVerifyActivity;
 import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
@@ -180,7 +182,7 @@ public class MainFragment extends BaseFragment {
         commonTitleTv.setText("最高可贷");
         mAlertDialog=new AlertDialog.Builder(getActivity());
 
-        httpGetProductType();
+
 
 
 
@@ -709,6 +711,8 @@ public class MainFragment extends BaseFragment {
                         model=new Gson().fromJson(response.get(),ApiMainModel.class);
                         if (model.Status==1){
                             setHttpData(model);
+
+                            httpGetProductType();//获取贷款列表
                         }else if (model.Status==2){
                                 if (model.NeedReLogin){
                                     gotoLogin(getActivity(),true);
@@ -734,7 +738,7 @@ public class MainFragment extends BaseFragment {
      * 设置网络数据
      * @param model
      */
-    private void setHttpData(ApiMainModel model) {
+    private void setHttpData(final ApiMainModel model) {
         if (model.IsVaildateBaseInfo){
             SharedPreferencesUtils.putShared(getActivity(),Constant.Is_Exist_Td_Info,"yes");
         }
@@ -793,13 +797,37 @@ public class MainFragment extends BaseFragment {
                 Log.e(TAG,"versionCode="+Double.valueOf(model.AppVersion.Version));
                         Log.e(TAG,"PhoneUtils.getVersionCode(MyApplication.getInstance())="
                                 +Double.valueOf(PhoneUtils.getVersionCode(MyApplication.getInstance())));
-                VersionParams.Builder builder = new VersionParams.Builder()
-                        .setRequestUrl("https://www.pgyer.com/RtL8")
-                        .setTitle("版本更新："+model.AppVersion.VersionName)
-                        .setUpdateMsg(model.AppVersion.HighLight)
-                        .setDownloadUrl(model.AppVersion.DownloadURL)
-                        .setService(LoadService.class);
-                AllenChecker.startVersionCheck(MyApplication.getInstance().getApplicationContext(), builder.build());
+//                VersionParams.Builder builder = new VersionParams.Builder()
+//                        .setRequestUrl("https://www.pgyer.com/RtL8")
+//                        .setTitle("版本更新："+model.AppVersion.VersionName)
+//                        .setUpdateMsg(model.AppVersion.HighLight)
+//                        .setDownloadUrl(model.AppVersion.DownloadURL)
+//                        .setService(LoadService.class);
+//                AllenChecker.startVersionCheck(MyApplication.getInstance().getApplicationContext(), builder.build());
+
+                mAlertDialog.setTitle("发现新版本,立即更新?");
+                mAlertDialog.setMessage("更新说明:"+model.AppVersion.HighLight);
+                mAlertDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+//                        Intent intent=new Intent(getActivity(), WebActivity.class);
+//                        intent.putExtra(Constant.WebUrl,model.AppVersion.DownloadURL);
+//                        intent.putExtra(Constant.WebTitle,"下载App");
+//                        startActivity(intent);
+                        Uri uri = Uri.parse(model.AppVersion.DownloadURL);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
+
+                mAlertDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                mAlertDialog.show();
 
 
             }

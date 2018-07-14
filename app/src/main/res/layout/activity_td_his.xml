@@ -7,12 +7,41 @@
 
     <include layout="@layout/layout_common_title"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="30px"
-        android:id="@+id/td_his_rv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/td_his_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30px"
+            android:layout_marginBottom="230px"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+        <!-- android:layout_marginBottom="230px" -->
+
+        <RelativeLayout
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="200px">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:background="@mipmap/bg_hongbao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="200px"
+                android:textColor="#011518"
+                android:text="分享给好友,赢30元现金红包"
+                style="@style/text_45px" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </LinearLayout>

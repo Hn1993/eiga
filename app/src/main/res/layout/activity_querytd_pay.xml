@@ -16,11 +16,32 @@
         android:background="@mipmap/icon_query_image2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/querytd_pay_code"
+        android:layout_width="@dimen/base_button_width"
+        android:layout_height="@dimen/base_button_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="160px"
+        android:background="@drawable/react_selector"
+        android:gravity="center"
+        android:hint="请填入推荐码,非必填"
+        android:textColor="@color/color_33"
+        android:textColorHint="@color/color_66"
+        android:textSize="40px" />
+
+    <View
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/light_blue"
+        android:layout_width="@dimen/base_button_width"
+        android:layout_height="1px"/>
+    
     <TextView
         android:id="@+id/querytd_pay_commit"
         android:text="立即支付 获取报告"
         android:textSize="45px"
-        android:layout_marginTop="210px"
+        android:layout_marginTop="60px"
         android:layout_gravity="center_horizontal"
         style="@style/tv_button" />
 </LinearLayout>

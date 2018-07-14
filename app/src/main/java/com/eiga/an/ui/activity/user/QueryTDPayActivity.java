@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,8 @@ public class QueryTDPayActivity extends BaseActivity {
 
     @BindView(R.id.common_title_tv)
     TextView salesTitleTv;
+    @BindView(R.id.querytd_pay_code)
+    EditText pay_code;
 
     @BindView(R.id.common_title_back)
     RelativeLayout salesTitleBack;
@@ -66,6 +69,7 @@ public class QueryTDPayActivity extends BaseActivity {
 
     private ApiWxPayModel param_wx=new ApiWxPayModel();
 
+    private String userCode;//用户推荐码
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,11 +82,13 @@ public class QueryTDPayActivity extends BaseActivity {
         token= (String) SharedPreferencesUtils.getShared(mContext,Constant.User_Login_Token,"");
         phone= (String) SharedPreferencesUtils.getShared(mContext,Constant.User_Login_Name,"");
         isHaveQueryTd= (String) SharedPreferencesUtils.getShared(mContext, Constant.User_Is_Have_QueryTd,"");
+        userCode= (String) SharedPreferencesUtils.getShared(mContext,Constant.User_Is_Input_Code,"");
+
 
         mDialog=new android.app.AlertDialog.Builder(this);
         salesTitleTv.setText("支付确认");
 
-
+        pay_code.setVisibility(TextUtils.isEmpty(userCode)?View.VISIBLE:View.INVISIBLE);
     }
 
     /**
@@ -97,6 +103,10 @@ public class QueryTDPayActivity extends BaseActivity {
         mStringRequest.add("CellPhone", phone);
         mStringRequest.add("Token", token);
         mStringRequest.add("PayType", payType);
+        if (!TextUtils.isEmpty(userCode)){
+            mStringRequest.add("ReferralCode", pay_code.getText().toString());
+        }
+
         StringRequest(101, mStringRequest, new SimpleResponseListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
