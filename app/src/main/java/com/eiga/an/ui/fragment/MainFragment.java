@@ -49,6 +49,7 @@ import com.eiga.an.ui.activity.user.IdCardVerifyActivity;
 import com.eiga.an.ui.activity.user.InfoCollectionActivity;
 import com.eiga.an.ui.activity.user.LoanCalculatorActivity;
 import com.eiga.an.ui.activity.user.PhoneVerifyActivity;
+import com.eiga.an.ui.activity.user.PropertyCalculatorActivity;
 import com.eiga.an.ui.activity.user.QueryTDExistActivity;
 import com.eiga.an.ui.activity.user.QueryTDInfoActivity;
 import com.eiga.an.ui.activity.user.QueryTDPayActivity;
@@ -230,7 +231,7 @@ public class MainFragment extends BaseFragment {
         mTypeList = model.CreditTypes;
 
         mProductVp.setAdapter(new MyPagerAdapter(mTypeList));
-        mProductVp.setOffscreenPageLimit(2);
+        mProductVp.setOffscreenPageLimit(4);
         mProductVp.setPageMargin(10);
         mProductVp.setPageTransformer(true,new ZoomOutPageTransformer());
         mProductVpOuter.setOnTouchListener(new View.OnTouchListener() {
@@ -304,10 +305,16 @@ public class MainFragment extends BaseFragment {
                     if (isChooseProduct){
                         PhoneUtils.toast(getActivity(),"亲,请不要重复提交贷款产品~");
                     }else {
-                        Intent intent = new Intent(getActivity(), LoanCalculatorActivity.class);
+                        Intent intent = null;
+                        if (mTypeList.get(position).TypeName.contains("房")||mTypeList.get(position).TypeName.contains("融资")){
+                            intent = new Intent(getActivity(), PropertyCalculatorActivity.class);
+                        }else {
+                            intent = new Intent(getActivity(), LoanCalculatorActivity.class);
+                        }
                         intent.putExtra(Constant.Main_Product_Id,mTypeList.get(position).Id);
                         intent.putExtra(Constant.Main_Product_Name,mTypeList.get(position).TypeName);
                         startActivity(intent);
+
                     }
 
                 }
@@ -322,7 +329,7 @@ public class MainFragment extends BaseFragment {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((ImageView) object);
+            container.removeView((View) object);
         }
 
     }

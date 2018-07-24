@@ -36,7 +36,7 @@ public class Constant {
     public static final String Url_Get_Td_Report_Json=Url_Common+"/api/UserPage/GetTongDunReportJson";//轮询获取同盾+校验
     //public static final String H5_Phone_Protocol=Url_Common+"/api/UserPage/GetUserProtocolContent";
     //"?CellPhone=18367905175&Token=ecf4b72c600a0c2228d9cfd442c2617d";//支付前上传三要素
-
+    public static final String Url_User_Commit_Property_Product=Url_Common+"/api/User/UpdateExpectationForHouseCredit";//提交房产签单的产品
 
 
     public static final String Url_Sales_Login=Url_Common+"/api/Clerk/Login";//业务员登录

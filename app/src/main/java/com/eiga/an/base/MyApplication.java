@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.eiga.an.service.AppInitIntentService;
 import com.eiga.an.utils.ActivityManager;
+import com.mob.MobApplication;
 import com.mob.MobSDK;
 import com.yanzhenjie.nohttp.NoHttp;
 
