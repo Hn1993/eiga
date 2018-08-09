@@ -269,7 +269,7 @@
                         android:textColor="@color/color_66"
                         android:layout_centerVertical="true"
                         android:textSize="35px"
-                        android:text="一个月内申请借款平台数"
+                        android:text="一个月内申请借款平台数:"
                         />
 
                     <TextView

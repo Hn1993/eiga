@@ -306,9 +306,11 @@ public class MainFragment extends BaseFragment {
                         PhoneUtils.toast(getActivity(),"亲,请不要重复提交贷款产品~");
                     }else {
                         Intent intent = null;
-                        if (mTypeList.get(position).TypeName.contains("房")||mTypeList.get(position).TypeName.contains("融资")){
+                        if (mTypeList.get(position).TypeName.contains("房")){
                             intent = new Intent(getActivity(), PropertyCalculatorActivity.class);
-                        }else {
+                        } else if (mTypeList.get(position).TypeName.contains("融资")){
+                            PhoneUtils.toast(getActivity(),"亲,本产品暂未开放哦,请选择其他产品~");
+                        } else {
                             intent = new Intent(getActivity(), LoanCalculatorActivity.class);
                         }
                         intent.putExtra(Constant.Main_Product_Id,mTypeList.get(position).Id);

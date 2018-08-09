@@ -103,8 +103,8 @@ public class PropertyCalculatorActivity extends BaseActivity {
 
     //计算利息等等
     private void countPropertyMoney(int inputMoney) {
-        propertyCalculatorMargin.setText(get2DecimalPlaces(inputMoney*0.8*0.1));
-        propertyCalculatorMonthInterest.setText(get2DecimalPlaces(inputMoney*0.8*0.012));
+        propertyCalculatorMargin.setText(get2DecimalPlaces(inputMoney*0.8*0.05));
+        propertyCalculatorMonthInterest.setText(get2DecimalPlaces(inputMoney*0.8*0.015));
     }
 
     @OnClick({R.id.common_title_back, R.id.loan_calculator_ok, R.id.loan_calculator_cancel})

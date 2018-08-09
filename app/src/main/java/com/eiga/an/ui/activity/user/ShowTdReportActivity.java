@@ -259,17 +259,26 @@ public class ShowTdReportActivity extends BaseActivity {
             tdReportDuotoujiedaiLayout.setVisibility(View.VISIBLE);
             tdReportDuotoujiedaiNoRisk.setVisibility(View.GONE);
 
+
+            Log.e(TAG,"mDuotoujiedaiList="+mDuotoujiedaiList.size());
+
             for (int i = 0; i < mDuotoujiedaiList.size(); i++) {
                 if (mDuotoujiedaiList.get(i).description.equals("7天内申请人在多个平台申请借款")) {//7天内多头借贷
                     tdReportDuotoujiedai7days.setText("7天内申请借款平台数量: " + mDuotoujiedaiList.get(i).platform_count);
+                }else {
+                    tdReportDuotoujiedai7days.setText("7天内申请借款平台数量: " + 0);
                 }
 
                 if (mDuotoujiedaiList.get(i).description.equals("1个月内申请人在多个平台申请借款")) {//30天内多头借贷
                     tdReportDuotoujiedai30days.setText("一个月内申请借款平台数量: " + mDuotoujiedaiList.get(i).platform_count);
+                }else {
+                    tdReportDuotoujiedai30days.setText("一个月内申请借款平台数量: " + 0);
                 }
 
                 if (mDuotoujiedaiList.get(i).description.equals("3个月内申请人在多个平台申请借款")) {//30天内多头借贷
                     tdReportDuotoujiedai90days.setText("三个月内申请借款平台数量: " + mDuotoujiedaiList.get(i).platform_count);
+                }else {
+                    tdReportDuotoujiedai90days.setText("三个月内申请借款平台数量: " + 0);
                 }
 
             }
